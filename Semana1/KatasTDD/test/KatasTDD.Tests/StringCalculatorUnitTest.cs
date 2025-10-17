@@ -36,6 +36,16 @@ public class StringCalculatorTest
 
     private static int Calculate(string input)
     {
-        return input == "1" ? 1 : 0;
+        if (input.Length > 1 && input.Length <= 3)
+        {
+            string[] numbers = input.Split(",");
+            return Convert.ToInt32(numbers[0]) + 
+                   Convert.ToInt32(numbers[1]);
+        }
+
+        if (input == "1")
+            return 1;
+
+        return 0;
     }
 }
