@@ -54,8 +54,8 @@ public class StringCalculatorTest
             return numbers[0] + numbers[1];
         }
 
-        if (input == "1")
-            return 1;
+        if (input.Length == 1)
+            return Convert.ToInt32(input);
 
         return 0;
     }
