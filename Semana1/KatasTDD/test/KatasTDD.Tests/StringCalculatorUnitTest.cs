@@ -36,11 +36,12 @@ public class StringCalculatorTest
 
     private static int Calculate(string input)
     {
-        if (input.Length > 1 && input.Length <= 3)
+        if (input.Length is > 1 and <= 3)
         {
-            string[] numbers = input.Split(",");
-            return Convert.ToInt32(numbers[0]) + 
-                   Convert.ToInt32(numbers[1]);
+            int[] numbers = input.Split(",")
+                .Select(n => Convert.ToInt32(n)).ToArray();
+
+            return numbers[0] + numbers[1];
         }
 
         if (input == "1")
