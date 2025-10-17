@@ -15,6 +15,6 @@ public class StringCalculatorTest
 
     private int Calculate(string input)
     {
-        throw new NotImplementedException();
+        return 0;
     }
 }
