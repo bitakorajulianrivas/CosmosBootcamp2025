@@ -24,6 +24,16 @@ public class StringCalculatorTest
         result.Should().Be(1);
     }
 
+    [Fact]
+    public void Calculate_IfTheInputAreTwoNumbersSeparatedByComma_ShouldReturnSum()
+    {
+        string input = "1,2";
+
+        int result = Calculate(input);
+
+        result.Should().Be(3);
+    }
+
     private static int Calculate(string input)
     {
         return input == "1" ? 1 : 0;
