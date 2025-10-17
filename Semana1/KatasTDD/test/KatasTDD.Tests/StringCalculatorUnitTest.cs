@@ -25,6 +25,16 @@ public class StringCalculatorTest
     }
 
     [Fact]
+    public void Calculate_IfTheInputIsAnotherNumber_ShouldReturnThatNumber()
+    {
+        string input = "2";
+
+        int result = Calculate(input);
+
+        result.Should().Be(2);
+    }
+
+    [Fact]
     public void Calculate_IfTheInputAreTwoNumbersSeparatedByComma_ShouldReturnSum()
     {
         string input = "1,2";
