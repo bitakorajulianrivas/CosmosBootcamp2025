@@ -44,6 +44,16 @@ public class StringCalculatorTest
         result.Should().Be(3);
     }
 
+    [Fact]
+    public void Calculate_IfTheInputAreMultipleNumbers_ShouldReturnSum()
+    {
+        string input = "1,2,3,4,5";
+
+        int result = Calculate(input);
+
+        result.Should().Be(15);
+    }
+
     private static int Calculate(string input)
     {
         if (input.Length is > 1 and <= 3)
