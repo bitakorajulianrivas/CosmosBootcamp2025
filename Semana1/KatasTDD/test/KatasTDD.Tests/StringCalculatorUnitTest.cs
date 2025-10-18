@@ -79,8 +79,8 @@ public class StringCalculatorTest
         if (string.IsNullOrEmpty(input))
             return 0;
 
-        return input
-            .Split(",")
+        return input.Replace("\\n", ",")
+            .Split(',')
             .Sum(Convert.ToInt32);
     }
 }
