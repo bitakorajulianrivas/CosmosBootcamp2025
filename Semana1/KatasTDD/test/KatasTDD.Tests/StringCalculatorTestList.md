@@ -8,4 +8,4 @@
 - [x] Test if there are multiple numbers.
 - [x] Test if there are new lines and commas separators.
 - [x] Test if there are two separators joined together.
-- [ ] Test if there is a custom separator.
+- [x] Test if there is a custom separator.

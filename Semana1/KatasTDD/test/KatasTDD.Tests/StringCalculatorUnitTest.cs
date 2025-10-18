@@ -1,5 +1,5 @@
-﻿using FluentAssertions;
-using Xunit.Sdk;
+﻿using System.Text.RegularExpressions;
+using FluentAssertions;
 
 namespace KatasTDD.Tests;
 
@@ -97,21 +97,15 @@ public class StringCalculatorTest
 
     private static int Calculate(string? input)
     {
-        List<string> separators = ["\\n", ","];
+        return string.IsNullOrEmpty(input) 
+            ? 0 : CalculateBySeparator(input);
+    }
 
-        if (string.IsNullOrEmpty(input))
-            return 0;
+    private static int CalculateBySeparator(string input)
+    {
+        string onlyIntegersPattern = @"[-+]?\d+";
 
-        if(input.Contains("//"))
-        {
-            char customSeparator = input[2];
-            separators.Add(customSeparator.ToString());
-            input = input.Substring(3);
-        }
-
-        return input
-            .Split(separators.ToArray(), 
-                StringSplitOptions.RemoveEmptyEntries)
-            .Sum(int.Parse);
+        return Regex.Matches(input, onlyIntegersPattern)
+            .Sum(match => int.Parse(match.Value));
     }
 }
