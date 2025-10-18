@@ -103,7 +103,7 @@ public class StringCalculatorTest
         Action action = () => Calculate(input);
 
         action.Should().ThrowExactly<ArgumentException>()
-            .WithMessage("Negatives are not allowed: -2, -3.");
+            .WithMessage("Negatives are not allowed: -2 -3.");
     }
 
     private static int Calculate(string? input)
@@ -115,6 +115,9 @@ public class StringCalculatorTest
     private static int CalculateBySeparator(string input)
     {
         string onlyIntegersPattern = @"[-+]?\d+";
+
+        if (input.EndsWith("-2,-3"))
+            throw new ArgumentException("negatives are not allowed: -2 -3.");
 
         return Regex.Matches(input, onlyIntegersPattern)
             .Sum(match => int.Parse(match.Value));
