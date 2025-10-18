@@ -60,4 +60,11 @@ If there are multiple negatives, show all of them in the exception message.
 
 Example:
 
-Add("1,-2,-3") // error: negatives not allowed: -2 -3
+    Add("1,-2,-3") // error: negatives not allowed: -2 -3
+
+### Step 6: Ignore numbers bigger than 1000
+Numbers bigger than 1000 should be ignored.
+
+Example:
+
+    Add("1001, 2") // 2

@@ -106,6 +106,16 @@ public class StringCalculatorTest
             .WithMessage("Negatives are not allowed: -2 -3.");
     }
 
+    [Fact]
+    public void Calculate_IfTheInputNumbersAreBiggerThan1000_ShouldIgnorethoseNumbersAndSumRemaining()
+    {
+        string input = "1001, 2";
+
+        int result = Calculate(input);
+
+        result.Should().Be(2);
+    }
+
     private static int Calculate(string? input)
     {
         if (string.IsNullOrEmpty(input))
