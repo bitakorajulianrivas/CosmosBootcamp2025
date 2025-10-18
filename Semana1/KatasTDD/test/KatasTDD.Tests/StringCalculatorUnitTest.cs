@@ -97,13 +97,20 @@ public class StringCalculatorTest
 
     private static int Calculate(string? input)
     {
-        string[] separators = ["\\n", ","];
+        List<string> separators = ["\\n", ","];
 
         if (string.IsNullOrEmpty(input))
             return 0;
 
+        if(input.Contains("//"))
+        {
+            char customSeparator = input[2];
+            separators.Add(customSeparator.ToString());
+            input = input.Substring(3);
+        }
+
         return input
-            .Split(separators, 
+            .Split(separators.ToArray(), 
                 StringSplitOptions.RemoveEmptyEntries)
             .Sum(int.Parse);
     }
