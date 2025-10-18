@@ -5,6 +5,16 @@ namespace KatasTDD.Tests;
 public class StringCalculatorTest
 {
     [Fact]
+    public void Calculate_IfTheInputIsNull_ShouldReturnZero()
+    {
+        string input = null;
+
+        int result = Calculate(input);
+
+        result.Should().Be(null);
+    }
+
+    [Fact]
     public void Calculate_IfTheInputIsAnEmptyString_ShouldReturnZero()
     {
         string input = string.Empty;
