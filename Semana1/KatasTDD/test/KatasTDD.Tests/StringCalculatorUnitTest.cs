@@ -56,17 +56,11 @@ public class StringCalculatorTest
 
     private static int Calculate(string input)
     {
-        if (input == "")
+        if (input == string.Empty)
             return 0;
 
-        int[] numbers = input
+        return input
             .Split(",")
-            .Select(n => Convert.ToInt32(n))
-            .ToArray();
-
-        if(numbers.Length > 1)
-            return numbers.Sum();
-
-        return Convert.ToInt32(input);
+            .Sum(Convert.ToInt32);
     }
 }
