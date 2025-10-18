@@ -95,6 +95,17 @@ public class StringCalculatorTest
         result.Should().Be(6);
     }
 
+    [Fact]
+    public void Calculate_IfTheInputHasNegativeValues_ShouldThrowException()
+    {
+        string input = "1,-2,-3";
+
+        Action action = () => Calculate(input);
+
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage("Negatives are not allowed: -2, -3.");
+    }
+
     private static int Calculate(string? input)
     {
         return string.IsNullOrEmpty(input) 

@@ -52,3 +52,12 @@ Example:
     Add("//;\n1;2") // 3
     
 Note that all existing scenarios should still be supported.    
+
+### Step 5: Disallow negatives
+Calling Add with a negative number will throw an exception negatives not allowed, and the negative that was passed.
+
+If there are multiple negatives, show all of them in the exception message.
+
+Example:
+
+Add("1,-2,-3") // error: negatives not allowed: -2 -3

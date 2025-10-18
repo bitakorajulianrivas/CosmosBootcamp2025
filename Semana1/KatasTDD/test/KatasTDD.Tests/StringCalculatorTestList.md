@@ -9,3 +9,4 @@
 - [x] Test if there are new lines and commas separators.
 - [x] Test if there are two separators joined together.
 - [x] Test if there is a custom separator.
+- [ ] Test if there is a negative number.
