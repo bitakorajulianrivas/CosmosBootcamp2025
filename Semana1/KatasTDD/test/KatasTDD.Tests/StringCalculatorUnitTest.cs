@@ -64,6 +64,16 @@ public class StringCalculatorTest
         result.Should().Be(15);
     }
 
+    [Fact]
+    public void Calculate_IfTheInputHasNewLinesOrCommas_ShouldReturnSum()
+    {
+        string input = "1\\n2,3";
+
+        int result = Calculate(input);
+
+        result.Should().Be(6);
+    }
+
     private static int Calculate(string? input)
     {
         if (string.IsNullOrEmpty(input))
