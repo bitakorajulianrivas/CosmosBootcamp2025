@@ -10,4 +10,4 @@
 - [x] Test if there are two separators joined together.
 - [x] Test if there is a custom separator.
 - [x] Test if there are multiple negative numbers.
-- [ ] Test if there are numbers bigger than 1000.
+- [x] Test if there are numbers bigger than 1000.
