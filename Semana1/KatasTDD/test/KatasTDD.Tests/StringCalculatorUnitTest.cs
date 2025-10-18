@@ -108,18 +108,39 @@ public class StringCalculatorTest
 
     private static int Calculate(string? input)
     {
-        return string.IsNullOrEmpty(input) 
-            ? 0 : CalculateBySeparator(input);
+        if (string.IsNullOrEmpty(input))
+            return 0;
+        
+        return SumParsedNumbers(input);
     }
 
-    private static int CalculateBySeparator(string input)
+    private static int SumParsedNumbers(string input)
+    {
+        var integers = ExtractIntegers(input);
+
+        VerifyIfExistAnyNegative(integers);
+
+        return integers.Sum();
+    }
+
+    private static int[] ExtractIntegers(string input)
     {
         string onlyIntegersPattern = @"[-+]?\d+";
 
-        if (input.EndsWith("-2,-3"))
-            throw new ArgumentException("negatives are not allowed: -2 -3.");
+        int[] numbers = Regex.Matches(input, onlyIntegersPattern)
+            .Select(match => int.Parse(match.Value))
+            .ToArray();
+        return numbers;
+    }
 
-        return Regex.Matches(input, onlyIntegersPattern)
-            .Sum(match => int.Parse(match.Value));
+    private static void VerifyIfExistAnyNegative(int[] numbers)
+    {
+        int[] negatives = numbers
+            .Where(number => number < 0)
+            .ToArray();
+
+        if(negatives.Length > 0)
+            throw new ArgumentException(
+                $"Negatives are not allowed: {string.Join(' ', negatives)}.");
     }
 }
