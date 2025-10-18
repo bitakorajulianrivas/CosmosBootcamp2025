@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Xunit.Sdk;
 
 namespace KatasTDD.Tests;
 
@@ -68,6 +69,16 @@ public class StringCalculatorTest
     public void Calculate_IfTheInputHasNewLinesOrCommas_ShouldReturnSum()
     {
         string input = "1\\n2,3";
+
+        int result = Calculate(input);
+
+        result.Should().Be(6);
+    }
+
+    [Fact]
+    public void Calculate_IfTheInputHasNewLinesOrCommasJoinedTogether_ShouldReturnSum()
+    {
+        string input = "1,\\n2,3";
 
         int result = Calculate(input);
 
