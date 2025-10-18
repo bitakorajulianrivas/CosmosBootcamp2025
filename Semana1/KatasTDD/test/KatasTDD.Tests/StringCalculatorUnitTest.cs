@@ -93,6 +93,7 @@ public class StringCalculatorTest
         return input
             .Replace("\\n", ",")
             .Split(',')
+            .Where(n => n != string.Empty)
             .Sum(int.Parse);
     }
 }
