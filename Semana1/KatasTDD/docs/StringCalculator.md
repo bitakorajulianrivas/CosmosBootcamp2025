@@ -41,3 +41,14 @@ fine if the code crashes if it's given invalid input (e.g. "1,\n2").
 Example:
 
     Add("1\n2,3") // 6
+
+### Step 4: Custom separators
+Optionally support custom separators. To change separator, the beginning of the string will contain a separate line that looks like this: 
+
+    “//<separator>\n<numbers>”
+
+Example:
+
+    Add("//;\n1;2") // 3
+    
+Note that all existing scenarios should still be supported.    

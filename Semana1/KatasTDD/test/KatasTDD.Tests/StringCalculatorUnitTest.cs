@@ -85,6 +85,16 @@ public class StringCalculatorTest
         result.Should().Be(6);
     }
 
+    [Fact]
+    public void Calculate_IfTheInputHasCustomSeparators_ShouldGetCustomSeparatorAndReturnSum()
+    {
+        string input = "//;\\n1;2";
+
+        int result = Calculate(input);
+
+        result.Should().Be(6);
+    }
+
     private static int Calculate(string? input)
     {
         string[] separators = ["\\n", ","];
