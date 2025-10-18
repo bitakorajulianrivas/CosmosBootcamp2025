@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KatasTDD.Domain", "src\Kata
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KatasTDD.Tests", "test\KatasTDD.Tests\KatasTDD.Tests.csproj", "{8F4446D2-4640-4F0D-A462-6182B686AE11}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9912EDA4-7AD6-4DEE-92FF-A97F2E07D69E}"
+	ProjectSection(SolutionItems) = preProject
+		docs\StringCalculator.md = docs\StringCalculator.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
