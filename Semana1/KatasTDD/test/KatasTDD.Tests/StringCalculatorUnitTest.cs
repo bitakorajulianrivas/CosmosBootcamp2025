@@ -64,8 +64,11 @@ public class StringCalculatorTest
         result.Should().Be(15);
     }
 
-    private static int Calculate(string input)
+    private static int Calculate(string? input)
     {
+        if (input == null)
+            return 0;
+
         if (input == string.Empty)
             return 0;
 
