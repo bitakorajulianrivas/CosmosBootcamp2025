@@ -88,7 +88,7 @@ public class StringCalculatorTest
     [Fact]
     public void Calculate_IfTheInputHasCustomSeparators_ShouldGetCustomSeparatorAndReturnSum()
     {
-        string input = "//;\\n1;2";
+        string input = "//;\\n1;2;3";
 
         int result = Calculate(input);
 
