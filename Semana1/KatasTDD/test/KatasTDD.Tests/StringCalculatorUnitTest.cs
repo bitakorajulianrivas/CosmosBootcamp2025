@@ -87,13 +87,14 @@ public class StringCalculatorTest
 
     private static int Calculate(string? input)
     {
+        string[] separators = ["\\n", ","];
+
         if (string.IsNullOrEmpty(input))
             return 0;
 
         return input
-            .Replace("\\n", ",")
-            .Split(',')
-            .Where(n => n != string.Empty)
+            .Split(separators, 
+                StringSplitOptions.RemoveEmptyEntries)
             .Sum(int.Parse);
     }
 }
