@@ -7,7 +7,7 @@ public class StringCalculatorTest
     [Fact]
     public void Calculate_IfTheInputIsNull_ShouldReturnZero()
     {
-        string input = null;
+        string? input = null;
 
         int result = Calculate(input);
 
@@ -66,10 +66,7 @@ public class StringCalculatorTest
 
     private static int Calculate(string? input)
     {
-        if (input == null)
-            return 0;
-
-        if (input == string.Empty)
+        if (string.IsNullOrEmpty(input))
             return 0;
 
         return input
