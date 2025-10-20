@@ -13,8 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KatasTDD.Tests", "test\Kata
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9912EDA4-7AD6-4DEE-92FF-A97F2E07D69E}"
 	ProjectSection(SolutionItems) = preProject
+		docs\BattleShips.md = docs\BattleShips.md
 		docs\StringCalculator.md = docs\StringCalculator.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,13 @@
+﻿- [ ] If the game has no players, should return an exception.
+- [ ] The game should start with two players
+- [	] Should Add players to the game
+- [ ] Each player should have a nickname
+- [ ] Each player should have a 10 * 10 board
+- [ ] Each board should start empty
+- [ ] Each player should have a fleet of ships: Carrier (4 cells), Destroyer (3 cells), Gun Ship (1 cell)
+- [ ] Each player should have 1 Carrier, 2 Destroyer and 4 Gun Ship.
+- [ ] Each player should be able to place their ships on the board
+- [ ] Ships should not overlap
+- [ ] Ships should not be placed out of bounds
+- [ ] Ships can be oriented horizontally or vertically
+- [ ] The board should display ships at their correct positions
