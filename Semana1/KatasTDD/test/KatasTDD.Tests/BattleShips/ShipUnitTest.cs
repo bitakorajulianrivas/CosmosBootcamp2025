@@ -11,7 +11,7 @@ public class ShipUnitTest
     [Fact]
     public void Ship_ShouldHaveASize()
     {
-        var ship = new Ship(ShipType.Destroyer, size: 3);
+        var ship = new Ship(size: 3);
 
         ship.Size.Should().Be(3);
     }
@@ -19,10 +19,10 @@ public class ShipUnitTest
 
 public class Ship
 {
-    public Ship(ShipType type, int size)
+    public Ship(int size)
     {
-        Size = 3;
+        Size = size;
     }
 
-    public object Size { get; set; }
+    public object Size { get; }
 }
