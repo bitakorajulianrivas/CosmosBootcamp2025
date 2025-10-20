@@ -49,18 +49,19 @@ public class PlayerUnitTest
     }
 
     [Fact]
-    public void Player_IfBegin_ShouldNotHaveShipPlacedOnBoard()
+    public void Player_ShouldNotHaveShipPlacedOnBoard()
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipsPlaced.Should().HaveCount(0);
+        player.ShipsPlaced
+            .Select(s => s.Value)
+            .Sum().Should().Be(0);
     }
 
     [Fact]
     public void Player_IfBegin_ShouldNotHaveCarriersPlacedOnBoard()
     {
         var player = new Player(nickname: "CaptainAugustus");
-
 
         player.ShipsPlaced[ShipType.Carrier].Should().Be(0);
     }
@@ -71,13 +72,14 @@ public class Player(string nickname)
     public string Nickname { get; } = nickname;
     public Board Board => new ();
 
-    public Dictionary<ShipType, int> ShipTypes { get; } =        new () {
+    public Dictionary<ShipType, int> ShipTypes { get; } = new () {
             {ShipType.Carrier, 1},
             {ShipType.Destroyer, 2},
             {ShipType.Gunship, 4} };
 
     public Dictionary<ShipType, int> ShipsPlaced => new ()
     {
+        {ShipType.Carrier, 0}
     };
 }
 
