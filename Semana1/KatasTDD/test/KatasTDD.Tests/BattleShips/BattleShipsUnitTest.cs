@@ -21,7 +21,7 @@ public class BattleShipsUnitTest
     {
         var battleShip = new BattleShip();
 
-        battleShip.AddPlayer1(new Player("CaptainAugustus"));
+        battleShip.AddPlayer(new Player("CaptainAugustus"));
         battleShip.AddPlayer2(new Player("MarinePhilipe"));
         Action action = () => battleShip.Start();
 
@@ -35,35 +35,32 @@ public class BattleShipsUnitTest
 
         battleShip.AddPlayer(new Player("CaptainAugustus"));
 
-        battleShip.Player.Nickname.Should().Be("CaptainAugustus");
+        battleShip.Players.First().Nickname.Should().Be("CaptainAugustus");
     }
 
     [Fact]
-    public void AddPlayer2_ShouldAddPlayerNumber2()
+    public void AddPlayer_IfAddPlayerOneAndPlayerTwo_ShouldBeAListOfTwoPlayers()
     {
         var battleShip = new BattleShip();
 
-        battleShip.AddPlayer2(new Player("MarinePhilipe"));
+        battleShip.AddPlayer(new Player("CaptainAugustus"));
+        battleShip.AddPlayer(new Player("MarinePhilipe"));
 
-        battleShip.Player2.Nickname.Should().Be("MarinePhilipe");
+        battleShip.Players.Should().HaveCount(2);
+        battleShip.Players.First().Nickname.Should().Be("CaptainAugustus");
+        battleShip.Players.Last().Nickname.Should().Be("MarinePhilipe");
     }
 }
 
 public class BattleShip
 {
-    public Player? Player1 { get; private set; }
     public Player? Player2 { get; private set; }
-    public Player Player { get; set; }
+    public List<Player> Players { get; set; }
 
     public void Start()
     {
-        if (Player1 == null || Player2 == null)
+        if (Players == null || Player2 == null)
             throw new Exception("The game should start with 2 players.");
-    }
-
-    public void AddPlayer1(Player? player)
-    {
-        Player1 = player;
     }
 
     public void AddPlayer2(Player player)
@@ -73,6 +70,6 @@ public class BattleShip
 
     public void AddPlayer(Player player)
     {
-        Player = new Player("CaptainAugustus");
+        Players = new List<Player>() { player };
     }
 }
