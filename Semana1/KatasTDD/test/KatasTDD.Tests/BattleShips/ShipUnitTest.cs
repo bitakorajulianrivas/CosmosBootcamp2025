@@ -33,7 +33,7 @@ public class Ship
     }
     public Ship(ShipType Type, int size)
     {
-        Size = 4;
+        Size = size;
     }
 
     public object Size { get; }
