@@ -9,7 +9,7 @@ public class BattleShipsUnitTest
     [Fact]
     public void Start_IfThereAreNoPlayers_ShouldThrowException()
     {
-        Action action = () => new BattleShip(null)
+        Action action = () => new BattleShip()
             .Start();
 
         action.Should().ThrowExactly<Exception>()
@@ -19,10 +19,10 @@ public class BattleShipsUnitTest
     [Fact]
     public void Start_IfThereAreTwoPlayers_ShouldNotThrowException()
     {
-        var battleShip = new BattleShip(
-            player2: new Player("MarinePhilipe"));
+        var battleShip = new BattleShip();
 
         battleShip.AddPlayer1(new Player("CaptainAugustus"));
+        battleShip.AddPlayer2(new Player("MarinePhilipe"));
         Action action = () => battleShip.Start();
 
         action.Should().NotThrow();
@@ -31,23 +31,19 @@ public class BattleShipsUnitTest
     [Fact]
     public void AddPlayer1_ShouldAddPlayerNumber1()
     {
-        var battleShip = new BattleShip(player2: new Player("MarinePhilipe"));
+        var battleShip = new BattleShip();
 
         battleShip.AddPlayer1(new Player("CaptainAugustus"));
-        battleShip.Start();
 
         battleShip.Player1.Nickname.Should().Be("CaptainAugustus");
     }
 
-
     [Fact]
     public void AddPlayer2_ShouldAddPlayerNumber2()
     {
-        var battleShip = new BattleShip(player2: new Player("MarinePhilipe"));
+        var battleShip = new BattleShip();
 
-        battleShip.AddPlayer1(new Player("CaptainAugustus"));
         battleShip.AddPlayer2(new Player("MarinePhilipe"));
-        battleShip.Start();
 
         battleShip.Player2.Nickname.Should().Be("MarinePhilipe");
     }
@@ -55,29 +51,22 @@ public class BattleShipsUnitTest
 
 public class BattleShip
 {
-    private readonly Player _player2;
-
-    public Player Player1 { get; private set; }
-    public Player Player2 { get; set; }
-
-    public BattleShip(Player player2)
-    {
-        _player2 = player2;
-    }
+    public Player? Player1 { get; private set; }
+    public Player? Player2 { get; private set; }
 
     public void Start()
     {
-        if (Player1 == null || _player2 == null)
+        if (Player1 == null || Player2 == null)
             throw new Exception("The game should start with 2 players.");
     }
 
-    public void AddPlayer1(Player player)
+    public void AddPlayer1(Player? player)
     {
         Player1 = player;
     }
 
     public void AddPlayer2(Player player)
     {
-        Player2 = new Player("MarinePhilipe");
+        Player2 = player;
     }
 }
