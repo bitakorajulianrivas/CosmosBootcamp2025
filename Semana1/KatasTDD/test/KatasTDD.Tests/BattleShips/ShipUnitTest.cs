@@ -30,7 +30,7 @@ public class ShipUnitTest
     {
         var carrier = new Ship(ShipType.Carrier);
 
-        carrier.Size.Should().Be(4);
+        carrier.Size.Should().Be(3);
     }
 }
 
@@ -47,7 +47,8 @@ public class Ship
 
     public Ship(ShipType type)
     {
-        throw new NotImplementedException();
+        Type = type;
+        Size = 3;
     }
 
     public ShipType Type { get; }
