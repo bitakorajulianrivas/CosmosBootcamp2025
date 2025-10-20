@@ -24,6 +24,14 @@ public class ShipUnitTest
 
         carrier.Size.Should().Be(4);
     }
+
+    [Fact]
+    public void Ship_IfShipIsDestoyer_ShouldHaveSizeOfThree()
+    {
+        var carrier = new Ship(ShipType.Destroyer);
+
+        carrier.Size.Should().Be(3);
+    }
 }
 
 public class Ship
@@ -35,6 +43,10 @@ public class Ship
     public Ship(ShipType Type, int size)
     {
         Size = size;
+    }
+    public Ship(ShipType Type)
+    {
+        throw new NotImplementedException();
     }
 
     public object Size { get; }
