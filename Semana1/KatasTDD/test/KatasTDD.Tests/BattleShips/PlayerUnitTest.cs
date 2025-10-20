@@ -9,6 +9,7 @@ public class PlayerUnitTest
     public void Player_ShouldHaveANickName()
     {
         var player = new Player(nickname: "CaptainAugustus");
+
         player.Nickname.Should().Be("CaptainAugustus");
     }
 
@@ -16,15 +17,28 @@ public class PlayerUnitTest
     public void Player_ShouldHaveABoard()
     {
         var player = new Player(nickname: "CaptainAugustus");
+
         player.Board.Should().NotBeNull();
     }
 
     [Fact]
-    public void Player_SHouldHave3TypeOfShipsToPlace()
+    public void Player_ShouldHave3TypeOfShipsToPlace()
     {
         var player = new Player(nickname: "CaptainAugustus");
+
         player.ShipType.Should().HaveCount(3);
     }
+
+    [Fact]
+    public void Player_ShouldHave3TypeOfShipsToPlace_Carriers_Destroyers_AndGunShips()
+    {
+        var player = new Player(nickname: "CaptainAugustus");
+
+        player.ShipType[0].Name.Should().Be("Carrier");
+        player.ShipType[1].Name.Should().Be("Destroyer");
+        player.ShipType[2].Name.Should().Be("GunShip");
+    }
+
 
     [Fact]
     public void Board_ShouldHave10Columns()
@@ -66,7 +80,10 @@ public class Player(string nickname)
         new ShipType()];
 }
 
-public class ShipType { }
+public class ShipType
+{
+    public object Name { get; set; }
+}
 
 public class Board
 {
