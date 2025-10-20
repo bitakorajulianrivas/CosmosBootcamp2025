@@ -40,5 +40,5 @@ public class Player(string nickname)
 public record Board
 {
     public const int Columns = 10;
-    public static object Rows { get; set; }
+    public static object Rows = 10;
 }
