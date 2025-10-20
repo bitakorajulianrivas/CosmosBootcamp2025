@@ -90,9 +90,9 @@ public class Player(string nickname)
 
     public (ShipType Type, int Amount)[] ShipTypes { get; } =
     [
-        (ShipType.Carrier, 0),
-        (ShipType.Destroyer, 0),
-        (ShipType.Gunship, 0)
+        (ShipType.Carrier, 1),
+        (ShipType.Destroyer, 2),
+        (ShipType.Gunship, 4)
     ];
 }
 
