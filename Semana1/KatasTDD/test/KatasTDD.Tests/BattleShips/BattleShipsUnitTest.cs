@@ -24,6 +24,13 @@ public class BattleShipsUnitTest
 
         action.Should().NotThrow();
     }
+
+    [Fact]
+    public void Player_ShouldHaveANickName()
+    {
+        var player = new Player(nickname: "CaptainAugustus");
+        player.Nickname.Should().Be("CaptainAugustus");
+    }
 }
 
 public class BattleShip(Player player1, Player player2)
@@ -35,4 +42,10 @@ public class BattleShip(Player player1, Player player2)
     }
 }
 
-public class Player { }
+public class Player
+{
+    public Player() { }
+    public Player(string nickname) { }
+
+    public string Nickname { get; set; }
+}
