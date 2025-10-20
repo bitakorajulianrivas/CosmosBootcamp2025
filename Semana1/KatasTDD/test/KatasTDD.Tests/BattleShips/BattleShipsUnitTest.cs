@@ -7,7 +7,7 @@ public class BattleShipsUnitTest
     [Fact]
     public void Start_IfThereAreNoPlayers_ShouldThrowException()
     {
-        Action action = () => new BattleShip().Start();
+        Action action = () => new BattleShip(null, null).Start();
 
         action.Should().ThrowExactly<Exception>()
             .WithMessage("The game should start with 2 players.");
@@ -16,9 +16,9 @@ public class BattleShipsUnitTest
     [Fact]
     public void Start_IfThereAreTwoPlayers_ShouldNotThrowException()
     {
-        var battleShip = new BattleShip();
-        battleShip.AddPlayer(new Player());
-        battleShip.AddPlayer(new Player());
+        var battleShip = new BattleShip(
+            player1: new Player(),
+            player2: new Player());
 
         Action action = () => battleShip.Start();
 
@@ -26,19 +26,12 @@ public class BattleShipsUnitTest
     }
 }
 
-public class BattleShip
+public class BattleShip(Player player1, Player player2)
 {
-    private readonly List<Player> _players = [];
-
     public void Start()
     {
-        if (_players.Any() == false)
+        if (player1 == null || player2 == null)
             throw new Exception("The game should start with 2 players.");
-    }
-
-    public void AddPlayer(Player player)
-    {
-        _players.Add(player);
     }
 }
 

@@ -1,5 +1,5 @@
-﻿- [X] If the game has no players, should return an exception.
-- [ ] The game should start with two players
+﻿- [x] If the game has no players, should return an exception.
+- [x] The game should start with two players
 - [	] Should Add players to the game
 - [ ] Each player should have a nickname
 - [ ] Each player should have a 10 * 10 board
