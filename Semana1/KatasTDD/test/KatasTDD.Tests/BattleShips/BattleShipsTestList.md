@@ -2,7 +2,7 @@
 - [x] The game should start with two players
 - [x] Should Add players to the game
 - [ ] The kata does not specify number of players, but probably should be limited to 2 players.
-- [ ] Should be only one method to add players.(Delete another methods)
+- [x] Should be only one method to add players.(Delete another methods)
 - [x] Each player should have a nickname
 - [x] Each player should have a 10 * 10 board
 - [x] Each board should start empty
