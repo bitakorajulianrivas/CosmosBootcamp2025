@@ -45,7 +45,11 @@ public class BattleShip(Player player1, Player player2)
 public class Player
 {
     public Player() { }
-    public Player(string nickname) { }
+
+    public Player(string nickname)
+    {
+        Nickname = nickname;
+    }
 
     public string Nickname { get; set; }
 }
