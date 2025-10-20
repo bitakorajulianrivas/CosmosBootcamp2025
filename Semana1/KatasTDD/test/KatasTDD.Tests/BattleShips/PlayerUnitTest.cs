@@ -33,10 +33,8 @@ public class PlayerUnitTest
     [Fact]
     public void Board_ShouldHave10x10Cells()
     {
-        var board = new Board();
-
-        board.Cells.Should().HaveCount(10);
-        board.Cells[0].Should().HaveCount(10);
+        Board.Cells.GetLength(0).Should().Be(10);
+        Board.Cells.GetLength(1).Should().Be(10);
     }
 }
 
@@ -50,14 +48,5 @@ public class Board
 {
     public const int Columns = 10;
     public const int Rows = 10;
-    public string[][] Cells { get; }
-
-    public Board()
-    {
-        Cells = new string[10][];
-        for (int i = 0; i < 10; i++)
-        {
-            Cells[i] = new string[10];
-        }
-    }
+    public static string[,] Cells => new string[Columns, Rows]; 
 }
