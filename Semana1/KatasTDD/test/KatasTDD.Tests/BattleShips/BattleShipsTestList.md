@@ -6,8 +6,8 @@
 - [x] Each player should have a nickname
 - [x] Each player should have a 10 * 10 board
 - [x] Each board should start empty
-- [ ] Each player should have a fleet of ships: Carrier (4 cells), Destroyer (3 cells), Gun Ship (1 cell)
-- [ ] Each player should have 1 Carrier, 2 Destroyer and 4 Gun Ship.
+- [x] Each player should have a fleet of ships: Carrier (4 cells), Destroyer (3 cells), Gun Ship (1 cell)
+- [x] Each player should have 1 Carrier, 2 Destroyer and 4 Gun Ship.
 - [ ] Each player should be able to place their ships on the board
 - [ ] Ships should not overlap
 - [ ] Ships should not be placed out of bounds
