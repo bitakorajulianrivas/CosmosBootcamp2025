@@ -9,7 +9,8 @@ public class BattleShipsUnitTest
     [Fact]
     public void Start_IfThereAreNoPlayers_ShouldThrowException()
     {
-        Action action = () => new BattleShip(null, null).Start();
+        Action action = () => new BattleShip(null)
+            .Start();
 
         action.Should().ThrowExactly<Exception>()
             .WithMessage("The game should start with 2 players.");
@@ -19,9 +20,9 @@ public class BattleShipsUnitTest
     public void Start_IfThereAreTwoPlayers_ShouldNotThrowException()
     {
         var battleShip = new BattleShip(
-            Player1: new Player("CaptainAugustus"),
-            Player2: new Player("MarinePhilipe"));
+            player2: new Player("MarinePhilipe"));
 
+        battleShip.AddPlayer1(new Player("CaptainAugustus"));
         Action action = () => battleShip.Start();
 
         action.Should().NotThrow();
@@ -30,7 +31,7 @@ public class BattleShipsUnitTest
     [Fact]
     public void AddPlayer1_ShouldAddPlayerNumber1()
     {
-        var battleShip = new BattleShip(null, Player2: new Player("MarinePhilipe"));
+        var battleShip = new BattleShip(player2: new Player("MarinePhilipe"));
 
         battleShip.AddPlayer1(new Player("CaptainAugustus"));
         battleShip.Start();
@@ -39,18 +40,25 @@ public class BattleShipsUnitTest
     }
 }
 
-public class BattleShip(Player Player1, Player Player2)
+public class BattleShip
 {
-    public void Start()
-    {
-        if (Player1 == null || Player2 == null)
-            throw new Exception("The game should start with 2 players.");
-    }
+    private readonly Player _player2;
 
     public Player Player1 { get; private set; }
 
+    public BattleShip(Player player2)
+    {
+        _player2 = player2;
+    }
+
+    public void Start()
+    {
+        if (Player1 == null || _player2 == null)
+            throw new Exception("The game should start with 2 players.");
+    }
+
     public void AddPlayer1(Player player)
     {
-        Player1 = new Player("CaptainAugustus");
+        Player1 = player;
     }
 }
