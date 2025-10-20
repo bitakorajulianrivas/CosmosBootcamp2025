@@ -61,9 +61,12 @@ public class Player(string nickname)
     public string Nickname { get; } = nickname;
     public Board Board => new ();
     public List<object> Ships { get; set; } = new()
-    {
+    { 
+        new Ship(), new Ship(), new Ship()
     };
 }
+
+public class Ship { }
 
 public class Board
 {
