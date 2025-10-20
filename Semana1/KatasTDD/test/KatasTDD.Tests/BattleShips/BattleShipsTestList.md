@@ -1,7 +1,7 @@
 ﻿- [x] If the game has no players, should return an exception.
 - [x] The game should start with two players
 - [	] Should Add players to the game
-- [ ] Each player should have a nickname
+- [x] Each player should have a nickname
 - [ ] Each player should have a 10 * 10 board
 - [ ] Each board should start empty
 - [ ] Each player should have a fleet of ships: Carrier (4 cells), Destroyer (3 cells), Gun Ship (1 cell)
