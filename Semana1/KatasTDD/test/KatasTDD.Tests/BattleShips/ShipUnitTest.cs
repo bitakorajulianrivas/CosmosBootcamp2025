@@ -32,6 +32,14 @@ public class ShipUnitTest
 
         carrier.Size.Should().Be(3);
     }
+
+    [Fact]
+    public void Ship_IfShipIsGunship_ShouldHaveSizeOfOne()
+    {
+        var carrier = new Ship(ShipType.Gunship);
+
+        carrier.Size.Should().Be(1);
+    }
 }
 
 public class Ship
