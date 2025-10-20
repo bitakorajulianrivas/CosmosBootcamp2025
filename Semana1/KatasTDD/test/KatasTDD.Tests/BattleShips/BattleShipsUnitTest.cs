@@ -48,6 +48,19 @@ public class BattleShipsUnitTest
         battleShip.Players.First().Nickname.Should().Be("CaptainAugustus");
         battleShip.Players.Last().Nickname.Should().Be("MarinePhilipe");
     }
+
+    [Fact]
+    public void AddPlayer_IfReceiveMoreThan3Players_ShouldThrowAnException()
+    {
+        var battleShip = new BattleShip();
+
+        battleShip.AddPlayer(new Player("CaptainAugustus"));
+        battleShip.AddPlayer(new Player("MarinePhilipe"));
+
+        Action action = () => battleShip.AddPlayer(new Player("CadetCamille"));
+
+        action.Should().ThrowExactly<Exception>().WithMessage("Maximum 2 players for now.");
+    }
 }
 
 public class BattleShip
