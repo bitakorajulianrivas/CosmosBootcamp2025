@@ -1,4 +1,4 @@
-﻿- [ ] If the game has no players, should return an exception.
+﻿- [X] If the game has no players, should return an exception.
 - [ ] The game should start with two players
 - [	] Should Add players to the game
 - [ ] Each player should have a nickname
