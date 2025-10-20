@@ -1,42 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentAssertions;
-using Xunit.Sdk;
+﻿using FluentAssertions;
 
 namespace KatasTDD.Tests.BattleShips;
 
 public class ShipUnitTest
 {
     [Fact]
-    public void Ship_ShouldHaveASize()
+    public void Carrier_ShouldHaveSizeOfFourCells()
     {
-        var ship = new Ship(ShipType.Destroyer);
-
-        ship.Size.Should().Be(3);
-    }
-
-    [Fact]
-    public void Ship_IfShipIsCarrier_ShouldHaveSizeOfFour()
-    {
-        var carrier = new Ship(ShipType.Carrier);
+        var carrier = Ship.Carrier();
 
         carrier.Size.Should().Be(4);
     }
 
     [Fact]
-    public void Ship_IfShipIsDestoyer_ShouldHaveSizeOfThree()
+    public void Destoyer_ShouldHaveSizeOfThreeCells()
     {
-        var carrier = new Ship(ShipType.Destroyer);
+        var carrier = Ship.Destroyer();
 
         carrier.Size.Should().Be(3);
     }
 
     [Fact]
-    public void Ship_IfShipIsGunship_ShouldHaveSizeOfOne()
+    public void Gunship_ShouldHaveSizeOfOne()
     {
-        var carrier = new Ship(ShipType.Gunship);
+        var carrier = Ship.Gunship();
 
         carrier.Size.Should().Be(1);
     }
@@ -44,11 +31,16 @@ public class ShipUnitTest
 
 public class Ship
 {
-    public Ship(ShipType type)
+    public ShipType ShipType { get; }
+    public int Size { get; }
+
+    private Ship(ShipType shipType, int size)
     {
-        Size = type == ShipType.Destroyer ? 3 : 
-            type == ShipType.Carrier ? 4 : 1;
+        ShipType = shipType;
+        Size = size;
     }
 
-    public object Size { get; }
+    public static Ship Carrier() => new (ShipType.Carrier, size: 4);
+    public static Ship Destroyer() => new (ShipType.Destroyer, size: 3);
+    public static Ship Gunship() => new (ShipType.Gunship, size: 1);
 }
