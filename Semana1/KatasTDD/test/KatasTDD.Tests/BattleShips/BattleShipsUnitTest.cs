@@ -16,8 +16,13 @@ public class BattleShipsUnitTest
 
 public class Game
 {
+    private List<Player> _players = new();
+
     public void Start()
     {
-        throw new Exception("The game should start with 2 players.");
+        if (_players.Any() == false)
+            throw new Exception("The game should start with 2 players.");
     }
 }
+
+public class Player { }
