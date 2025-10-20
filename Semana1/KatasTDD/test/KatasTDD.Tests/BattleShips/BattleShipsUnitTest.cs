@@ -18,5 +18,6 @@ public class Game
 {
     public void Start()
     {
+        throw new Exception("The game should start with 2 players.");
     }
 }
