@@ -55,7 +55,16 @@ public class PlayerUnitTest
 
         player.ShipsPlaced.Should().HaveCount(0);
     }
-}
+
+    [Fact]
+    public void Player_IfBegin_ShouldNotHaveCarriersPlacedOnBoard()
+    {
+        var player = new Player(nickname: "CaptainAugustus");
+
+
+        player.ShipsPlaced[ShipType.Carrier].Should().Be(0);
+    }
+}   
 
 public class Player(string nickname)
 {
@@ -67,7 +76,9 @@ public class Player(string nickname)
             {ShipType.Destroyer, 2},
             {ShipType.Gunship, 4} };
 
-    public List<int> ShipsPlaced = new List<int>();
+    public Dictionary<ShipType, int> ShipsPlaced => new ()
+    {
+    };
 }
 
 public enum ShipType
