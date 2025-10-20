@@ -2,7 +2,7 @@
 - [x] The game should start with two players
 - [	] Should Add players to the game
 - [x] Each player should have a nickname
-- [ ] Each player should have a 10 * 10 board
+- [x] Each player should have a 10 * 10 board
 - [ ] Each board should start empty
 - [ ] Each player should have a fleet of ships: Carrier (4 cells), Destroyer (3 cells), Gun Ship (1 cell)
 - [ ] Each player should have 1 Carrier, 2 Destroyer and 4 Gun Ship.
