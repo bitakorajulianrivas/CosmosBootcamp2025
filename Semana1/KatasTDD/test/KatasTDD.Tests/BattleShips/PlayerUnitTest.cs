@@ -19,6 +19,13 @@ public class PlayerUnitTest
     }
 
     [Fact]
+    public void Player_SHouldHave7ShipsToPlace()
+    {
+        var player = new Player(nickname: "CaptainAugustus");
+        player.Ships.Should().HaveCount(7);
+    }
+
+    [Fact]
     public void Board_ShouldHave10Columns()
     {
         Board.Columns.Should().Be(10);
@@ -52,6 +59,7 @@ public class Player(string nickname)
 {
     public string Nickname { get; } = nickname;
     public Board Board => new ();
+    public List<object> Ships { get; set; } = new(){};
 }
 
 public class Board
