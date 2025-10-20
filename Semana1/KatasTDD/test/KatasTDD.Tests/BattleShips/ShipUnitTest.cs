@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
+using Xunit.Sdk;
 
 namespace KatasTDD.Tests.BattleShips;
 
@@ -23,6 +24,14 @@ public class ShipUnitTest
 
         carrier.Size.Should().Be(4);
     }
+
+    [Fact]
+    public void Ship_IfShipIsDestoyer_ShouldHaveSizeOfThree()
+    {
+        var carrier = new Ship(ShipType.Carrier);
+
+        carrier.Size.Should().Be(4);
+    }
 }
 
 public class Ship
@@ -36,5 +45,11 @@ public class Ship
         Size = size;
     }
 
+    public Ship(ShipType type)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ShipType Type { get; }
     public object Size { get; }
 }
