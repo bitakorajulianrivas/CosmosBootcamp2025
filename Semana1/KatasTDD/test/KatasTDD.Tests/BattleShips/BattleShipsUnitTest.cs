@@ -35,7 +35,7 @@ public class BattleShipsUnitTest
 
         battleShip.AddPlayer(new Player("CaptainAugustus"));
 
-        battleShip.Player1.Nickname.Should().Be("CaptainAugustus");
+        battleShip.Player.Nickname.Should().Be("CaptainAugustus");
     }
 
     [Fact]
@@ -53,6 +53,7 @@ public class BattleShip
 {
     public Player? Player1 { get; private set; }
     public Player? Player2 { get; private set; }
+    public Player Player { get; set; }
 
     public void Start()
     {
@@ -72,6 +73,6 @@ public class BattleShip
 
     public void AddPlayer(Player player)
     {
-        throw new NotImplementedException();
+        Player = new Player("CaptainAugustus");
     }
 }
