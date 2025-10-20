@@ -36,7 +36,7 @@ public class PlayerUnitTest
 
         player.ShipType[0].Name.Should().Be("Carrier");
         player.ShipType[1].Name.Should().Be("Destroyer");
-        player.ShipType[2].Name.Should().Be("GunShip");
+        player.ShipType[2].Name.Should().Be("Gunship");
     }
 
 
@@ -74,15 +74,20 @@ public class Player(string nickname)
 {
     public string Nickname { get; } = nickname;
     public Board Board => new ();
-    public List<ShipType> ShipType { get; } = [
-        new ShipType(), 
-        new ShipType(), 
-        new ShipType()];
+    public ShipType[] ShipType { get; } = [
+        new ShipType("Carrier"), 
+        new ShipType("Destroyer"), 
+        new ShipType("Gunship")];
 }
 
 public class ShipType
 {
-    public object Name { get; set; }
+    public ShipType(string name)
+    {
+        Name = name;
+    }
+
+    public string Name { get; set; }
 }
 
 public class Board
