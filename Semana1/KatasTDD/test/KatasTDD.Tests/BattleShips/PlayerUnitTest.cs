@@ -21,9 +21,7 @@ public class PlayerUnitTest
     [Fact]
     public void Board_ShouldHave10Columns()
     {
-        var board = new Board();
-
-        board.Columns.Should().Be(10);
+        Board.Columns.Should().Be(10);
     }
 }
 
@@ -35,5 +33,5 @@ public class Player(string nickname)
 
 public record Board
 {
-    public object Columns { get; } = 10;
+    public const int Columns = 10;
 }
