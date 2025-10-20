@@ -54,7 +54,7 @@ public class PlayerUnitTest
         var player = new Player(nickname: "CaptainAugustus");
 
         player.ShipsPlaced
-            .Select(s => s.Value)
+            .Select(shipPlaced => shipPlaced.Value)
             .Sum().Should().Be(0);
     }
 
@@ -63,15 +63,17 @@ public class PlayerUnitTest
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipsPlaced[ShipType.Carrier].Should().Be(0);
+        player.ShipsPlaced[ShipType.Carrier]
+            .Should().Be(0);
     }
 
     [Fact]
-    public void Player_IfBegin_ShouldNotHaveDestroyerPlacedOnBoard()
+    public void Player_IfBegin_ShouldNotHaveDestroyersPlacedOnBoard()
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipsPlaced[ShipType.Destroyer].Should().Be(0);
+        player.ShipsPlaced[ShipType.Destroyer]
+            .Should().Be(0);
     }
 }   
 
