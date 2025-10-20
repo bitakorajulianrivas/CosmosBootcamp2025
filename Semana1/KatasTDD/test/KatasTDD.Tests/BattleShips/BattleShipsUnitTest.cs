@@ -38,6 +38,19 @@ public class BattleShipsUnitTest
 
         battleShip.Player1.Nickname.Should().Be("CaptainAugustus");
     }
+
+
+    [Fact]
+    public void AddPlayer2_ShouldAddPlayerNumber2()
+    {
+        var battleShip = new BattleShip(player2: new Player("MarinePhilipe"));
+
+        battleShip.AddPlayer1(new Player("CaptainAugustus"));
+        battleShip.AddPlayer2(new Player("MarinePhilipe"));
+        battleShip.Start();
+
+        battleShip.Player2.Nickname.Should().Be("MarinePhilipe");
+    }
 }
 
 public class BattleShip
@@ -45,6 +58,7 @@ public class BattleShip
     private readonly Player _player2;
 
     public Player Player1 { get; private set; }
+    public Player Player2 { get; set; }
 
     public BattleShip(Player player2)
     {
@@ -60,5 +74,10 @@ public class BattleShip
     public void AddPlayer1(Player player)
     {
         Player1 = player;
+    }
+
+    public void AddPlayer2(Player player)
+    {
+        throw new NotImplementedException();
     }
 }
