@@ -17,10 +17,11 @@ public class ShipUnitTest
     }
 
     [Fact]
-    public void Ship_IfShipIsCarrier_ShouldHaveASize()
+    public void Ship_IfShipIsCarrier_ShouldHaveSizeOfFour()
     {
-        var carrier = new Ship(ShipType.Carrier, size: 1);
-        carrier.Size.Should().Be(1);
+        var carrier = new Ship(ShipType.Carrier, size: 4);
+
+        carrier.Size.Should().Be(4);
     }
 }
 
