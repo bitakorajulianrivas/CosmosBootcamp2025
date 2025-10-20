@@ -35,5 +35,5 @@ public class Player(string nickname)
 
 public record Board
 {
-    public object Columns { get; set; }
+    public object Columns { get; } = 10;
 }
