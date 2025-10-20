@@ -29,11 +29,11 @@ public class BattleShipsUnitTest
     }
 
     [Fact]
-    public void AddPlayer1_ShouldAddPlayerNumber1()
+    public void AddPlayer_ShouldAddPlayerNumber1()
     {
         var battleShip = new BattleShip();
 
-        battleShip.AddPlayer1(new Player("CaptainAugustus"));
+        battleShip.AddPlayer(new Player("CaptainAugustus"));
 
         battleShip.Player1.Nickname.Should().Be("CaptainAugustus");
     }
@@ -68,5 +68,10 @@ public class BattleShip
     public void AddPlayer2(Player player)
     {
         Player2 = player;
+    }
+
+    public void AddPlayer(Player player)
+    {
+        throw new NotImplementedException();
     }
 }
