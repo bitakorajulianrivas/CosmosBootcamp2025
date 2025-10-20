@@ -71,5 +71,13 @@ public class Board
     public Board()
     {
         Cells = new string[Columns, Rows];
+
+        for (int column = 0; column < 10; column++)
+        {
+            for (int row = 0; row < 10; row++)
+            {
+                Cells[column, row] = " ";
+            }
+        }
     }
 }
