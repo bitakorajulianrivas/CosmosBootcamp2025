@@ -17,6 +17,14 @@ public class PlayerUnitTest
         var player = new Player(nickname: "CaptainAugustus");
         player.Board.Should().NotBeNull();
     }
+
+    [Fact]
+    public void Board_ShouldHave10Columns()
+    {
+        var board = new Board();
+
+        board.Columns.Should().Be(10);
+    }
 }
 
 public class Player(string nickname)
@@ -25,4 +33,7 @@ public class Player(string nickname)
     public Board Board => new();
 }
 
-public record Board;
+public record Board
+{
+    public object Columns { get; set; }
+}
