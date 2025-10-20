@@ -59,13 +59,14 @@ public class BattleShipsUnitTest
 
         Action action = () => battleShip.AddPlayer(new Player("CadetCamille"));
 
-        action.Should().ThrowExactly<Exception>().WithMessage("Maximum 2 players for now.");
+        action.Should().ThrowExactly<Exception>()
+            .WithMessage("Maximum 2 players for now.");
     }
 }
 
 public class BattleShip
 {
-    public List<Player> Players { get; private set; } = [];
+    public List<Player> Players { get; } = [];
 
     public void Start()
     {
@@ -75,9 +76,9 @@ public class BattleShip
 
     public void AddPlayer(Player player)
     {
-        Players.Add(player);
-
-        if (Players.Count > 2)
+        if (Players.Count >= 2)
             throw new Exception("Maximum 2 players for now.");
+
+        Players.Add(player);
     }
 }
