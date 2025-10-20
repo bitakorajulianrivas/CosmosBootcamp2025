@@ -7,21 +7,22 @@ public class PlayerUnitTest
     [Fact]
     public void Player_ShouldHaveANickName()
     {
-        var player = new Player(Nickname: "CaptainAugustus");
+        var player = new Player(nickname: "CaptainAugustus");
         player.Nickname.Should().Be("CaptainAugustus");
     }
 
     [Fact]
     public void Player_ShouldHaveABoard()
     {
-        var player = new Player(Nickname: "CaptainAugustus");
+        var player = new Player(nickname: "CaptainAugustus");
         player.Board.Should().NotBeNull();
     }
 }
 
-public record Player(string Nickname)
+public class Player(string nickname)
 {
+    public string Nickname { get; } = nickname;
     public Board Board => new();
 }
 
-public class Board { }
+public record Board;
