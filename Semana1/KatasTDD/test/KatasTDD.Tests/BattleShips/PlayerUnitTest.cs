@@ -53,7 +53,7 @@ public class PlayerUnitTest
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipsPlaced
+        player.ShipsPlacedPerType
             .Select(shipPlaced => shipPlaced.Value)
             .Sum().Should().Be(0);
     }
@@ -63,7 +63,7 @@ public class PlayerUnitTest
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipsPlaced[ShipType.Carrier]
+        player.ShipsPlacedPerType[ShipType.Carrier]
             .Should().Be(0);
     }
 
@@ -72,7 +72,7 @@ public class PlayerUnitTest
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipsPlaced[ShipType.Destroyer]
+        player.ShipsPlacedPerType[ShipType.Destroyer]
             .Should().Be(0);
     }
 
@@ -81,7 +81,7 @@ public class PlayerUnitTest
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipsPlaced[ShipType.Gunship]
+        player.ShipsPlacedPerType[ShipType.Gunship]
             .Should().Be(0);
     }
 }   
@@ -96,7 +96,7 @@ public class Player(string nickname)
             {ShipType.Destroyer, 2},
             {ShipType.Gunship, 4} };
 
-    public Dictionary<ShipType, int> ShipsPlaced => new ()
+    public Dictionary<ShipType, int> ShipsPlacedPerType => new ()
     {
         {ShipType.Carrier, 0},
         {ShipType.Destroyer, 0},
