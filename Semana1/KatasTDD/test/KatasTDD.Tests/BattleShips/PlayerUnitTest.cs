@@ -87,6 +87,7 @@ public class Player(string nickname)
 
     public Dictionary<ShipType, int> ShipsPlaced => new ()
     {
-        {ShipType.Carrier, 0}
+        {ShipType.Carrier, 0},
+        {ShipType.Destroyer, 0}
     };
 }
