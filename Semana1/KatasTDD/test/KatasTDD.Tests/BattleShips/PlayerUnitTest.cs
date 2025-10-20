@@ -44,13 +44,7 @@ public class PlayerUnitTest
     {
         var board = new Board();
 
-        for (int column = 0; column < 10; column++)
-        {
-            for (int row = 0; row < 10; row++)
-            {
-                board.Cells[column, row].Should().Be(" "); 
-            }
-        }
+        board.AssertAllCellsAreEmpty();
     }
 }
 
@@ -62,9 +56,10 @@ public class Player(string nickname)
 
 public class Board
 {
+    public static readonly string EmptyCell = " ";
+
     public const int Columns = 10;
     public const int Rows = 10;
-
 
     public string[,] Cells { get; }
 
@@ -72,12 +67,18 @@ public class Board
     {
         Cells = new string[Columns, Rows];
 
-        for (int column = 0; column < 10; column++)
-        {
-            for (int row = 0; row < 10; row++)
-            {
-                Cells[column, row] = " ";
-            }
-        }
+        for (int column = 0; column < Columns; column++)
+            for (int row = 0; row < Rows; row++)
+                Cells[column, row] = EmptyCell;
+    }
+}
+
+public static class BoardTestExtensions
+{
+    public static void AssertAllCellsAreEmpty(this Board board)
+    {
+        for (int column = 0; column < Board.Columns; column++)
+            for (int row = 0; row < Board.Columns; row++)
+                board.Cells[column, row].Should().Be(Board.EmptyCell);
     }
 }
