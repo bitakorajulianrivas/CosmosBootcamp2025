@@ -33,9 +33,24 @@ public class PlayerUnitTest
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipTypes[0].Should().Be(ShipType.Carrier);
-        player.ShipTypes[1].Should().Be(ShipType.Destroyer);
-        player.ShipTypes[2].Should().Be(ShipType.Gunship);
+        player.ShipTypes[0].Type.Should().Be(ShipType.Carrier);
+        player.ShipTypes[1].Type.Should().Be(ShipType.Destroyer);
+        player.ShipTypes[2].Type.Should().Be(ShipType.Gunship);
+    }
+
+    [Fact]
+    public void Player_ShouldHave3TypeOfShipsToPlace_1Carriers2Destroyers_And4GunShips()
+    {
+        var player = new Player(nickname: "CaptainAugustus");
+
+        //Carrier
+        player.ShipTypes[0].Amount.Should().Be(1);
+
+        //Destroyer
+        player.ShipTypes[1].Amount.Should().Be(2);
+
+        //Gunship
+        player.ShipTypes[2].Amount.Should().Be(4);
     }
 
     [Fact]
@@ -73,11 +88,11 @@ public class Player(string nickname)
     public string Nickname { get; } = nickname;
     public Board Board => new ();
 
-    public ShipType[] ShipTypes { get; } =
+    public (ShipType Type, int Amount)[] ShipTypes { get; } =
     [
-        ShipType.Carrier,
-        ShipType.Destroyer,
-        ShipType.Gunship
+        (ShipType.Carrier, 0),
+        (ShipType.Destroyer, 0),
+        (ShipType.Gunship, 0)
     ];
 }
 
