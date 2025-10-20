@@ -73,5 +73,11 @@ public class BattleShip
             throw new Exception("The game should start with 2 players.");
     }
 
-    public void AddPlayer(Player player) => Players.Add(player);
+    public void AddPlayer(Player player)
+    {
+        Players.Add(player);
+
+        if (Players.Count > 2)
+            throw new Exception("Maximum 2 players for now.");
+    }
 }
