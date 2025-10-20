@@ -21,7 +21,7 @@ public class Ship
 {
     public Ship(ShipType type, int size)
     {
-        throw new NotImplementedException();
+        Size = 3;
     }
 
     public object Size { get; set; }
