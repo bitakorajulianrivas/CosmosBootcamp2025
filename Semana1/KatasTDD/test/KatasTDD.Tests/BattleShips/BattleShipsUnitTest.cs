@@ -70,6 +70,10 @@ public class BattleShip
 
     public void AddPlayer(Player player)
     {
-        Players = new List<Player>() { player };
+        Players = new List<Player>()
+        {
+            new Player("CaptainAugustus"),
+            new Player("MarinePhilipe")
+        };
     }
 }
