@@ -75,6 +75,15 @@ public class PlayerUnitTest
         player.ShipsPlaced[ShipType.Destroyer]
             .Should().Be(0);
     }
+
+    [Fact]
+    public void Player_IfBegin_ShouldNotHaveGunshipsPlacedOnBoard()
+    {
+        var player = new Player(nickname: "CaptainAugustus");
+
+        player.ShipsPlaced[ShipType.Gunship]
+            .Should().Be(0);
+    }
 }   
 
 public class Player(string nickname)
