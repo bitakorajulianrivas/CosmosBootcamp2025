@@ -36,16 +36,16 @@ public class Ship
     public int Size { get; }
     public int MaxAmount { get; }
 
-    private Ship(ShipType shipType, int size)
+    private Ship(ShipType shipType, int size, int maxAmount)
     {
         ShipType = shipType;
         Size = size;
-        MaxAmount = 1;
+        MaxAmount = maxAmount;
     }
 
-    public static Ship Carrier() => new (ShipType.Carrier, size: 4);
-    public static Ship Destroyer() => new (ShipType.Destroyer, size: 3);
-    public static Ship Gunship() => new (ShipType.Gunship, size: 1);
+    public static Ship Carrier() => new (ShipType.Carrier, size: 4, maxAmount: 1);
+    public static Ship Destroyer() => new (ShipType.Destroyer, size: 3, maxAmount: 1);
+    public static Ship Gunship() => new (ShipType.Gunship, size: 1, maxAmount: 1);
 }
 
 public enum ShipType
