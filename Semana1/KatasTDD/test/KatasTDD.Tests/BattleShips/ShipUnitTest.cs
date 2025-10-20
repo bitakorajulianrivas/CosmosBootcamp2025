@@ -46,7 +46,7 @@ public class Ship
     }
     public Ship(ShipType Type)
     {
-        throw new NotImplementedException();
+        Size = 3;
     }
 
     public object Size { get; }
