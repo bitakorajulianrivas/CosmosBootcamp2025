@@ -78,6 +78,6 @@ public class BattleShip
 
     public void AddPlayer2(Player player)
     {
-        throw new NotImplementedException();
+        Player2 = new Player("MarinePhilipe");
     }
 }
