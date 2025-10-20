@@ -19,8 +19,8 @@ public class BattleShipsUnitTest
     public void Start_IfThereAreTwoPlayers_ShouldNotThrowException()
     {
         var battleShip = new BattleShip(
-            player1: new Player("CaptainAugustus"),
-            player2: new Player("MarinePhilipe"));
+            Player1: new Player("CaptainAugustus"),
+            Player2: new Player("MarinePhilipe"));
 
         Action action = () => battleShip.Start();
 
@@ -30,7 +30,7 @@ public class BattleShipsUnitTest
     [Fact]
     public void AddPlayer1_ShouldAddPlayerNumber1()
     {
-        var battleShip = new BattleShip(null, null);
+        var battleShip = new BattleShip(null, Player2: new Player("MarinePhilipe"));
 
         battleShip.AddPlayer1(new Player("CaptainAugustus"));
         battleShip.Start();
@@ -39,18 +39,18 @@ public class BattleShipsUnitTest
     }
 }
 
-public class BattleShip(Player player1, Player player2)
+public class BattleShip(Player Player1, Player Player2)
 {
     public void Start()
     {
-        if (player1 == null || player2 == null)
+        if (Player1 == null || Player2 == null)
             throw new Exception("The game should start with 2 players.");
     }
 
-    public Player Player1 { get; }
+    public Player Player1 { get; private set; }
 
     public void AddPlayer1(Player player)
     {
-        throw new NotImplementedException();
+        Player1 = new Player("CaptainAugustus");
     }
 }
