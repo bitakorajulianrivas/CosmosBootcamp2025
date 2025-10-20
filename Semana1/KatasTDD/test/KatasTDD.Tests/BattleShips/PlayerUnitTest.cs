@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Microsoft.VisualStudio.CodeCoverage;
 
 namespace KatasTDD.Tests.BattleShips;
 
@@ -26,7 +25,7 @@ public class PlayerUnitTest
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipType.Should().HaveCount(3);
+        player.ShipTypes.Should().HaveCount(3);
     }
 
     [Fact]
@@ -34,11 +33,10 @@ public class PlayerUnitTest
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipType[0].Name.Should().Be("Carrier");
-        player.ShipType[1].Name.Should().Be("Destroyer");
-        player.ShipType[2].Name.Should().Be("Gunship");
+        player.ShipTypes[0].Should().Be(ShipType.Carrier);
+        player.ShipTypes[1].Should().Be(ShipType.Destroyer);
+        player.ShipTypes[2].Should().Be(ShipType.Gunship);
     }
-
 
     [Fact]
     public void Board_ShouldHave10Columns()
@@ -74,21 +72,21 @@ public class Player(string nickname)
 {
     public string Nickname { get; } = nickname;
     public Board Board => new ();
-    public ShipType[] ShipType { get; } = [
-        new ShipType("Carrier"), 
-        new ShipType("Destroyer"), 
-        new ShipType("Gunship")];
+
+    public ShipType[] ShipTypes { get; } =
+    [
+        ShipType.Carrier,
+        ShipType.Destroyer,
+        ShipType.Gunship
+    ];
 }
 
-public class ShipType
+public enum ShipType
 {
-    public ShipType(string name)
-    {
-        Name = name;
-    }
-
-    public string Name { get; set; }
-}
+    Carrier = 0,
+    Destroyer = 1,
+    Gunship = 2
+};
 
 public class Board
 {
