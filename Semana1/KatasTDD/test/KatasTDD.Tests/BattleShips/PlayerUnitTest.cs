@@ -67,7 +67,7 @@ public class Player(string nickname)
             {ShipType.Destroyer, 2},
             {ShipType.Gunship, 4} };
 
-    public List<object> ShipsPlaced = new List<object>();
+    public List<int> ShipsPlaced = new List<int>();
 }
 
 public enum ShipType
