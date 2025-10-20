@@ -38,7 +38,7 @@ public class BattleShip
 
     public void AddPlayer(Player player)
     {
-        throw new NotImplementedException();
+        _players.Add(player);
     }
 }
 
