@@ -43,12 +43,21 @@ public class PlayerUnitTest
 public class Player(string nickname)
 {
     public string Nickname { get; } = nickname;
-    public Board Board => new();
+    public Board Board => new ();
 }
 
-public record Board
+public class Board
 {
     public const int Columns = 10;
     public const int Rows = 10;
-    public string[][] Cells { get; set; }
+    public string[][] Cells { get; }
+
+    public Board()
+    {
+        Cells = new string[10][];
+        for (int i = 0; i < 10; i++)
+        {
+            Cells[i] = new string[10];
+        }
+    }
 }
