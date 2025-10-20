@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Microsoft.VisualStudio.CodeCoverage;
 
 namespace KatasTDD.Tests.BattleShips;
 
@@ -19,10 +20,10 @@ public class PlayerUnitTest
     }
 
     [Fact]
-    public void Player_SHouldHave7ShipsToPlace()
+    public void Player_SHouldHave3TypeOfShipsToPlace()
     {
         var player = new Player(nickname: "CaptainAugustus");
-        player.Ships.Should().HaveCount(7);
+        player.Ships.Should().HaveCount(3);
     }
 
     [Fact]
@@ -59,7 +60,9 @@ public class Player(string nickname)
 {
     public string Nickname { get; } = nickname;
     public Board Board => new ();
-    public List<object> Ships { get; set; } = new(){};
+    public List<object> Ships { get; set; } = new()
+    {
+    };
 }
 
 public class Board
