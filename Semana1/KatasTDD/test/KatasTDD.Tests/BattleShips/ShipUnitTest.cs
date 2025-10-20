@@ -34,12 +34,13 @@ public class Ship
 {
     public ShipType ShipType { get; }
     public int Size { get; }
-    public object MaxAmount { get; set; }
+    public int MaxAmount { get; }
 
     private Ship(ShipType shipType, int size)
     {
         ShipType = shipType;
         Size = size;
+        MaxAmount = 1;
     }
 
     public static Ship Carrier() => new (ShipType.Carrier, size: 4);
