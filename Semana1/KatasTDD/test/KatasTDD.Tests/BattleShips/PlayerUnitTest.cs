@@ -29,6 +29,15 @@ public class PlayerUnitTest
     {
         Board.Rows.Should().Be(10);
     }
+
+    [Fact]
+    public void Board_ShouldHave10x10Cells()
+    {
+        var board = new Board();
+
+        board.Cells.Should().HaveCount(10);
+        board.Cells[0].Should().HaveCount(10);
+    }
 }
 
 public class Player(string nickname)
@@ -41,4 +50,5 @@ public record Board
 {
     public const int Columns = 10;
     public const int Rows = 10;
+    public string[][] Cells { get; set; }
 }
