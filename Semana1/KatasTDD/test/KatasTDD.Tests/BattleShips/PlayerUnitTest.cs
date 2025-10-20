@@ -21,5 +21,7 @@ public class PlayerUnitTest
 
 public record Player(string Nickname)
 {
-    public object Board { get; set; }
+    public Board Board => new();
 }
+
+public class Board { }
