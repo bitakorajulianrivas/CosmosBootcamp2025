@@ -5,11 +5,12 @@ namespace KatasTDD.Tests.BattleShips;
 public class ShipUnitTest
 {
     [Fact]
-    public void Carrier_ShouldHaveSizeOfFourCells()
+    public void Carrier_ShouldHaveSizeOfFourCells_AndMaxAmountOfOneShip()
     {
         var carrier = Ship.Carrier();
 
         carrier.Size.Should().Be(4);
+        carrier.MaxAmount.Should().Be(1);
     }
 
     [Fact]
@@ -33,6 +34,7 @@ public class Ship
 {
     public ShipType ShipType { get; }
     public int Size { get; }
+    public object MaxAmount { get; set; }
 
     private Ship(ShipType shipType, int size)
     {
