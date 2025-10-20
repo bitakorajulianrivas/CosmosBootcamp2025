@@ -33,9 +33,9 @@ public class PlayerUnitTest
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        player.ShipTypes[0].Type.Should().Be(ShipType.Carrier);
-        player.ShipTypes[1].Type.Should().Be(ShipType.Destroyer);
-        player.ShipTypes[2].Type.Should().Be(ShipType.Gunship);
+        player.ShipTypes.Should().ContainKey(ShipType.Carrier);
+        player.ShipTypes.Should().ContainKey(ShipType.Destroyer);
+        player.ShipTypes.Should().ContainKey(ShipType.Gunship);
     }
 
     [Fact]
@@ -43,14 +43,9 @@ public class PlayerUnitTest
     {
         var player = new Player(nickname: "CaptainAugustus");
 
-        //Carrier
-        player.ShipTypes[0].Amount.Should().Be(1);
-
-        //Destroyer
-        player.ShipTypes[1].Amount.Should().Be(2);
-
-        //Gunship
-        player.ShipTypes[2].Amount.Should().Be(4);
+        player.ShipTypes[ShipType.Carrier].Should().Be(1);
+        player.ShipTypes[ShipType.Destroyer].Should().Be(2);
+        player.ShipTypes[ShipType.Gunship].Should().Be(4);
     }
 
     [Fact]
@@ -88,12 +83,10 @@ public class Player(string nickname)
     public string Nickname { get; } = nickname;
     public Board Board => new ();
 
-    public (ShipType Type, int Amount)[] ShipTypes { get; } =
-    [
-        (ShipType.Carrier, 1),
-        (ShipType.Destroyer, 2),
-        (ShipType.Gunship, 4)
-    ];
+    public Dictionary<ShipType, int> ShipTypes { get; } =        new () {
+            {ShipType.Carrier, 1},
+            {ShipType.Destroyer, 2},
+            {ShipType.Gunship, 4} };
 }
 
 public enum ShipType
