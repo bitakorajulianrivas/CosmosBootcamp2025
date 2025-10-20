@@ -23,6 +23,12 @@ public class PlayerUnitTest
     {
         Board.Columns.Should().Be(10);
     }
+
+    [Fact]
+    public void Board_ShouldHave10Rows()
+    {
+        Board.Rows.Should().Be(10);
+    }
 }
 
 public class Player(string nickname)
@@ -34,4 +40,5 @@ public class Player(string nickname)
 public record Board
 {
     public const int Columns = 10;
+    public static object Rows { get; set; }
 }
