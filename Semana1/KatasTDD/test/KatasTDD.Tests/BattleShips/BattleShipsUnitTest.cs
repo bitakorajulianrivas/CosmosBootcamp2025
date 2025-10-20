@@ -4,8 +4,6 @@ namespace KatasTDD.Tests.BattleShips;
 
 public class BattleShipsUnitTest
 {
-    private readonly PlayerUnitTest _playerUnitTest = new PlayerUnitTest();
-
     [Fact]
     public void Start_IfThereAreNoPlayers_ShouldThrowException()
     {
@@ -22,14 +20,14 @@ public class BattleShipsUnitTest
         var battleShip = new BattleShip();
 
         battleShip.AddPlayer(new Player("CaptainAugustus"));
-        battleShip.AddPlayer2(new Player("MarinePhilipe"));
+        battleShip.AddPlayer(new Player("MarinePhilipe"));
         Action action = () => battleShip.Start();
 
         action.Should().NotThrow();
     }
 
     [Fact]
-    public void AddPlayer_ShouldAddPlayerNumber1()
+    public void AddPlayer_ShouldAddPlayerToTheList()
     {
         var battleShip = new BattleShip();
 
@@ -54,26 +52,13 @@ public class BattleShipsUnitTest
 
 public class BattleShip
 {
-    public Player? Player2 { get; private set; }
-    public List<Player> Players { get; set; }
+    public List<Player> Players { get; private set; } = [];
 
     public void Start()
     {
-        if (Players == null || Player2 == null)
+        if (Players.Any() == false)
             throw new Exception("The game should start with 2 players.");
     }
 
-    public void AddPlayer2(Player player)
-    {
-        Player2 = player;
-    }
-
-    public void AddPlayer(Player player)
-    {
-        Players = new List<Player>()
-        {
-            new Player("CaptainAugustus"),
-            new Player("MarinePhilipe")
-        };
-    }
+    public void AddPlayer(Player player) => Players.Add(player);
 }
