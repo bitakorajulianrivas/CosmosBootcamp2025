@@ -10,6 +10,16 @@ public class PlayerUnitTest
         var player = new Player(Nickname: "CaptainAugustus");
         player.Nickname.Should().Be("CaptainAugustus");
     }
+
+    [Fact]
+    public void Player_ShouldHaveABoard()
+    {
+        var player = new Player(Nickname: "CaptainAugustus");
+        player.Board.Should().NotBeNull();
+    }
 }
 
-public record Player(string Nickname);
+public record Player(string Nickname)
+{
+    public object Board { get; set; }
+}
