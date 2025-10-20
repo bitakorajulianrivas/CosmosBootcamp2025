@@ -12,7 +12,7 @@ public class ShipUnitTest
     [Fact]
     public void Ship_ShouldHaveASize()
     {
-        var ship = new Ship(size: 3);
+        var ship = new Ship(ShipType.Destroyer);
 
         ship.Size.Should().Be(3);
     }
@@ -20,7 +20,7 @@ public class ShipUnitTest
     [Fact]
     public void Ship_IfShipIsCarrier_ShouldHaveSizeOfFour()
     {
-        var carrier = new Ship(ShipType.Carrier, size: 4);
+        var carrier = new Ship(ShipType.Carrier);
 
         carrier.Size.Should().Be(4);
     }
@@ -36,17 +36,9 @@ public class ShipUnitTest
 
 public class Ship
 {
-    public Ship(int size)
+    public Ship(ShipType type)
     {
-        Size = size;
-    }
-    public Ship(ShipType Type, int size)
-    {
-        Size = size;
-    }
-    public Ship(ShipType Type)
-    {
-        Size = 3;
+        Size = type == ShipType.Destroyer ? 3: 4;
     }
 
     public object Size { get; }
