@@ -23,7 +23,7 @@ public class PlayerUnitTest
     public void Player_SHouldHave3TypeOfShipsToPlace()
     {
         var player = new Player(nickname: "CaptainAugustus");
-        player.Ships.Should().HaveCount(3);
+        player.ShipType.Should().HaveCount(3);
     }
 
     [Fact]
@@ -60,13 +60,13 @@ public class Player(string nickname)
 {
     public string Nickname { get; } = nickname;
     public Board Board => new ();
-    public List<object> Ships { get; set; } = new()
-    { 
-        new Ship(), new Ship(), new Ship()
-    };
+    public List<ShipType> ShipType { get; } = [
+        new ShipType(), 
+        new ShipType(), 
+        new ShipType()];
 }
 
-public class Ship { }
+public class ShipType { }
 
 public class Board
 {
