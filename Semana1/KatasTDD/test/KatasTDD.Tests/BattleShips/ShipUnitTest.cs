@@ -44,3 +44,10 @@ public class Ship
     public static Ship Destroyer() => new (ShipType.Destroyer, size: 3);
     public static Ship Gunship() => new (ShipType.Gunship, size: 1);
 }
+
+public enum ShipType
+{
+    Carrier = 0,
+    Destroyer = 1,
+    Gunship = 2
+};

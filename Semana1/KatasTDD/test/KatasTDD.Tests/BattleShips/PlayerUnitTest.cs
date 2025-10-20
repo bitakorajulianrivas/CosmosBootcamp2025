@@ -82,10 +82,3 @@ public class Player(string nickname)
         {ShipType.Carrier, 0}
     };
 }
-
-public enum ShipType
-{
-    Carrier = 0,
-    Destroyer = 1,
-    Gunship = 2
-};
