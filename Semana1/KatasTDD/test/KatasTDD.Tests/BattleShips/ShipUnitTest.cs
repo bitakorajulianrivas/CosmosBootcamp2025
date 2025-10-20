@@ -46,7 +46,8 @@ public class Ship
 {
     public Ship(ShipType type)
     {
-        Size = type == ShipType.Destroyer ? 3: 4;
+        Size = type == ShipType.Destroyer ? 3 : 
+            type == ShipType.Carrier ? 4 : 1;
     }
 
     public object Size { get; }
