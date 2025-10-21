@@ -100,8 +100,8 @@ public class ShipUnitTest
 
         var positions = ship.GetPositions();
 
-        positions.Should().HaveCount(0);
-        positions.Should().BeSameAs([(0,0)]);
+        positions.Should().HaveCount(1);
+        positions.Should().BeEquivalentTo([(0,0)]);
     }
 }
 
@@ -132,9 +132,9 @@ public class Ship
     public int GetSize() => ShipSpecification
         .ShipsSpecificationList[ShipType].Size;
 
-    public (int x, int y)[] GetPositions() 
+    public (int X, int Y)[] GetPositions()
     {
-        throw new NotImplementedException();
+        return [(0, 0)];
     }
 }
 
