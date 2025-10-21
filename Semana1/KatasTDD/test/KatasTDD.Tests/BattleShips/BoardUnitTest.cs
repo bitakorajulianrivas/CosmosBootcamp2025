@@ -60,7 +60,7 @@ public class BoardUnitTest
     }
 
     [Fact]
-    public void PlaceShip_IfThereIsNoShipsInTheCoordinates_ShouldReplaceCells()
+    public void PlaceShip_IfPlaceGunshipAndThereIsNoShipInTheCoordinate_ShouldReplaceCells()
     {
         var board = new Board();
         Ship ship = new Ship(ShipType.Gunship, coordinates: (X: 5, Y: 5));
@@ -71,7 +71,7 @@ public class BoardUnitTest
     }
 
     [Fact]
-    public void PlaceShip_IfPlaceCarrierAndThereIsNoShipsInTheCoordinates_ShouldReplaceCells()
+    public void PlaceShip_IfPlaceCarrierAndThereAreNoShipsInTheCoordinates_ShouldReplaceCells()
     {
         var board = new Board();
         Ship ship = new Ship(ShipType.Carrier, coordinates: (X: 3, Y: 0));
