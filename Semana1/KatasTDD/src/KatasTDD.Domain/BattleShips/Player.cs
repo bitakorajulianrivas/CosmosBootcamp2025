@@ -27,6 +27,7 @@ public class Player
 
     public void PlaceShipOnBoard(Ship ship)
     {
+        Board.PlaceShip(ship);
         ShipsPlacedPerType[ship.ShipType] = 1;
     }
 }

@@ -88,6 +88,18 @@ public class PlayerUnitTest
     }
 
     [Fact]
+    public void PlaceShipOnBoard_ShouldPlaceShipInsideBoard()
+    {
+        var player = new Player(nickname: "CaptainAugustus");
+        Ship ship = new Ship(ShipType.Gunship, coordinates: (X: 5, Y: 5));
+
+        player.PlaceShipOnBoard(ship);
+
+        player.Board.Cells[5,5]
+            .Should().Be('G');
+    }
+
+    [Fact]
     public void PlaceShipOnBoard_IfThereAreNoShipsPlaced_ShouldAddShipsPlacedPerType()
     {
         var player = new Player(nickname: "CaptainAugustus");
@@ -98,5 +110,4 @@ public class PlayerUnitTest
         player.ShipsPlacedPerType[ShipType.Gunship]
             .Should().Be(1);
     }
-
 }
