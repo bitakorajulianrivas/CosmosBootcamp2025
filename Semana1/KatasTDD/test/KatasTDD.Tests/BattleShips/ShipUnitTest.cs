@@ -18,7 +18,7 @@ public class Ship
 {
     public Ship(ShipType shipType, (int, int) coordinates)
     {
-        throw new NotImplementedException();
+        Coordinates = (0, 0);
     }
 
     public object Coordinates { get; }
