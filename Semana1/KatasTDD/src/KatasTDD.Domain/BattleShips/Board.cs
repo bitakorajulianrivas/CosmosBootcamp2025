@@ -22,6 +22,10 @@ public class Board
 
     public void PlaceShip(Ship ship)
     {
-        throw new Exception("The ship's position is out of the board bounds.");
+        foreach (var position in ship.GetPositions())
+        {
+            if(position.X >= Rows)
+                throw new Exception("The ship's position is out of the board bounds.");
+        }
     }
 }
