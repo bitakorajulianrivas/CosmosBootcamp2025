@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using KatasTDD.Domain.BattleShips.Enums;
+using KatasTDD.Domain.BattleShips;
 
 namespace KatasTDD.Tests.BattleShips;
 
@@ -8,7 +9,7 @@ public class ShipSpecificationUnitTest
     [Fact]
     public void Carrier_ShouldHaveSizeOfFourCells_AndMaxAmountOfOneShip()
     {
-        var carrier = Domain.BattleShips.ShipSpecification.Carrier();
+        var carrier = ShipSpecification.Carrier();
 
         carrier.ShipType.Should().Be(ShipType.Carrier);
         carrier.Size.Should().Be(4);
@@ -18,7 +19,7 @@ public class ShipSpecificationUnitTest
     [Fact]
     public void Destroyer_ShouldHaveSizeOfThreeCells_AndMaxAmountOfTwoShips()
     {
-        var destroyer = Domain.BattleShips.ShipSpecification.Destroyer();
+        var destroyer = ShipSpecification.Destroyer();
 
         destroyer.ShipType.Should().Be(ShipType.Destroyer);
         destroyer.Size.Should().Be(3);
@@ -28,7 +29,7 @@ public class ShipSpecificationUnitTest
     [Fact]
     public void Gunship_ShouldHaveSizeOfOne_AndMaxAmountOfFourShips()
     {
-        var gunship = Domain.BattleShips.ShipSpecification.Gunship();
+        var gunship = ShipSpecification.Gunship();
 
         gunship.ShipType.Should().Be(ShipType.Gunship);
         gunship.Size.Should().Be(1);
@@ -38,7 +39,7 @@ public class ShipSpecificationUnitTest
     [Fact]
     public void Carrier_ShouldHaveLetter_C()
     {
-        var carrier = Domain.BattleShips.ShipSpecification.Carrier();
+        var carrier = ShipSpecification.Carrier();
 
         carrier.Letter.Should().Be('C');
     }
@@ -46,7 +47,7 @@ public class ShipSpecificationUnitTest
     [Fact]
     public void Destroyer_ShouldHaveLetter_D()
     {
-        var destroyer = Domain.BattleShips.ShipSpecification.Destroyer();
+        var destroyer = ShipSpecification.Destroyer();
 
         destroyer.Letter.Should().Be('D');
     }
@@ -54,7 +55,7 @@ public class ShipSpecificationUnitTest
     [Fact]
     public void Gunship_ShouldHaveLetter_G()
     {
-        var gunship = Domain.BattleShips.ShipSpecification.Gunship();
+        var gunship = ShipSpecification.Gunship();
 
         gunship.Letter.Should().Be('G');
     }
