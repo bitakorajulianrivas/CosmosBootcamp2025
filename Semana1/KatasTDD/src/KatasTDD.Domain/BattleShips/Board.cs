@@ -29,7 +29,11 @@ public class Board
 
             if (ship.ShipType == ShipType.Carrier)
                 Cells[position.X, position.Y] = "C";
-            else
+            
+            else if (ship.ShipType == ShipType.Destroyer)
+                Cells[position.X, position.Y] = "D";
+
+            else 
                 Cells[position.X, position.Y] = "G";
 
         }
