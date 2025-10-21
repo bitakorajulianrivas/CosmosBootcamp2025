@@ -23,11 +23,12 @@ public class ShipUnitTest
     }
 
     [Fact]
-    public void Gunship_ShouldHaveSizeOfOne()
+    public void Gunship_ShouldHaveSizeOfOne_AndMaxAmountOfFourShips()
     {
         var carrier = Ship.Gunship();
 
         carrier.Size.Should().Be(1);
+        carrier.MaxAmount.Should().Be(4);
     }
 }
 
