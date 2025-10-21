@@ -93,7 +93,7 @@ public class ShipUnitTest
     }
 
     [Fact]
-    public void GetPositions_IfShipTypeIsGunShip_ShouldReturnOneCoordinate()
+    public void GetPositions_IfShipTypeIsGunShip_ShouldReturnOneCoordinatePosition()
     {
         var ship = new Ship(ShipType.Gunship,
             coordinates: (X: 0, Y: 0));
@@ -102,6 +102,18 @@ public class ShipUnitTest
 
         positions.Should().HaveCount(1);
         positions.Should().BeEquivalentTo([(0,0)]);
+    }
+
+    [Fact]
+    public void GetPositions_IfShipTypeIsDestroyerAndHorizontalDirection_ShouldReturnthreeCoordinatePositions()
+    {
+        var ship = new Ship(ShipType.Destroyer,
+            coordinates: (X: 0, Y: 0));
+
+        var positions = ship.GetPositions();
+
+        positions.Should().HaveCount(3);
+        positions.Should().BeEquivalentTo([(0, 0), (1,0), (2,0)]);
     }
 }
 
