@@ -52,5 +52,5 @@ public class Ship
 public enum ShipPosition : byte
 {
     Horizontal = 0,
-    Vertical = byte.MaxValue
+    Vertical = 1
 }
