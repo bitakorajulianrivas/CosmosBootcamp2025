@@ -44,6 +44,17 @@ public class ShipUnitTest
 
         size.Should().Be(4);
     }
+
+    [Fact]
+    public void GetSize_IfShipTypeIsDestroyer_ShouldReturnDestroyerSize()
+    {
+        var ship = new Ship(ShipType.Destroyer,
+            Coordinates: (X: 0, Y: 0));
+
+        int size = ship.GetSize();
+
+        size.Should().Be(3);
+    }
 }
 
 public record Ship(ShipType ShipType,
