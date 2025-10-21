@@ -19,7 +19,7 @@ public class ShipUnitTest
         var carrier = Ship.Destroyer();
 
         carrier.Size.Should().Be(3);
-        carrier.MaxAmount.Should().Be(3);
+        carrier.MaxAmount.Should().Be(2);
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public class Ship
     }
 
     public static Ship Carrier() => new (ShipType.Carrier, size: 4, maxAmount: 1);
-    public static Ship Destroyer() => new (ShipType.Destroyer, size: 3, maxAmount: 1);
+    public static Ship Destroyer() => new (ShipType.Destroyer, size: 3, maxAmount: 2);
     public static Ship Gunship() => new (ShipType.Gunship, size: 1, maxAmount: 1);
 }
 
