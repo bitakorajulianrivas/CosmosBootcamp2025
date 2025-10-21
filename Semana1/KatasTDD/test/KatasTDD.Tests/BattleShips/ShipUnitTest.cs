@@ -100,7 +100,7 @@ public class Ship
 
     private void ValidateCoordinates((int X, int Y) coordinates)
     {
-        if (coordinates.X >= 10)
+        if (coordinates.X >= Board.Columns)
             throw new Exception("The ship's position is outside the valid board interval.");
     }
 
