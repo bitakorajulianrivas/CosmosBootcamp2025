@@ -26,6 +26,18 @@ public class ShipUnitTest
             .WithMessage("The ship's position is outside the valid board interval.");
     }
 
+    [Fact]
+    public void Ship_IfRowsNumberExceedTheMaximumRowsAllowed_ShouldThrowException()
+    {
+        int rowsNumber = 10;
+
+        Action action = () => new Ship(ShipType.Carrier,
+            coordinates: (X: 0, Y: rowsNumber));
+
+        action.Should().ThrowExactly<Exception>()
+            .WithMessage("The ship's position is outside the valid board interval.");
+    }
+
 
     [Fact]
     public void Ship_ShouldHaveHorizontalPositionAsDefault()
