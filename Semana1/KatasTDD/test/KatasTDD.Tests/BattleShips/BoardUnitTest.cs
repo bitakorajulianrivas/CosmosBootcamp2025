@@ -58,6 +58,17 @@ public class BoardUnitTest
         action.Should().ThrowExactly<Exception>()
             .WithMessage("The ship's position is out of the board bounds.");
     }
+
+    [Fact]
+    public void PlaceShip_IfThereIsNoShipsInTheCoordinates_ShouldReplaceCells()
+    {
+        var board = new Board();
+        Ship ship = new Ship(ShipType.Gunship, coordinates: (X: 5, Y: 5));
+
+        board.PlaceShip(ship);
+
+        board.Cells[5, 5].Should().Be("G");
+    }
 }
 
 public static class BoardTestExtensions
