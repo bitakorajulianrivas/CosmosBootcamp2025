@@ -18,4 +18,9 @@ public class Player(string nickname)
         {ShipType.Destroyer, 0},
         {ShipType.Gunship, 0}
     };
+
+    public void PlaceShipOnBoard(Ship ship)
+    {
+        throw new NotImplementedException();
+    }
 }
