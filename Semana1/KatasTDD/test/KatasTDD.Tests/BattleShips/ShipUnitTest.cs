@@ -134,7 +134,7 @@ public class Ship
 
     public (int X, int Y)[] GetPositions()
     {
-        return [(0, 0)];
+        return [Coordinates];
     }
 }
 
