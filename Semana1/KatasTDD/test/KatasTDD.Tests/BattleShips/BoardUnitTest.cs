@@ -36,7 +36,7 @@ public class BoardUnitTest
     }
 
     [Fact]
-    public void PlaceShip_IfShipPositionsIsOutOfBounds_ShouldThrowException()
+    public void PlaceShip_IfShipPositionsIsOutOfBounds_OnTheXAxis_ShouldThrowException()
     {
         var board = new Board();
 
