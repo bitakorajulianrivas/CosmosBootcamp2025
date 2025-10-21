@@ -43,10 +43,8 @@ public class Board
         for (int column = 0; column < Columns; column++)
         {
             board += $" {column} |";
-            for (int row = 0; row < Rows; row++)
-            {
-                board += $" {EmptyCell} |";
-            }
+            for (int row = 0; row < Rows; row++) 
+                board += $" {Cells[row, column]} |";
 
             board += " \n";
         }
