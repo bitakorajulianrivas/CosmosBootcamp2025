@@ -1,4 +1,6 @@
-﻿namespace KatasTDD.Domain.BattleShips;
+﻿using System.Data;
+
+namespace KatasTDD.Domain.BattleShips;
 
 public class Board
 {
@@ -20,6 +22,6 @@ public class Board
 
     public void PlaceShip(Ship ship)
     {
-        throw new NotImplementedException();
+        throw new Exception("The ship's position is out of the board bounds.");
     }
 }
