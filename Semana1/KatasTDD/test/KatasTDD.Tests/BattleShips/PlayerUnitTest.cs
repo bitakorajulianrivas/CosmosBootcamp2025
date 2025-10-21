@@ -23,34 +23,6 @@ public class PlayerUnitTest
     }
 
     [Fact]
-    public void Player_ShouldHave3TypeOfShipsToPlace()
-    {
-        var player = new Player(nickname: "CaptainAugustus");
-
-        player.ShipTypes.Should().HaveCount(3);
-    }
-
-    [Fact]
-    public void Player_ShouldHave3TypeOfShipsToPlace_Carriers_Destroyers_AndGunShips()
-    {
-        var player = new Player(nickname: "CaptainAugustus");
-
-        player.ShipTypes.Should().ContainKey(ShipType.Carrier);
-        player.ShipTypes.Should().ContainKey(ShipType.Destroyer);
-        player.ShipTypes.Should().ContainKey(ShipType.Gunship);
-    }
-
-    [Fact]
-    public void Player_ShouldHave3TypeOfShipsToPlace_1Carriers2Destroyers_And4GunShips()
-    {
-        var player = new Player(nickname: "CaptainAugustus");
-
-        player.ShipTypes[ShipType.Carrier].Should().Be(1);
-        player.ShipTypes[ShipType.Destroyer].Should().Be(2);
-        player.ShipTypes[ShipType.Gunship].Should().Be(4);
-    }
-
-    [Fact]
     public void Player_ShouldNotHaveShipPlacedOnBoard()
     {
         var player = new Player(nickname: "CaptainAugustus");

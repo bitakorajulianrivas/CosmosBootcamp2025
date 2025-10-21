@@ -20,11 +20,6 @@ public class Player
         };
     }
 
-    public Dictionary<ShipType, int> ShipTypes { get; } = new () {
-        {ShipType.Carrier, 1},
-        {ShipType.Destroyer, 2},
-        {ShipType.Gunship, 4} };
-
     public void PlaceShipOnBoard(Ship ship)
     {
         if (ShipsPlacedPerType[ship.ShipType] >= ship.GetMaxShipsPerType())
