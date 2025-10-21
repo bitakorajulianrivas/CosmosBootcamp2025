@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace KatasTDD.Domain.BattleShips;
+﻿namespace KatasTDD.Domain.BattleShips;
 
 public class Board
 {
