@@ -139,6 +139,38 @@ public class BoardUnitTest
 
         boardPrinted.Should().Be(expectedBoard);
     }
+
+    [Fact]
+    public void Print_IfThereIsACarrierPlaced_ShouldReturnBoardWithShip()
+    {
+        var expectedBoard = "\n" +
+            "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+            "-------------------------------------------| \n" +
+            " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 1 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 2 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 3 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 4 |   |   | C | C | C | C |   |   |   |   | \n" +
+            " 5 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 6 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 7 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
+            "-------------------------------------------| \n" +
+            "\n";
+
+        var board = new Board();
+
+        Ship carrier = new Ship(ShipType.Carrier, 
+            coordinates: (2, 4));
+
+        board.PlaceShip(carrier);
+
+        string boardPrinted = board.Print();
+
+
+        boardPrinted.Should().Be(expectedBoard);
+    }
 }
 
 public static class BoardTestExtensions
