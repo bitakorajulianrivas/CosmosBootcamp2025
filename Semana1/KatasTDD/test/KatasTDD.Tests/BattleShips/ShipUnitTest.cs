@@ -52,7 +52,7 @@ public class Ship
         size: 3, maxAmount: 2);
 
     public static Ship Gunship() => new (ShipType.Gunship, 
-        size: 1, maxAmount: 1);
+        size: 1, maxAmount: 4);
 }
 
 public enum ShipType
