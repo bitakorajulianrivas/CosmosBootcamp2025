@@ -35,27 +35,27 @@ public class ShipSpecificationUnitTest
     }
 
     [Fact]
-    public void Carrier_ShouldHaveIcon_C()
+    public void Carrier_ShouldHaveLetter_C()
     {
         var carrier = ShipSpecification.Carrier();
 
-        carrier.Icon.Should().Be('C');
+        carrier.Letter.Should().Be('C');
     }
 
     [Fact]
-    public void Destroyer_ShouldHaveIcon_D()
+    public void Destroyer_ShouldHaveLetter_D()
     {
         var destroyer = ShipSpecification.Destroyer();
 
-        destroyer.Icon.Should().Be('D');
+        destroyer.Letter.Should().Be('D');
     }
 
     [Fact]
-    public void Gunship_ShouldHaveIcon_G()
+    public void Gunship_ShouldHaveLetter_G()
     {
         var gunship = ShipSpecification.Gunship();
 
-        gunship.Icon.Should().Be('G');
+        gunship.Letter.Should().Be('G');
     }
 }
 
@@ -64,24 +64,24 @@ public class ShipSpecification
     public ShipType ShipType { get; }
     public int Size { get; }
     public int MaxAmount { get; }
-    public char Icon { get; set; }
+    public char Letter { get; set; }
 
-    private ShipSpecification(ShipType shipType, int size, int maxAmount, char icon)
+    private ShipSpecification(ShipType shipType, int size, int maxAmount, char letter)
     {
         ShipType = shipType;
         Size = size;
         MaxAmount = maxAmount;
-        Icon = icon;
+        Letter = letter;
     }
 
     public static ShipSpecification Carrier() => new (ShipType.Carrier, 
-        size: 4, maxAmount: 1, icon: 'C');
+        size: 4, maxAmount: 1, letter: 'C');
 
     public static ShipSpecification Destroyer() => new (ShipType.Destroyer, 
-        size: 3, maxAmount: 2, icon: 'D');
+        size: 3, maxAmount: 2, letter: 'D');
 
     public static ShipSpecification Gunship() => new (ShipType.Gunship, 
-        size: 1, maxAmount: 4, icon: 'G');
+        size: 1, maxAmount: 4, letter: 'G');
 }
 
 public enum ShipType
