@@ -23,7 +23,7 @@ public class ShipUnitTest
             coordinates: (X: colsNumber, Y: 0));
 
         action.Should().ThrowExactly<Exception>()
-            .WithMessage("The ship's position is outside the valid board interval.");
+            .WithMessage("The ship's direction is outside the valid board interval.");
     }
 
     [Fact]
@@ -35,28 +35,28 @@ public class ShipUnitTest
             coordinates: (X: 0, Y: rowsNumber));
 
         action.Should().ThrowExactly<Exception>()
-            .WithMessage("The ship's position is outside the valid board interval.");
+            .WithMessage("The ship's direction is outside the valid board interval.");
     }
 
 
     [Fact]
-    public void Ship_ShouldHaveHorizontalPositionAsDefault()
+    public void Ship_ShouldHaveHorizontalDirectionAsDefault()
     {
         var ship = new Ship(ShipType.Carrier, coordinates: (X: 0, Y: 0));
 
-        ship.Position.Should().Be(ShipPosition.Horizontal);
+        ship.Direction.Should().Be(ShipDirection.Horizontal);
     }
 
     [Fact]
-    public void Ship_ShouldHaveVerticalPosition()
+    public void Ship_ShouldHaveVerticalDirection()
     {
-        ShipPosition shipPosition = ShipPosition.Vertical;
+        ShipDirection shipDirection = ShipDirection.Vertical;
 
         var ship = new Ship(ShipType.Carrier, 
             coordinates: (X: 0, Y: 0), 
-            shipPosition);
+            shipDirection);
 
-        ship.Position.Should().Be(ShipPosition.Vertical);
+        ship.Direction.Should().Be(ShipDirection.Vertical);
     }
 
     [Fact]
@@ -90,38 +90,38 @@ public class ShipUnitTest
         int size = ship.GetSize();
 
         size.Should().Be(1);
-    }    
+    }
 }
 
 public class Ship
 {
     public (int X, int Y) Coordinates { get; }
-    public ShipPosition Position { get; }
+    public ShipDirection Direction { get; }
     private ShipType ShipType { get; }
 
     public Ship(ShipType shipType,
         (int X, int Y) coordinates, 
-        ShipPosition position = ShipPosition.Horizontal)
+        ShipDirection direction = ShipDirection.Horizontal)
     {
         ValidateCoordinates(coordinates);
 
         ShipType = shipType;
         Coordinates = coordinates;
-        Position = position;
+        Direction = direction;
     }
 
     private void ValidateCoordinates((int X, int Y) coordinates)
     {
         if (coordinates.X >= Board.Columns || 
             coordinates.Y >= Board.Columns)
-            throw new Exception("The ship's position is outside the valid board interval.");
+            throw new Exception("The ship's direction is outside the valid board interval.");
     }
 
     public int GetSize() => ShipSpecification
         .ShipsSpecificationList[ShipType].Size;
 }
 
-public enum ShipPosition : byte
+public enum ShipDirection : byte
 {
     Horizontal = 0,
     Vertical = 1
