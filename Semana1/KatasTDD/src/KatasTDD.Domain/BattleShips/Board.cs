@@ -1,4 +1,6 @@
-﻿namespace KatasTDD.Domain.BattleShips;
+﻿using KatasTDD.Domain.BattleShips.Enums;
+
+namespace KatasTDD.Domain.BattleShips;
 
 public class Board
 {
@@ -25,7 +27,7 @@ public class Board
             if(position.X >= Columns || position.Y >= Columns)
                 throw new Exception("The ship's position is out of the board bounds.");
 
-            Cells[position.X, position.Y] = "G";
+            Cells[position.X, position.Y] = ShipType.Gunship.ToString().Substring(0,1);
         }
     }
 }

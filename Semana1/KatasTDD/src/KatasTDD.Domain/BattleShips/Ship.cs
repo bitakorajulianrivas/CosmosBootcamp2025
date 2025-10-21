@@ -4,9 +4,9 @@ namespace KatasTDD.Domain.BattleShips;
 
 public class Ship
 {
+    public ShipType ShipType { get; }
     public (int X, int Y) Coordinates { get; }
     public ShipDirection Direction { get; }
-    private ShipType ShipType { get; }
 
     public Ship(ShipType shipType,
         (int X, int Y) coordinates, 
