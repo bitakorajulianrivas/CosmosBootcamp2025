@@ -127,7 +127,7 @@ public class PlayerUnitTest
     }
 
     [Fact]
-    public void ()
+    public void PlaceShipOnBoard_IfAlreadyPlacedTwoDestroyersOnBoard_ShouldThrowException()
     {
         var player = new Player(nickname: "CaptainAugustus");
 
