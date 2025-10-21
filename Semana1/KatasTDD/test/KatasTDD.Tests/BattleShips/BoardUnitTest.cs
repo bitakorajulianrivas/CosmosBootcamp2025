@@ -69,6 +69,20 @@ public class BoardUnitTest
 
         board.Cells[5, 5].Should().Be("G");
     }
+
+    [Fact]
+    public void PlaceShip_IfPlaceCarrierAndThereIsNoShipsInTheCoordinates_ShouldReplaceCells()
+    {
+        var board = new Board();
+        Ship ship = new Ship(ShipType.Carrier, coordinates: (X: 3, Y: 0));
+
+        board.PlaceShip(ship);
+
+        board.Cells[3, 0].Should().Be("C");
+        board.Cells[4, 0].Should().Be("C");
+        board.Cells[5, 0].Should().Be("C");
+        board.Cells[6, 0].Should().Be("C");
+    }
 }
 
 public static class BoardTestExtensions
