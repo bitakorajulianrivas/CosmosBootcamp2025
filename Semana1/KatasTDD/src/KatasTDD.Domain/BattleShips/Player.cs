@@ -36,6 +36,6 @@ public class Player
             throw new Exception("All destroyers have been placed on the board.");
 
         Board.PlaceShip(ship);
-        ShipsPlacedPerType[ship.ShipType] = ShipsPlacedPerType[ship.ShipType] + 1;
+        ShipsPlacedPerType[ship.ShipType]++;
     }
 }
