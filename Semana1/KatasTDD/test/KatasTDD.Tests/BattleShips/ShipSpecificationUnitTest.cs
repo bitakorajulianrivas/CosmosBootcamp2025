@@ -49,6 +49,14 @@ public class ShipSpecificationUnitTest
 
         destroyer.Icon.Should().Be('D');
     }
+
+    [Fact]
+    public void Gunship_ShouldHaveIcon_G()
+    {
+        var gunship = ShipSpecification.Gunship();
+
+        gunship.Icon.Should().Be('G');
+    }
 }
 
 public class ShipSpecification
