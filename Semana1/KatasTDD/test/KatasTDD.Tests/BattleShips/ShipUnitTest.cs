@@ -14,7 +14,7 @@ public class ShipUnitTest
     }
 
     [Fact]
-    public void Destoyer_ShouldHaveSizeOfThreeCells_AndMaxAmountOfTwoShips()
+    public void Destroyer_ShouldHaveSizeOfThreeCells_AndMaxAmountOfTwoShips()
     {
         var carrier = Ship.Destroyer();
 
@@ -44,9 +44,14 @@ public class Ship
         MaxAmount = maxAmount;
     }
 
-    public static Ship Carrier() => new (ShipType.Carrier, size: 4, maxAmount: 1);
-    public static Ship Destroyer() => new (ShipType.Destroyer, size: 3, maxAmount: 2);
-    public static Ship Gunship() => new (ShipType.Gunship, size: 1, maxAmount: 1);
+    public static Ship Carrier() => new (ShipType.Carrier, 
+        size: 4, maxAmount: 1);
+
+    public static Ship Destroyer() => new (ShipType.Destroyer, 
+        size: 3, maxAmount: 2);
+
+    public static Ship Gunship() => new (ShipType.Gunship, 
+        size: 1, maxAmount: 1);
 }
 
 public enum ShipType
