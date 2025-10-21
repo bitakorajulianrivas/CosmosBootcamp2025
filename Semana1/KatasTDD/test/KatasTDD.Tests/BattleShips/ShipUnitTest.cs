@@ -91,6 +91,18 @@ public class ShipUnitTest
 
         size.Should().Be(1);
     }
+
+    [Fact]
+    public void GetPositions_IfShipTypeIsGunShip_ShouldReturnOneCoordinate()
+    {
+        var ship = new Ship(ShipType.Gunship,
+            coordinates: (X: 0, Y: 0));
+
+        var positions = ship.GetPositions();
+
+        positions.Should().HaveCount(0);
+        positions.Should().BeSameAs([(0,0)]);
+    }
 }
 
 public class Ship
@@ -119,6 +131,11 @@ public class Ship
 
     public int GetSize() => ShipSpecification
         .ShipsSpecificationList[ShipType].Size;
+
+    public (int x, int y)[] GetPositions() 
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public enum ShipDirection : byte
