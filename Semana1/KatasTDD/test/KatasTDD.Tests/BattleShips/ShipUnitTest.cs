@@ -178,7 +178,11 @@ public class Ship
             Direction == ShipDirection.Vertical)
             return [(0, 0), (0, 1), (0, 2)];
 
-        return [(0, 0), (1, 0), (2, 0)];
+        if (ShipType == ShipType.Destroyer &&
+            Direction == ShipDirection.Horizontal)
+            return [(0, 0), (1, 0), (2, 0)];
+
+        return [(0, 0), (1, 0), (2, 0), (3,0)];
     }
 }
 
