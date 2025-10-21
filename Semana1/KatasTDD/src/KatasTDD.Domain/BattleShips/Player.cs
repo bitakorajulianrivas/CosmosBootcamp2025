@@ -27,6 +27,9 @@ public class Player
 
     public void PlaceShipOnBoard(Ship ship)
     {
+        if (ship.ShipType == ShipType.Carrier && ShipsPlacedPerType[ShipType.Carrier] >= 1)
+            throw new Exception("All carriers have been placed on the board.");
+
         Board.PlaceShip(ship);
         ShipsPlacedPerType[ship.ShipType] = 1;
     }
