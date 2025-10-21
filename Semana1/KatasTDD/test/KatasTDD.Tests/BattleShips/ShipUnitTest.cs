@@ -50,6 +50,17 @@ public class ShipUnitTest
             .WithMessage("The ship's direction is outside the valid board interval.");
     }
 
+    [Fact]
+    public void Ship_IfRowsNumberIsUnderTheMinimunRowsAllowed_ShouldThrowException()
+    {
+        int rowsNumber = -1;
+
+        Action action = () => new Ship(ShipType.Carrier,
+            coordinates: (X: 0, Y: rowsNumber));
+
+        action.Should().ThrowExactly<Exception>()
+            .WithMessage("The ship's direction is outside the valid board interval.");
+    }
 
     [Fact]
     public void Ship_ShouldHaveHorizontalDirectionAsDefault()
