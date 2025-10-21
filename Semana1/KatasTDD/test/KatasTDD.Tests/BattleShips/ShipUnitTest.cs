@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using KatasTDD.Domain.BattleShips;
 using KatasTDD.Domain.BattleShips.Enums;
-using Microsoft.VisualStudio.CodeCoverage;
 
 namespace KatasTDD.Tests.BattleShips;
 
@@ -14,6 +13,19 @@ public class ShipUnitTest
 
         ship.Coordinates.Should().Be((0, 0));
     }
+
+    [Fact]
+    public void Ship_IfColsNumberExceedTheMaximumColsAllowed_ShouldThrowException()
+    {
+        int colsNumber = 10;
+
+        Action action = () => new Ship(ShipType.Carrier, 
+            Coordinates: (X: colsNumber, Y: 0));
+
+        action.Should().ThrowExactly<Exception>()
+            .WithMessage("The ship's position is outside the valid board interval.");
+    }
+
 
     [Fact]
     public void Ship_ShouldHaveHorizontalPositionAsDefault()
