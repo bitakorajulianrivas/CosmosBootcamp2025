@@ -27,12 +27,11 @@ public class Board
             if(position.X >= Columns || position.Y >= Columns)
                 throw new Exception("The ship's position is out of the board bounds.");
 
-
             if (ship.ShipType == ShipType.Carrier)
                 Cells[position.X, position.Y] = "C";
-
-            if (ship.ShipType == ShipType.Gunship)
+            else
                 Cells[position.X, position.Y] = "G";
+
         }
     }
 }
