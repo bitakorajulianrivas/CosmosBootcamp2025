@@ -174,13 +174,14 @@ public class Ship
         if (ShipType == ShipType.Gunship)
             return ([Coordinates]);
 
-        if (ShipType == ShipType.Destroyer && 
-            Direction == ShipDirection.Vertical)
-            return [(0, 0), (0, 1), (0, 2)];
+        if (ShipType == ShipType.Destroyer)
+        {
+            if (Direction == ShipDirection.Vertical)
+                return [(0, 0), (0, 1), (0, 2)];
 
-        if (ShipType == ShipType.Destroyer &&
-            Direction == ShipDirection.Horizontal)
-            return [(0, 0), (1, 0), (2, 0)];
+            if (Direction == ShipDirection.Horizontal)
+                return [(0, 0), (1, 0), (2, 0)];
+        }
 
         return [(0, 0), (1, 0), (2, 0), (3,0)];
     }
