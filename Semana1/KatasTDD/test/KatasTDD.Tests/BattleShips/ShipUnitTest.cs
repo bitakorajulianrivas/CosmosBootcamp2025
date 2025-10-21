@@ -51,7 +51,7 @@ public record Ship(ShipType ShipType,
 {
     public int GetSize()
     {
-        throw new NotImplementedException();
+        return 4;
     }
 }
 
