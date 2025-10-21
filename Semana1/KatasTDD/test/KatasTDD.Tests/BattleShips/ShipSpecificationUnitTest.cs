@@ -39,7 +39,7 @@ public class ShipSpecificationUnitTest
     {
         var carrier = ShipSpecification.Carrier();
 
-        carrier.Icon.Should().Be("C");
+        carrier.Icon.Should().Be('C');
     }
 }
 
@@ -50,21 +50,22 @@ public class ShipSpecification
     public int MaxAmount { get; }
     public object Icon { get; set; }
 
-    private ShipSpecification(ShipType shipType, int size, int maxAmount)
+    private ShipSpecification(ShipType shipType, int size, int maxAmount, object icon)
     {
         ShipType = shipType;
         Size = size;
         MaxAmount = maxAmount;
+        Icon = icon;
     }
 
     public static ShipSpecification Carrier() => new (ShipType.Carrier, 
-        size: 4, maxAmount: 1);
+        size: 4, maxAmount: 1, icon: 'C');
 
     public static ShipSpecification Destroyer() => new (ShipType.Destroyer, 
-        size: 3, maxAmount: 2);
+        size: 3, maxAmount: 2, icon: string.Empty);
 
     public static ShipSpecification Gunship() => new (ShipType.Gunship, 
-        size: 1, maxAmount: 4);
+        size: 1, maxAmount: 4, icon: string.Empty);
 }
 
 public enum ShipType
