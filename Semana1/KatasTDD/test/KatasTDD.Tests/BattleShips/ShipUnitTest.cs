@@ -14,11 +14,12 @@ public class ShipUnitTest
     }
 
     [Fact]
-    public void Destoyer_ShouldHaveSizeOfThreeCells()
+    public void Destoyer_ShouldHaveSizeOfThreeCells_AndMaxAmountOfTwoShips()
     {
         var carrier = Ship.Destroyer();
 
         carrier.Size.Should().Be(3);
+        carrier.MaxAmount.Should().Be(3);
     }
 
     [Fact]
