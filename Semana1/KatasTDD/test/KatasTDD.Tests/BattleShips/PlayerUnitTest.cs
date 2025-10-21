@@ -144,4 +144,29 @@ public class PlayerUnitTest
         action.Should().ThrowExactly<Exception>()
             .WithMessage("All destroyers have been placed on the board.");
     }
+
+    [Fact]
+    public void PlaceShipOnBoard_IfAlreadyPlacedFourGunshipsOnBoard_ShouldThrowException()
+    {
+        var player = new Player(nickname: "CaptainAugustus");
+
+        var firstGunShip = new Ship(ShipType.Gunship, coordinates: (0, 0));
+        player.PlaceShipOnBoard(firstGunShip);
+
+        var secondGunship = new Ship(ShipType.Gunship, coordinates: (1, 1));
+        player.PlaceShipOnBoard(secondGunship);
+
+        var thirdGunship = new Ship(ShipType.Gunship, coordinates: (2, 2));
+        player.PlaceShipOnBoard(thirdGunship);
+
+        var fourthGunship = new Ship(ShipType.Gunship, coordinates: (3, 3));
+        player.PlaceShipOnBoard(fourthGunship);
+
+        Ship fiftGunship = new Ship(ShipType.Gunship, coordinates: (X: 4, Y: 4));
+
+        Action action = () => player.PlaceShipOnBoard(fiftGunship);
+
+        action.Should().ThrowExactly<Exception>()
+            .WithMessage("All gunships have been placed on the board.");
+    }
 }
