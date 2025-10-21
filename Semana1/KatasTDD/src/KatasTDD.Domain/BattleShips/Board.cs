@@ -27,7 +27,10 @@ public class Board
             if(position.X >= Columns || position.Y >= Columns)
                 throw new Exception("The ship's position is out of the board bounds.");
 
-                Cells[position.X, position.Y] = ship.GetLetter();
+            if (Cells[position.X, position.Y] != ' ')
+                throw new Exception($"There is a ship in the position (5, 5).");
+
+            Cells[position.X, position.Y] = ship.GetLetter();
         }
     }
 }
