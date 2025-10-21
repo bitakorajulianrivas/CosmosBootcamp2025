@@ -9,7 +9,7 @@ public class ShipUnitTest
     [Fact]
     public void Ship_ShouldHaveCoordinates()
     {
-        var ship = new Ship(ShipType.Carrier, Coordinates: (X: 0, Y: 0));
+        var ship = new Ship(ShipType.Carrier, coordinates: (X: 0, Y: 0));
 
         ship.Coordinates.Should().Be((0, 0));
     }
@@ -20,7 +20,7 @@ public class ShipUnitTest
         int colsNumber = 10;
 
         Action action = () => new Ship(ShipType.Carrier, 
-            Coordinates: (X: colsNumber, Y: 0));
+            coordinates: (X: colsNumber, Y: 0));
 
         action.Should().ThrowExactly<Exception>()
             .WithMessage("The ship's position is outside the valid board interval.");
@@ -30,7 +30,7 @@ public class ShipUnitTest
     [Fact]
     public void Ship_ShouldHaveHorizontalPositionAsDefault()
     {
-        var ship = new Ship(ShipType.Carrier, Coordinates: (X: 0, Y: 0));
+        var ship = new Ship(ShipType.Carrier, coordinates: (X: 0, Y: 0));
 
         ship.Position.Should().Be(ShipPosition.Horizontal);
     }
@@ -41,7 +41,7 @@ public class ShipUnitTest
         ShipPosition shipPosition = ShipPosition.Vertical;
 
         var ship = new Ship(ShipType.Carrier, 
-            Coordinates: (X: 0, Y: 0), 
+            coordinates: (X: 0, Y: 0), 
             shipPosition);
 
         ship.Position.Should().Be(ShipPosition.Vertical);
@@ -51,7 +51,7 @@ public class ShipUnitTest
     public void GetSize_IfShipTypeIsCarrier_ShouldReturnCarrierSize()
     {
         var ship = new Ship(ShipType.Carrier, 
-            Coordinates: (X: 0, Y: 0));
+            coordinates: (X: 0, Y: 0));
 
         int size = ship.GetSize();
 
@@ -62,7 +62,7 @@ public class ShipUnitTest
     public void GetSize_IfShipTypeIsDestroyer_ShouldReturnDestroyerSize()
     {
         var ship = new Ship(ShipType.Destroyer,
-            Coordinates: (X: 0, Y: 0));
+            coordinates: (X: 0, Y: 0));
 
         int size = ship.GetSize();
 
@@ -73,7 +73,7 @@ public class ShipUnitTest
     public void GetSize_IfShipTypeIsGunShip_ShouldReturnGunShipSize()
     {
         var ship = new Ship(ShipType.Gunship,
-            Coordinates: (X: 0, Y: 0));
+            coordinates: (X: 0, Y: 0));
 
         int size = ship.GetSize();
 
@@ -81,10 +81,29 @@ public class ShipUnitTest
     }    
 }
 
-public record Ship(ShipType ShipType,
-    (int X, int Y) Coordinates, 
-    ShipPosition Position = ShipPosition.Horizontal)
+public class Ship
 {
+    public (int X, int Y) Coordinates { get; }
+    public ShipPosition Position { get; }
+    private ShipType ShipType { get; }
+
+    public Ship(ShipType shipType,
+        (int X, int Y) coordinates, 
+        ShipPosition position = ShipPosition.Horizontal)
+    {
+        ValidateCoordinates(coordinates);
+
+        ShipType = shipType;
+        Coordinates = coordinates;
+        Position = position;
+    }
+
+    private void ValidateCoordinates((int X, int Y) coordinates)
+    {
+        if (coordinates.X >= 10)
+            throw new Exception("The ship's position is outside the valid board interval.");
+    }
+
     public int GetSize() => ShipSpecification
         .ShipsSpecificationList[ShipType].Size;
 }
