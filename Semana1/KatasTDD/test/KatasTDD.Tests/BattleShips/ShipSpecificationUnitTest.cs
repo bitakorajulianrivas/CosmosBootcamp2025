@@ -33,6 +33,14 @@ public class ShipSpecificationUnitTest
         gunship.Size.Should().Be(1);
         gunship.MaxAmount.Should().Be(4);
     }
+
+    [Fact]
+    public void Carrier_ShouldHaveIcon_C()
+    {
+        var carrier = ShipSpecification.Carrier();
+
+        carrier.Icon.Should().Be("C");
+    }
 }
 
 public class ShipSpecification
@@ -40,6 +48,7 @@ public class ShipSpecification
     public ShipType ShipType { get; }
     public int Size { get; }
     public int MaxAmount { get; }
+    public object Icon { get; set; }
 
     private ShipSpecification(ShipType shipType, int size, int maxAmount)
     {
