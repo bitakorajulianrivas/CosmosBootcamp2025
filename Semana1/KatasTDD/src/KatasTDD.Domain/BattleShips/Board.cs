@@ -4,16 +4,16 @@ namespace KatasTDD.Domain.BattleShips;
 
 public class Board
 {
-    public static readonly string EmptyCell = " ";
+    public static readonly char EmptyCell = ' ';
 
     public const int Columns = 10;
     public const int Rows = 10;
 
-    public string[,] Cells { get; }
+    public char[,] Cells { get; }
 
     public Board()
     {
-        Cells = new string[Columns, Rows];
+        Cells = new char[Columns, Rows];
 
         for (int column = 0; column < Columns; column++)
         for (int row = 0; row < Rows; row++)
@@ -27,15 +27,7 @@ public class Board
             if(position.X >= Columns || position.Y >= Columns)
                 throw new Exception("The ship's position is out of the board bounds.");
 
-            if (ship.ShipType == ShipType.Carrier)
-                Cells[position.X, position.Y] = "C";
-            
-            else if (ship.ShipType == ShipType.Destroyer)
-                Cells[position.X, position.Y] = "D";
-
-            else 
-                Cells[position.X, position.Y] = "G";
-
+                Cells[position.X, position.Y] = ship.GetLetter();
         }
     }
 }

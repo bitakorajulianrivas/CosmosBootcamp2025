@@ -31,6 +31,9 @@ public class Ship
     public int GetSize() => ShipSpecification
         .ShipsSpecificationList[ShipType].Size;
 
+    public char GetLetter() => ShipSpecification
+        .ShipsSpecificationList[ShipType].Letter;
+
     public (int X, int Y)[] GetPositions()
     {
         if (Direction == ShipDirection.Vertical)

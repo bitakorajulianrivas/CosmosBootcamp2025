@@ -67,7 +67,7 @@ public class BoardUnitTest
 
         board.PlaceShip(ship);
 
-        board.Cells[5, 5].Should().Be("G");
+        board.Cells[5, 5].Should().Be('G');
     }
 
     [Fact]
@@ -78,10 +78,10 @@ public class BoardUnitTest
 
         board.PlaceShip(ship);
 
-        board.Cells[3, 0].Should().Be("C");
-        board.Cells[4, 0].Should().Be("C");
-        board.Cells[5, 0].Should().Be("C");
-        board.Cells[6, 0].Should().Be("C");
+        board.Cells[3, 0].Should().Be('C');
+        board.Cells[4, 0].Should().Be('C');
+        board.Cells[5, 0].Should().Be('C');
+        board.Cells[6, 0].Should().Be('C');
     }
 
     [Fact]
@@ -93,9 +93,9 @@ public class BoardUnitTest
 
         board.PlaceShip(ship);
 
-        board.Cells[5, 5].Should().Be("D");
-        board.Cells[5, 6].Should().Be("D");
-        board.Cells[5, 7].Should().Be("D");
+        board.Cells[5, 5].Should().Be('D');
+        board.Cells[5, 6].Should().Be('D');
+        board.Cells[5, 7].Should().Be('D');
     }
 }
 
