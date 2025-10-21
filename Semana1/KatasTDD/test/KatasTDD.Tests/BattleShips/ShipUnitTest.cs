@@ -28,6 +28,7 @@ public class Ship
     {
         ShipType = shipType;
         Coordinates = coordinates;
+        Position = 0;
     }
 
     public ShipType ShipType { get; }
