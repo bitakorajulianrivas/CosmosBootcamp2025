@@ -125,4 +125,23 @@ public class PlayerUnitTest
         action.Should().ThrowExactly<Exception>()
             .WithMessage("All carriers have been placed on the board.");
     }
+
+    [Fact]
+    public void ()
+    {
+        var player = new Player(nickname: "CaptainAugustus");
+
+        var firstDestroyer = new Ship(ShipType.Destroyer, coordinates: (3, 3));
+        player.PlaceShipOnBoard(firstDestroyer);
+
+        var secondDestroyer = new Ship(ShipType.Destroyer, coordinates: (4, 4));
+        player.PlaceShipOnBoard(secondDestroyer);
+
+        Ship thirdDestroyer = new Ship(ShipType.Destroyer, coordinates: (X: 5, Y: 5));
+
+        Action action = () => player.PlaceShipOnBoard(thirdDestroyer);
+
+        action.Should().ThrowExactly<Exception>()
+            .WithMessage("All destroyers have been placed on the board.");
+    }
 }
