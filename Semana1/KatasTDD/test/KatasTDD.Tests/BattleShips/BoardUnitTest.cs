@@ -39,8 +39,8 @@ public class BoardUnitTest
     public void PlaceShip_IfShipPositionsIsOutOfBounds_OnTheXAxis_ShouldThrowException()
     {
         var board = new Board();
-
         Ship ship = new Ship(ShipType.Carrier, coordinates: (X: 8, 5));
+
         Action action = () => board.PlaceShip(ship);
 
         action.Should().ThrowExactly<Exception>()
