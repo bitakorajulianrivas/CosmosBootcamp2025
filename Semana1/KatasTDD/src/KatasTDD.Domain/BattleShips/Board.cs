@@ -28,7 +28,7 @@ public class Board
                 throw new Exception("The ship's position is out of the board bounds.");
 
             if (Cells[position.X, position.Y] != ' ')
-                throw new Exception($"There is a ship in the position (5, 5).");
+                throw new Exception($"There is a ship in the position {position.ToString()}.");
 
             Cells[position.X, position.Y] = ship.GetLetter();
         }
