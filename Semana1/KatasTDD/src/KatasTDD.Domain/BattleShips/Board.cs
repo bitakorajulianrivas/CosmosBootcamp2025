@@ -24,7 +24,7 @@ public class Board
     {
         foreach (var position in ship.GetPositions())
         {
-            if(position.X >= Rows)
+            if(position.X >= Rows || position.Y == 10)
                 throw new Exception("The ship's position is out of the board bounds.");
         }
     }

@@ -46,6 +46,18 @@ public class BoardUnitTest
         action.Should().ThrowExactly<Exception>()
             .WithMessage("The ship's position is out of the board bounds.");
     }
+
+    [Fact]
+    public void PlaceShip_IfShipPositionsIsOutOfBounds_OnTheYAxis_ShouldThrowException()
+    {
+        var board = new Board();
+        Ship ship = new Ship(ShipType.Carrier, coordinates: (X: 5, Y: 8), ShipDirection.Vertical);
+
+        Action action = () => board.PlaceShip(ship);
+
+        action.Should().ThrowExactly<Exception>()
+            .WithMessage("The ship's position is out of the board bounds.");
+    }
 }
 
 public static class BoardTestExtensions
