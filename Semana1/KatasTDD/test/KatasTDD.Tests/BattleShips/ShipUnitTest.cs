@@ -61,10 +61,7 @@ public record Ship(ShipType ShipType,
     (int X, int Y) Coordinates, 
     ShipPosition Position = ShipPosition.Horizontal)
 {
-    public int GetSize()
-    {
-        return ShipType == ShipType.Carrier ? 4: 3;
-    }
+    public int GetSize() => ShipType == ShipType.Carrier ? 4: 3;
 }
 
 public enum ShipPosition : byte
