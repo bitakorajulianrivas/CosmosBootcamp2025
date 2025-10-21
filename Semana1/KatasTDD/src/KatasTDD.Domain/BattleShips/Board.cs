@@ -33,4 +33,9 @@ public class Board
             Cells[position.X, position.Y] = ship.GetLetter();
         }
     }
+
+    public string Print()
+    {
+        throw new NotImplementedException();
+    }
 }
