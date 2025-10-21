@@ -17,4 +17,9 @@ public class Board
         for (int row = 0; row < Rows; row++)
             Cells[column, row] = EmptyCell;
     }
+
+    public void PlaceShip(Ship ship)
+    {
+        throw new NotImplementedException();
+    }
 }

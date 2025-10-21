@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using KatasTDD.Domain.BattleShips;
+using KatasTDD.Domain.BattleShips.Enums;
 
 namespace KatasTDD.Tests.BattleShips;
 
@@ -32,6 +33,18 @@ public class BoardUnitTest
         var board = new Board();
 
         board.AssertAllCellsAreEmpty();
+    }
+
+    [Fact]
+    public void PlaceShip_IfShipPositionsIsOutOfBounds_ShouldThrowException()
+    {
+        var board = new Board();
+
+        Ship ship = new Ship(ShipType.Carrier, coordinates: (X: 8, 5));
+        Action action = () => board.PlaceShip(ship);
+
+        action.Should().ThrowExactly<Exception>()
+            .WithMessage("The ship's position is out of the board bounds.");
     }
 }
 
