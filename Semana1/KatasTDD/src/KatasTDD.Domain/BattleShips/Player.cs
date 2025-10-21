@@ -31,7 +31,11 @@ public class Player
             ShipsPlacedPerType[ship.ShipType] >= 1)
             throw new Exception("All carriers have been placed on the board.");
 
+        if (ship.ShipType == ShipType.Destroyer &&
+            ShipsPlacedPerType[ship.ShipType] >= 2)
+            throw new Exception("All destroyers have been placed on the board.");
+
         Board.PlaceShip(ship);
-        ShipsPlacedPerType[ship.ShipType] = 1;
+        ShipsPlacedPerType[ship.ShipType] = ShipsPlacedPerType[ship.ShipType] + 1;
     }
 }
