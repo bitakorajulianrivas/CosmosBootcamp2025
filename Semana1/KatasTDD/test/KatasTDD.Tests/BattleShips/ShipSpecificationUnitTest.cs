@@ -43,7 +43,7 @@ public class ShipSpecificationUnitTest
     }
 
     [Fact]
-    public void Destroyer_ShouldHaveIcon_C()
+    public void Destroyer_ShouldHaveIcon_D()
     {
         var destroyer = ShipSpecification.Destroyer();
 
