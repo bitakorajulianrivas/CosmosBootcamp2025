@@ -81,7 +81,7 @@ public class ShipSpecification
         size: 3, maxAmount: 2, icon: 'D');
 
     public static ShipSpecification Gunship() => new (ShipType.Gunship, 
-        size: 1, maxAmount: 4, icon: char.MinValue);
+        size: 1, maxAmount: 4, icon: 'G');
 }
 
 public enum ShipType
