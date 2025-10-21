@@ -27,17 +27,8 @@ public class Player
 
     public void PlaceShipOnBoard(Ship ship)
     {
-        if (ship.ShipType == ShipType.Carrier && 
-            ShipsPlacedPerType[ship.ShipType] >= 1)
-            throw new Exception("All carriers have been placed on the board.");
-
-        if (ship.ShipType == ShipType.Destroyer &&
-            ShipsPlacedPerType[ship.ShipType] >= 2)
-            throw new Exception("All destroyers have been placed on the board.");
-
-        if (ship.ShipType == ShipType.Gunship &&
-            ShipsPlacedPerType[ship.ShipType] >= 4)
-            throw new Exception("All gunships have been placed on the board.");
+        if (ShipsPlacedPerType[ship.ShipType] >= ship.GetMaxShipsPerType())
+            throw new Exception($"All {ship.ShipType.ToString().ToLower()}s have been placed on the board.");
 
         Board.PlaceShip(ship);
         ShipsPlacedPerType[ship.ShipType]++;

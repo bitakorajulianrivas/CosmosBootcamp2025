@@ -34,6 +34,9 @@ public class Ship
     public char GetLetter() => ShipSpecification
         .ShipsSpecificationList[ShipType].Letter;
 
+    public int GetMaxShipsPerType() => ShipSpecification
+        .ShipsSpecificationList[ShipType].MaxAmount;
+
     public (int X, int Y)[] GetPositions()
     {
         if (Direction == ShipDirection.Vertical)
