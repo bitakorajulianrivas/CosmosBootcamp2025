@@ -41,6 +41,14 @@ public class ShipSpecificationUnitTest
 
         carrier.Icon.Should().Be('C');
     }
+
+    [Fact]
+    public void Destroyer_ShouldHaveIcon_C()
+    {
+        var destroyer = ShipSpecification.Destroyer();
+
+        destroyer.Icon.Should().Be('D');
+    }
 }
 
 public class ShipSpecification
