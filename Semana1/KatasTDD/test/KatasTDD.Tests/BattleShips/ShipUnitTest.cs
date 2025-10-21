@@ -184,24 +184,32 @@ public class Ship
 
     public (int X, int Y)[] GetPositions()
     {
-        if (ShipType == ShipType.Gunship)
-            return ([Coordinates]);
+        if (Direction == ShipDirection.Vertical)
+            return GetVerticalPositions();
 
-        if (ShipType == ShipType.Destroyer)
-        {
-            if (Direction == ShipDirection.Vertical)
-                return [(0, 0), (0, 1), (0, 2)];
-
-            if (Direction == ShipDirection.Horizontal)
-                return [(0, 0), (1, 0), (2, 0)];
-        }
-
-        if (ShipType == ShipType.Carrier &&
-            Direction == ShipDirection.Vertical)
-            return [(0, 0), (0, 1), (0, 2), (0, 3)];
-
-        return [(0, 0), (1, 0), (2, 0), (3,0)];
+        return GetHorizontalPositions();
     }
+
+    private (int X, int Y)[] GetVerticalPositions()
+    {
+        var positions = new (int X, int Y)[GetSize()];
+        
+        for (int rows = 0; rows < GetSize(); rows++) 
+            positions[rows] = (Coordinates.X, Coordinates.Y + rows);
+
+        return positions;
+    }
+
+    private (int X, int Y)[] GetHorizontalPositions()
+    {
+        var positions = new (int X, int Y)[GetSize()];
+
+        for (int columns = 0; columns < GetSize(); columns++) 
+            positions[columns] = (Coordinates.X + columns, Coordinates.Y);
+
+        return positions;
+    }
+
 }
 
 public enum ShipDirection : byte
