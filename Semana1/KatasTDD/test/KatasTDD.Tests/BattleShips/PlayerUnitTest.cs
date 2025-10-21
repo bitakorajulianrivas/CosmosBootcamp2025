@@ -110,4 +110,19 @@ public class PlayerUnitTest
         player.ShipsPlacedPerType[ShipType.Gunship]
             .Should().Be(1);
     }
+
+    [Fact]
+    public void PlaceShipOnBoard_IfAlreadyPlacedACarrierOnBoard_ShouldThrowException()
+    {
+        var player = new Player(nickname: "CaptainAugustus");
+
+        var firstCarrier = new Ship(ShipType.Carrier, coordinates: (0, 0));
+        player.PlaceShipOnBoard(firstCarrier);
+
+        Ship secondCarrier = new Ship(ShipType.Carrier, coordinates: (X: 5, Y: 5));
+        Action action = () => player.PlaceShipOnBoard(secondCarrier);
+
+        action.Should().ThrowExactly<Exception>()
+            .WithMessage("All carriers have been placed on the board.");
+    }
 }
