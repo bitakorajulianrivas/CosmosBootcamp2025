@@ -63,7 +63,7 @@ public record Ship(ShipType ShipType,
 {
     public int GetSize()
     {
-        return 4;
+        return ShipType == ShipType.Carrier ? 4: 3;
     }
 }
 
