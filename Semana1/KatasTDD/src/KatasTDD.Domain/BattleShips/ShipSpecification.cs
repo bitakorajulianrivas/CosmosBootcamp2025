@@ -9,6 +9,13 @@ public class ShipSpecification
     public int MaxAmount { get; }
     public char Letter { get; set; }
 
+    public static Dictionary<ShipType, ShipSpecification> ShipsSpecificationList => new()
+    {
+        { ShipType.Carrier, ShipSpecification.Carrier() },
+        { ShipType.Destroyer, ShipSpecification.Destroyer() },
+        { ShipType.Gunship, ShipSpecification.Gunship() }
+    };
+
     private ShipSpecification(ShipType shipType, int size, int maxAmount, char letter)
     {
         ShipType = shipType;

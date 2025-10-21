@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using KatasTDD.Domain.BattleShips;
 using KatasTDD.Domain.BattleShips.Enums;
 using Microsoft.VisualStudio.CodeCoverage;
 
@@ -72,8 +73,8 @@ public record Ship(ShipType ShipType,
     (int X, int Y) Coordinates, 
     ShipPosition Position = ShipPosition.Horizontal)
 {
-    public int GetSize() => ShipType == ShipType.Carrier ? 4:
-        ShipType == ShipType.Destroyer ? 3 : 1;
+    public int GetSize() => ShipSpecification
+        .ShipsSpecificationList[ShipType].Size;
 }
 
 public enum ShipPosition : byte
