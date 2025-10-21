@@ -140,6 +140,19 @@ public class ShipUnitTest
         positions.Should().HaveCount(4);
         positions.Should().BeEquivalentTo([(0, 0), (1, 0), (2, 0), (3, 0)]);
     }
+
+    [Fact]
+    public void GetPositions_IfShipTypeIsCarrierAndVerticalDirection_ShouldReturnFourCoordinatePositions()
+    {
+        var ship = new Ship(ShipType.Carrier,
+            coordinates: (X: 0, Y: 0),
+            ShipDirection.Vertical);
+
+        var positions = ship.GetPositions();
+
+        positions.Should().HaveCount(4);
+        positions.Should().BeEquivalentTo([(0, 0), (0, 1), (0, 2), (0, 3)]);
+    }
 }
 
 public class Ship
