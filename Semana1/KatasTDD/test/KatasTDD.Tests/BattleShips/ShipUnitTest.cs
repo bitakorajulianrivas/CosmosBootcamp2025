@@ -37,7 +37,8 @@ public class ShipUnitTest
     [Fact]
     public void GetSize_IfShipTypeIsCarrier_ShouldReturnCarrierSize()
     {
-        var ship = new Ship(ShipType.Carrier, Coordinates: (X: 0, Y: 0));
+        var ship = new Ship(ShipType.Carrier, 
+            Coordinates: (X: 0, Y: 0));
 
         int size = ship.GetSize();
 
