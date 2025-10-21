@@ -45,7 +45,7 @@ public class Board
             board += $" {column} |";
             for (int row = 0; row < Rows; row++)
             {
-                board += $" {EmptyCell} |";
+                board += $" {Cells[row, column]} |";
             }
 
             board += " \n";
