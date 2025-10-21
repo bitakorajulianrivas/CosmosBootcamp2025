@@ -97,6 +97,20 @@ public class BoardUnitTest
         board.Cells[5, 6].Should().Be('D');
         board.Cells[5, 7].Should().Be('D');
     }
+
+    [Fact]
+    public void PlaceShip_IfThereIsAShipInTheCoordinate_ShouldThrowException()
+    {
+        var board = new Board();
+        Ship gunship = new Ship(ShipType.Gunship, coordinates: (X: 5, Y: 5));
+        board.PlaceShip(gunship);
+        Ship destroyer = new Ship(ShipType.Destroyer, coordinates: (X: 5, Y: 5));
+
+        Action action = () => board.PlaceShip(destroyer);
+
+        action.Should().ThrowExactly<Exception>()
+            .WithMessage("There is a ship in the position (5, 5).");
+    }
 }
 
 public static class BoardTestExtensions
