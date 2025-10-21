@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using KatasTDD.Domain.BattleShips.Enums;
+using Microsoft.VisualStudio.CodeCoverage;
 
 namespace KatasTDD.Tests.BattleShips;
 
@@ -33,11 +34,26 @@ public class ShipUnitTest
         ship.Position.Should().Be(ShipPosition.Vertical);
     }
 
+    [Fact]
+    public void GetSize_IfShipTypeIsCarrier_ShouldReturnCarrierSize()
+    {
+        var ship = new Ship(ShipType.Carrier, Coordinates: (X: 0, Y: 0));
+
+        int size = ship.GetSize();
+
+        size.Should().Be(4);
+    }
 }
 
 public record Ship(ShipType ShipType,
     (int X, int Y) Coordinates, 
-    ShipPosition Position = ShipPosition.Horizontal);
+    ShipPosition Position = ShipPosition.Horizontal)
+{
+    public int GetSize()
+    {
+        throw new NotImplementedException();
+    }
+}
 
 public enum ShipPosition : byte
 {
