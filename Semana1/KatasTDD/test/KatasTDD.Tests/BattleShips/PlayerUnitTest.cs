@@ -1,4 +1,6 @@
 ﻿using FluentAssertions;
+using KatasTDD.Domain.BattleShips;
+using KatasTDD.Domain.BattleShips.Enums;
 
 namespace KatasTDD.Tests.BattleShips;
 
@@ -84,22 +86,4 @@ public class PlayerUnitTest
         player.ShipsPlacedPerType[ShipType.Gunship]
             .Should().Be(0);
     }
-}   
-
-public class Player(string nickname)
-{
-    public string Nickname { get; } = nickname;
-    public Board Board => new ();
-
-    public Dictionary<ShipType, int> ShipTypes { get; } = new () {
-            {ShipType.Carrier, 1},
-            {ShipType.Destroyer, 2},
-            {ShipType.Gunship, 4} };
-
-    public Dictionary<ShipType, int> ShipsPlacedPerType => new ()
-    {
-        {ShipType.Carrier, 0},
-        {ShipType.Destroyer, 0},
-        {ShipType.Gunship, 0}
-    };
 }
