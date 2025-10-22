@@ -177,8 +177,8 @@ public static class BoardTestExtensions
 {
     public static void AssertAllCellsAreEmpty(this Board board)
     {
+        for (int row = 0; row < Board.Rows; row++)
         for (int column = 0; column < Board.Columns; column++)
-            for (int row = 0; row < Board.Columns; row++)
                 board.Cells[column, row].Should().Be(Board.EmptyCell);
     }
 }

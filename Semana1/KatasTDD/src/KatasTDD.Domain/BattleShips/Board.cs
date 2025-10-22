@@ -1,6 +1,4 @@
-﻿using KatasTDD.Domain.BattleShips.Enums;
-
-namespace KatasTDD.Domain.BattleShips;
+﻿namespace KatasTDD.Domain.BattleShips;
 
 public class Board
 {
@@ -15,9 +13,9 @@ public class Board
     {
         Cells = new char[Columns, Rows];
 
-        for (int column = 0; column < Columns; column++)
-        for (int row = 0; row < Rows; row++)
-            Cells[column, row] = EmptyCell;
+        for (int row = 0; row < Columns; row++)
+            for (int column = 0; column < Rows; column++)
+                Cells[column, row] = EmptyCell;
     }
 
     public void PlaceShip(Ship ship)
@@ -40,12 +38,12 @@ public class Board
            "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
            "-------------------------------------------| \n";
 
-        for (int column = 0; column < Columns; column++)
+        for (int row = 0; row < Rows; row++)
         {
-            board += $" {column} |";
-            for (int row = 0; row < Rows; row++)
+            board += $" {row} |";
+            for (int column = 0; column <  Columns; column++)
             {
-                board += $" {Cells[row, column]} |";
+                board += $" {Cells[column, row]} |";
             }
 
             board += " \n";
