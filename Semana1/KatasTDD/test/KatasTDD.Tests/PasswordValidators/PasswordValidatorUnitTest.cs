@@ -20,9 +20,19 @@ public class PasswordValidatorUnitTest
         string? input = string.Empty;
 
         bool isValid = PasswordValidator.IsValid(input);
+
         isValid.Should().BeFalse();
     }
 
+    [Fact]
+    public void IsValid_IfTheInputIsLessOrEqualToEightCaracters_ReturnFalse()
+    {
+        string input = "password";
+
+        bool isValid = PasswordValidator.IsValid(input);
+
+        isValid.Should().BeFalse();
+    }
 }
 
 public static class PasswordValidator
