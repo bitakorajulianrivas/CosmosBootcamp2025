@@ -3,7 +3,7 @@
 ## Iteration 1 - Basic password validation
 
 - [x] validate tha a password is not null or empty.
-- [] Validate that a password with more than 8 characters.
+- [x] Validate that a password with more than 8 characters.
 - [] validate that contains a capital letter. 
 - [] validate that contains a lowercase letter.
 - [] validate that contains a number.
