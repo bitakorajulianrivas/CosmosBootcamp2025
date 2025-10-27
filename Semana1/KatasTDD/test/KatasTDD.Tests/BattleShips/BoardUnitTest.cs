@@ -171,6 +171,50 @@ public class BoardUnitTest
 
         boardPrinted.Should().Be(expectedBoard);
     }
+
+    [Fact]
+    public void Print_IfAllShipsArePlaced_ShouldReturnBoardWithShips()
+    {
+        var expectedBoard = "\n" +
+            "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+            "-------------------------------------------| \n" +
+            " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 1 |   | G |   |   |   |   |   |   |   |   | \n" +
+            " 2 |   |   |   |   |   | G |   |   | D |   | \n" +
+            " 3 |   |   |   |   |   |   |   |   | D |   | \n" +
+            " 4 |   |   | C | C | C | C |   |   | D |   | \n" +
+            " 5 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 6 |   |   |   |   |   |   |   |   |   |   | \n" +
+            " 7 |   | G |   |   | D | D | D |   |   |   | \n" +
+            " 8 |   |   |   |   |   |   |   |   |   | G | \n" +
+            " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
+            "-------------------------------------------| \n" +
+            "\n";
+
+        var board = new Board();
+
+        Ship carrier = new Ship(ShipType.Carrier, coordinates: (2, 4));
+        Ship destroyer1 = new Ship(ShipType.Destroyer, coordinates: (8, 2), ShipDirection.Vertical);
+        Ship destroyer2 = new Ship(ShipType.Destroyer, coordinates: (4, 7));
+        Ship gunship1 = new Ship(ShipType.Gunship, coordinates: (1, 1));
+        Ship gunship2 = new Ship(ShipType.Gunship, coordinates: (5, 2));
+        Ship gunship3 = new Ship(ShipType.Gunship, coordinates: (1, 7));
+        Ship gunship4 = new Ship(ShipType.Gunship, coordinates: (9, 8));
+        
+        board.PlaceShip(carrier);
+        board.PlaceShip(destroyer1);
+        board.PlaceShip(destroyer2);
+        board.PlaceShip(gunship1);
+        board.PlaceShip(gunship2);
+        board.PlaceShip(gunship3);
+        board.PlaceShip(gunship4);
+
+        string boardPrinted = board.Print();
+
+        boardPrinted.Should().Be(expectedBoard);
+    }
+
+
 }
 
 public static class BoardTestExtensions
