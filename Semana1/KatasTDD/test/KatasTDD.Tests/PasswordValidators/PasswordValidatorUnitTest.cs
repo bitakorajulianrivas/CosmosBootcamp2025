@@ -39,6 +39,8 @@ public static class PasswordValidator
 {
     public static bool IsValid(string? input)
     {
-        return string.IsNullOrEmpty(input) == false;
+        if (string.IsNullOrEmpty(input))
+            return false;
+        return input.Any() == false;
     }
 }
