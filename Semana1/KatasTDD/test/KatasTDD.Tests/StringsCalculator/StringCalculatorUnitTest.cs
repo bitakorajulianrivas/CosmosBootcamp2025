@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
-using KatasTDD.Domain;
+using KatasTDD.Domain.StringsCalculator;
 
-namespace KatasTDD.Tests;
+namespace KatasTDD.Tests.StringsCalculator;
 
 public class StringCalculatorTest
 {

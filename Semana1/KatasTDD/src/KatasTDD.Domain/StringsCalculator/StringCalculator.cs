@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace KatasTDD.Domain;
+namespace KatasTDD.Domain.StringsCalculator;
 
 public static class StringCalculator
 {
