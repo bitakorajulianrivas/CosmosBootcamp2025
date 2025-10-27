@@ -52,7 +52,9 @@ public static class PasswordValidator
         if (string.IsNullOrEmpty(input))
             return false;
 
-        return input.Length > 8 && 
-               input != input.ToLower();
+        if (input.Length > 8)
+            return false;
+
+        return input.Any(char.IsUpper);
     }
 }
