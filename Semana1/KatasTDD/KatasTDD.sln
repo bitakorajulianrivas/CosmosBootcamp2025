@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9912EDA4-7AD6-4DEE-92FF-A97F2E07D69E}"
 	ProjectSection(SolutionItems) = preProject
 		docs\BattleShips.md = docs\BattleShips.md
+		docs\PasswordValidator.md = docs\PasswordValidator.md
 		docs\StringCalculator.md = docs\StringCalculator.md
 	EndProjectSection
 EndProject
