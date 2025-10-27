@@ -53,6 +53,16 @@ public class PasswordValidatorUnitTest
 
         isValid.Should().BeFalse();
     }
+
+    [Fact]
+    public void IsValid_IfTheInputDoesNotContainANumber_ReturnFalse()
+    {
+        string input = "PassswordWithoutANumber";
+
+        bool isValid = PasswordValidator.IsValid(input);
+
+        isValid.Should().BeFalse();
+    }
 }
 
 public static class PasswordValidator
@@ -65,10 +75,10 @@ public static class PasswordValidator
         if (input.Length <= 8)
             return false;
 
-        if (input.Any(char.IsUpper))
+        if (input.Any(char.IsUpper) == false)
             return false;
 
-        if(input.Any(char.IsLower))
+        if(input.Any(char.IsLower) == false)
             return false;
 
         throw new NotImplementedException();
