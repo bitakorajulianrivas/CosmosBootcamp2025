@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 
 namespace KatasTDD.Tests.PasswordValidators;
 
@@ -27,5 +28,11 @@ public class PasswordValidatorUnitTest
 
 public static class PasswordValidator
 {
-    public static bool IsValid(string? input) => input != null;
+    public static bool IsValid(string? input)
+    {
+        if(input == "")
+            return false;
+        
+        return input != null;
+    }
 }
