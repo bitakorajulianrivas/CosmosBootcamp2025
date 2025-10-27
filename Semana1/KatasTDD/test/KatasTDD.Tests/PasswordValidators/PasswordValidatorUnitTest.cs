@@ -18,6 +18,6 @@ public static class PasswordValidator
 {
     public static bool IsValid(string? input)
     {
-        throw new NotImplementedException();
+        return false;
     }
 }
