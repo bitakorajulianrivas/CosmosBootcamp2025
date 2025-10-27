@@ -74,6 +74,7 @@ public static class PasswordValidator
             return false;
         }
 
-        throw new NotImplementedException();
+        return input != input.ToLower();
+
     }
 }
