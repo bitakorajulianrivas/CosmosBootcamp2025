@@ -6,7 +6,7 @@
 - [x] Validate that a password with more than 8 characters.
 - [x] validate that contains a capital letter. 
 - [x] validate that contains a lowercase letter.
-- [] validate that contains a number.
+- [x] validate that contains a number.
 - [] validate that contains an underscore.
 
 ## Iteration 2 - Rules abstraction
