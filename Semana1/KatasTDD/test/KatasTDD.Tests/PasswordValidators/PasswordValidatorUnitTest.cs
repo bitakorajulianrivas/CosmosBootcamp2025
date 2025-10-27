@@ -16,8 +16,5 @@ public class PasswordValidatorUnitTest
 
 public static class PasswordValidator
 {
-    public static bool IsValid(string? input)
-    {
-        return false;
-    }
+    public static bool IsValid(string? input) => input != null;
 }
