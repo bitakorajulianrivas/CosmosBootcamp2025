@@ -81,9 +81,9 @@ public static class PasswordValidator
         if (input.Any(char.IsLower) == false)
             return false;
 
-        if (input == "PassswordWithoutANumber")
+        if (input.Any(char.IsDigit) == false)
             return false;
 
-        throw new NotImplementedException();
+    throw new NotImplementedException();
     }
 }
