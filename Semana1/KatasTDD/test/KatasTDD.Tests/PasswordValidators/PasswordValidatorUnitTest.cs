@@ -60,21 +60,17 @@ public static class PasswordValidator
     public static bool IsValid(string? input)
     {
         if (string.IsNullOrEmpty(input))
-        {
             return false;
-        }
 
         if (input.Length <= 8)
-        {
             return false;
-        }
 
         if (input.Any(char.IsUpper))
-        {
             return false;
-        }
 
-        return input != input.ToLower();
+        if(input.Any(char.IsLower))
+            return false;
 
+        throw new NotImplementedException();
     }
 }
