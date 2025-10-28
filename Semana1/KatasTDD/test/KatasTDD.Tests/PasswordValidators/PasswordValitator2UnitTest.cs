@@ -18,8 +18,11 @@ namespace KatasTDD.Tests.PasswordValidators
 
     public class PasswordValidator2
     {
-        public static bool IsValid(string input)
+        public static bool IsValid(string? input)
         {
+            if (input == null)
+                return false;
+
             throw new NotImplementedException();
         }
     }
