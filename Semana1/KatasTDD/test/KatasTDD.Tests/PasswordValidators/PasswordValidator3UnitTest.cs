@@ -13,12 +13,28 @@ public class PasswordValidator3UnitTest
 
         isValid.Should().BeFalse();
     }
+
+    [Fact]
+    public void IsValid_IfTheInputIsEmplty_ReturnFalse()
+    {
+        string input = string.Empty;
+
+        bool isValid = new PasswordValidator3().IsValid(input);
+
+        isValid.Should().BeFalse();
+    }
 }
 
 public class PasswordValidator3
 {
     public bool IsValid(string? input)
     {
-        return input != null;
+        if (input == null)
+            return false;
+
+        if (input == "")
+            return false;
+
+        throw new NotImplementedException();
     }
 }
