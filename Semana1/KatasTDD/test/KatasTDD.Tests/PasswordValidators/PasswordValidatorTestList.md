@@ -22,7 +22,7 @@
 - [x] Validate that a password with more than 16 characters.
 - [x] validate that contains a capital letter.
 - [x] validate that contains a lowercase letter.
-- [] validate that contains an underscore.
+- [x] validate that contains an underscore.
 
 ## Iteration 3 - Multiple errors
 - [] Validate that a password returns a list of errors for each invalid password.
