@@ -31,6 +31,16 @@ public class PasswordValidator3UnitTest
 
         isValid.Should().BeFalse();
     }
+
+    [Fact]
+    public void IsValid_IfTheInputIsLessThan16Chars_ShouldReturnFalse()
+    {
+        string input = "shortpasswordss";
+
+        bool isValid = _passwordValidator3.IsValid(input);
+
+        isValid.Should().BeFalse();
+    }
 }
 
 public class PasswordValidator3
