@@ -60,10 +60,7 @@ public class PasswordValidator3
         if (string.IsNullOrEmpty(input))
             return false;
 
-        if (input.Length < 16)
-            return false;
-
-        if (input == "passwdwith16char")
+        if (input.Length <= 16)
             return false;
 
         throw new NotImplementedException();
