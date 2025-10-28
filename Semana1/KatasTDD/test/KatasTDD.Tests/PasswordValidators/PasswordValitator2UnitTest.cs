@@ -42,7 +42,7 @@ namespace KatasTDD.Tests.PasswordValidators
             if(string.IsNullOrEmpty(input))
                 return false;
 
-            if (input == "passwo")
+            if (input.Length <= 6)
                 return false;
 
             throw new NotImplementedException();
