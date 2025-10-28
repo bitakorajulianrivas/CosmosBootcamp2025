@@ -25,7 +25,17 @@ namespace KatasTDD.Tests.PasswordValidators
         }
 
         [Fact]
-        public void IsValid_IfTheInputIsLessOrEqualsToSixCaracters_ReturnFalse()
+        public void IsValid_IfTheInputIsLessToSixCaracters_ReturnFalse()
+        {
+            string input = "pass";
+
+            bool isValid = PasswordValidator2.IsValid(input);
+
+            isValid.Should().BeFalse();
+        }
+
+        [Fact]
+        public void IsValid_IfTheInputIsEqualsToSixCaracters_ReturnFalse()
         {
             string input = "passwo";
 
@@ -42,7 +52,7 @@ namespace KatasTDD.Tests.PasswordValidators
             if(string.IsNullOrEmpty(input))
                 return false;
 
-            if (input.Length <= 6)
+            if (input == "passwo")
                 return false;
 
             throw new NotImplementedException();
