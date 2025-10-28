@@ -82,26 +82,3 @@ public class PasswordValidator3UnitTest
         isValid.Should().BeFalse();
     }
 }
-
-public class PasswordValidator3
-{
-    public bool IsValid(string input)
-    {
-        if (string.IsNullOrEmpty(input))
-            return false;
-
-        if (input.Length <= 16)
-            return false;
-
-        if (input.Any(char.IsUpper) == false)
-            return false;
-
-        if (input.Any(char.IsLower) == false)
-            return false;
-
-        if (input.Contains('_') == false)
-            return false;
-
-        throw new NotImplementedException();
-    }
-}
