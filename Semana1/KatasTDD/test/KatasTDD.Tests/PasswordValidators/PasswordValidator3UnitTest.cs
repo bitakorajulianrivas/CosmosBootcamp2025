@@ -45,7 +45,7 @@ public class PasswordValidator3UnitTest
 
 public class PasswordValidator3
 {
-    public bool IsValid(string? input)
+    public bool IsValid(string input)
     {
         if (string.IsNullOrEmpty(input))
             return false;
