@@ -1,15 +1,23 @@
 ﻿using FluentAssertions;
+using KatasTDD.Domain.PasswordValidators;
 
 namespace KatasTDD.Tests.PasswordValidators;
 
 public class PasswordValidator3UnitTest
 {
+    private readonly PasswordValidator3 _passwordValidator3;
+
+    public PasswordValidator3UnitTest()
+    {
+        _passwordValidator3 = new PasswordValidator3();
+    }
+
     [Fact]
     public void IsValid_IfTheInputIsNull_ReturnFalse()
     {
         string input = null;
 
-        bool isValid = new PasswordValidator3().IsValid(input);
+        bool isValid = _passwordValidator3.IsValid(input);
 
         isValid.Should().BeFalse();
     }
@@ -19,7 +27,7 @@ public class PasswordValidator3UnitTest
     {
         string input = string.Empty;
 
-        bool isValid = new PasswordValidator3().IsValid(input);
+        bool isValid = _passwordValidator3.IsValid(input);
 
         isValid.Should().BeFalse();
     }
@@ -29,10 +37,7 @@ public class PasswordValidator3
 {
     public bool IsValid(string? input)
     {
-        if (input == null)
-            return false;
-
-        if (input == "")
+        if (string.IsNullOrEmpty(input))
             return false;
 
         throw new NotImplementedException();
