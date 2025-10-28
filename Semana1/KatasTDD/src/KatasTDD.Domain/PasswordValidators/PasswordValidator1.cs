@@ -12,6 +12,5 @@ public class PasswordValidator1 : PasswordValidator
                ContainsUnderscores(input);
     }
 
-    private bool IsMoreThanEightCharacters(string input) => input.Length >= 8;
-    private bool ContainsUnderscores(string input) => input.Any(ch => ch == '_');
+    private bool IsMoreThanEightCharacters(string input) => input.Length > 8;
 }

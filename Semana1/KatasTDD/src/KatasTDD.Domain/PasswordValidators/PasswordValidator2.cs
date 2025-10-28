@@ -11,5 +11,5 @@ public class PasswordValidator2 : PasswordValidator
                ContainsDigits(input);
     }
 
-    private bool IsMoreThanSixCharacters(string input) => input.Length >= 6;
+    private bool IsMoreThanSixCharacters(string input) => input.Length > 6;
 }

@@ -8,4 +8,5 @@ public abstract class PasswordValidator
     protected bool ContainsCapitalLetters(string input) => input.Any(char.IsUpper);
     protected bool ContainsLowerCaseLetters(string input) => input.Any(char.IsLower);
     protected bool ContainsDigits(string input) => input.Any(char.IsDigit);
+    protected bool ContainsUnderscores(string input) => input.Any(ch => ch == '_');
 }
