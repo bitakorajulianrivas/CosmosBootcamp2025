@@ -74,6 +74,16 @@ namespace KatasTDD.Tests.PasswordValidators
 
             isValid.Should().BeFalse();
         }
+
+        [Fact]
+        public void IsValid_IfInputHasAllRules_ReturnTrue()
+        {
+            string input = "P4sssW0rdW1thNumb3rs";
+
+            bool isValid = PasswordValidator2.IsValid(input);
+
+            isValid.Should().BeTrue();
+        }
     }
 
     public class PasswordValidator2
