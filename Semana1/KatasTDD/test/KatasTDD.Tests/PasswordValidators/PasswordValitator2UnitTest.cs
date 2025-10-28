@@ -55,6 +55,10 @@ namespace KatasTDD.Tests.PasswordValidators
             if (input == "passwo")
                 return false;
 
+
+            if (input == "pass")
+                return false;
+
             throw new NotImplementedException();
         }
     }
