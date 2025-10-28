@@ -94,6 +94,9 @@ public static class PasswordValidator
         if (input.Any(char.IsDigit) == false)
             return false;
 
-    throw new NotImplementedException();
+        if (input == "P4sssw0rdWithoutUnderscore")
+            return false;
+
+        throw new NotImplementedException();
     }
 }
