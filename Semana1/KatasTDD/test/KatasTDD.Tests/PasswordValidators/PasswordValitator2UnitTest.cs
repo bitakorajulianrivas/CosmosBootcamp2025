@@ -64,6 +64,16 @@ namespace KatasTDD.Tests.PasswordValidators
 
             isValid.Should().BeFalse();
         }
+
+        [Fact]
+        public void IsValid_IfTheInputDoesNotContainANumber_ReturnFalse()
+        {
+            string input = "PassswordWithoutANumber";
+
+            bool isValid = PasswordValidator2.IsValid(input);
+
+            isValid.Should().BeFalse();
+        }
     }
 
     public class PasswordValidator2
