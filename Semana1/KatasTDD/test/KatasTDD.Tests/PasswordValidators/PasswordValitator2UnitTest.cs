@@ -66,7 +66,7 @@ namespace KatasTDD.Tests.PasswordValidators
             if (input.Length <= 6)
                 return false;
 
-            if (input == "passwordwithoutcapitalletter")
+            if (input.Any(char.IsUpper) == false)
                 return false;
 
             throw new NotImplementedException();
