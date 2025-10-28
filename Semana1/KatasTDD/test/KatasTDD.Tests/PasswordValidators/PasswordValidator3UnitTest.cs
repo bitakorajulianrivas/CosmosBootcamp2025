@@ -81,4 +81,14 @@ public class PasswordValidator3UnitTest
 
         isValid.Should().BeFalse();
     }
+
+    [Fact]
+    public void IsValid_IfInputHasAllRules_ReturnTrue()
+    {
+        string input = "PasssWordWith_UnderScores";
+
+        bool isValid = _passwordValidator3.IsValid(input);
+
+        isValid.Should().BeTrue();
+    }
 }
