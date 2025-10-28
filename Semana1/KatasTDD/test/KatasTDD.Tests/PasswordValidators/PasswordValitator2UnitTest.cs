@@ -92,7 +92,7 @@ namespace KatasTDD.Tests.PasswordValidators
             if (input.Any(char.IsLower) == false)
                 return false;
 
-            if (input == "PassswordWithoutANumber")
+            if (input.Any(char.IsDigit) == false)
                 return false;
 
             throw new NotImplementedException();

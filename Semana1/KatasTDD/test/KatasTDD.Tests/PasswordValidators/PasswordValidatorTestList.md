@@ -16,7 +16,7 @@
 - [x] Validate that a password with more than 6 characters.
 - [x] validate that contains a capital letter.
 - [x] validate that contains a lowercase letter.
-- [] validate that contains a number.
+- [x] validate that contains a number.
 
 - ### Validation 3:
 - [] Validate that a password with more than 16 characters.
