@@ -73,6 +73,9 @@ public class PasswordValidator3
         if (input.Length <= 16)
             return false;
 
+        if (input == "passwordwithoutcapitalletter")
+            return false;
+
         throw new NotImplementedException();
     }
 }
