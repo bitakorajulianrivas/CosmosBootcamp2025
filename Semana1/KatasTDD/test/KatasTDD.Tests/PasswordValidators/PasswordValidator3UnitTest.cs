@@ -19,6 +19,9 @@ public class PasswordValidator3
 {
     public bool IsValid(string? input)
     {
+        if (input == null)
+            return false;
+
         throw new NotImplementedException();
     }
 }
