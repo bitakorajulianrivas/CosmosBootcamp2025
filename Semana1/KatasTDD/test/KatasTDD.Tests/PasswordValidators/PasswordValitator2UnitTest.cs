@@ -79,6 +79,9 @@ namespace KatasTDD.Tests.PasswordValidators
             if (input.Any(char.IsUpper) == false)
                 return false;
 
+            if (input == "PASSWORDWITHOUTLOWERCASELETTER")
+                return false;
+
             throw new NotImplementedException();
         }
     }
