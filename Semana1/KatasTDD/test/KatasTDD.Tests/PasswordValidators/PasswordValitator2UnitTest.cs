@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using KatasTDD.Domain.PasswordValidators;
 
 namespace KatasTDD.Tests.PasswordValidators
 {
@@ -38,6 +39,16 @@ namespace KatasTDD.Tests.PasswordValidators
         public void IsValid_IfTheInputIsEqualsToSixCaracters_ReturnFalse()
         {
             string input = "passwo";
+
+            bool isValid = PasswordValidator2.IsValid(input);
+
+            isValid.Should().BeFalse();
+        }
+
+        [Fact]
+        public void IsValid_IfTheInputDoesNotContainACapitalLetter_ReturnFalse()
+        {
+            string input = "passwordwithoutcapitalletter";
 
             bool isValid = PasswordValidator2.IsValid(input);
 
