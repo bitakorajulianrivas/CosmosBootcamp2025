@@ -5,12 +5,19 @@ namespace KatasTDD.Tests.PasswordValidators
 {
     public class PasswordValitator2UnitTest
     {
+        private readonly PasswordValidator _passwordValidator2;
+
+        public PasswordValitator2UnitTest()
+        {
+            _passwordValidator2 = new PasswordValidator2();
+        }
+
         [Fact]
         public void IsValid_IfTheInputIsNull_ReturnFalse()
         {
             string input = null;
 
-            bool isValid = PasswordValidator2.IsValid(input);
+            bool isValid = _passwordValidator2.IsValid(input);
 
             isValid.Should().BeFalse();
         }
@@ -20,7 +27,7 @@ namespace KatasTDD.Tests.PasswordValidators
         {
             string? input = string.Empty;
 
-            bool isValid = PasswordValidator2.IsValid(input);
+            bool isValid = _passwordValidator2.IsValid(input);
 
             isValid.Should().BeFalse();
         }
@@ -30,7 +37,7 @@ namespace KatasTDD.Tests.PasswordValidators
         {
             string input = "pass";
 
-            bool isValid = PasswordValidator2.IsValid(input);
+            bool isValid = _passwordValidator2.IsValid(input);
 
             isValid.Should().BeFalse();
         }
@@ -40,7 +47,7 @@ namespace KatasTDD.Tests.PasswordValidators
         {
             string input = "passwo";
 
-            bool isValid = PasswordValidator2.IsValid(input);
+            bool isValid = _passwordValidator2.IsValid(input);
 
             isValid.Should().BeFalse();
         }
@@ -50,7 +57,7 @@ namespace KatasTDD.Tests.PasswordValidators
         {
             string input = "passwordwithoutcapitalletter";
 
-            bool isValid = PasswordValidator2.IsValid(input);
+            bool isValid = _passwordValidator2.IsValid(input);
 
             isValid.Should().BeFalse();
         }
@@ -60,7 +67,7 @@ namespace KatasTDD.Tests.PasswordValidators
         {
             string input = "PASSWORDWITHOUTLOWERCASELETTER";
 
-            bool isValid = PasswordValidator2.IsValid(input);
+            bool isValid = _passwordValidator2.IsValid(input);
 
             isValid.Should().BeFalse();
         }
@@ -70,7 +77,7 @@ namespace KatasTDD.Tests.PasswordValidators
         {
             string input = "PassswordWithoutANumber";
 
-            bool isValid = PasswordValidator2.IsValid(input);
+            bool isValid = _passwordValidator2.IsValid(input);
 
             isValid.Should().BeFalse();
         }
@@ -80,32 +87,9 @@ namespace KatasTDD.Tests.PasswordValidators
         {
             string input = "P4sssW0rdW1thNumb3rs";
 
-            bool isValid = PasswordValidator2.IsValid(input);
+            bool isValid = _passwordValidator2.IsValid(input);
 
             isValid.Should().BeTrue();
-        }
-    }
-
-    public class PasswordValidator2
-    {
-        public static bool IsValid(string? input)
-        {
-            if(string.IsNullOrEmpty(input))
-                return false;
-
-            if (input.Length <= 6)
-                return false;
-
-            if (input.Any(char.IsUpper) == false)
-                return false;
-
-            if (input.Any(char.IsLower) == false)
-                return false;
-
-            if (input.Any(char.IsDigit) == false)
-                return false;
-
-            return true;
         }
     }
 }

@@ -1,21 +1,11 @@
 ﻿namespace KatasTDD.Domain.PasswordValidators;
 
-public static class PasswordValidator
+public abstract class PasswordValidator
 {
-    public static bool IsValid(string input)
-    {
-        return input.IsNotNullAndNotEmpty() &&
-               input.IsMoreThanEightCharacters() &&
-               input.ContainsCapitalLetters() &&
-               input.ContainsLowerCaseLetters()  &&
-               input.ContainsDigits() &&
-               input.ContainsUnderscores();
-    }
+    public abstract bool IsValid(string input);
 
-    private static bool IsNotNullAndNotEmpty(this string input) => !string.IsNullOrEmpty(input);
-    private static bool IsMoreThanEightCharacters(this string input) => input.Length >= 8;
-    private static bool ContainsCapitalLetters(this string input) => input.Any(char.IsUpper);
-    private static bool ContainsLowerCaseLetters(this string input) => input.Any(char.IsLower);
-    private static bool ContainsDigits(this string input) => input.Any(char.IsDigit);
-    private static bool ContainsUnderscores(this string input) => input.Any(ch => ch == '_');
+    protected bool IsNotNullAndNotEmpty(string input) => !string.IsNullOrEmpty(input);
+    protected bool ContainsCapitalLetters(string input) => input.Any(char.IsUpper);
+    protected bool ContainsLowerCaseLetters(string input) => input.Any(char.IsLower);
+    protected bool ContainsDigits(string input) => input.Any(char.IsDigit);
 }

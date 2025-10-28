@@ -3,14 +3,21 @@ using KatasTDD.Domain.PasswordValidators;
 
 namespace KatasTDD.Tests.PasswordValidators;
 
-public class PasswordValidatorUnitTest
+public class PasswordValidator1UnitTest
 {
+    private readonly PasswordValidator _passwordValidator1;
+
+    public PasswordValidator1UnitTest()
+    {
+        _passwordValidator1 = new PasswordValidator1();
+    }
+
     [Fact]
     public void IsValid_IfTheInputIsNull_ReturnFalse()
     {
         string? input = null;
 
-        bool isValid = PasswordValidator.IsValid(input);
+        bool isValid = _passwordValidator1.IsValid(input);
 
         isValid.Should().BeFalse();
     }
@@ -18,9 +25,9 @@ public class PasswordValidatorUnitTest
     [Fact]
     public void IsValid_IfTheInputIsEmplty_ReturnFalse()
     {
-        string? input = string.Empty;
+        string input = string.Empty;
 
-        bool isValid = PasswordValidator.IsValid(input);
+        bool isValid = _passwordValidator1.IsValid(input);
 
         isValid.Should().BeFalse();
     }
@@ -30,7 +37,7 @@ public class PasswordValidatorUnitTest
     {
         string input = "Password";
 
-        bool isValid = PasswordValidator.IsValid(input);
+        bool isValid = _passwordValidator1.IsValid(input);
 
         isValid.Should().BeFalse();
     }
@@ -40,7 +47,7 @@ public class PasswordValidatorUnitTest
     {
         string input = "passwordwithoutcapitalletter";
 
-        bool isValid = PasswordValidator.IsValid(input);
+        bool isValid = _passwordValidator1.IsValid(input);
 
         isValid.Should().BeFalse();
     }
@@ -50,7 +57,7 @@ public class PasswordValidatorUnitTest
     {
         string input = "PASSWORDWITHOUTLOWERCASELETTER";
 
-        bool isValid = PasswordValidator.IsValid(input);
+        bool isValid = _passwordValidator1.IsValid(input);
 
         isValid.Should().BeFalse();
     }
@@ -60,7 +67,7 @@ public class PasswordValidatorUnitTest
     {
         string input = "PassswordWithoutANumber";
 
-        bool isValid = PasswordValidator.IsValid(input);
+        bool isValid = _passwordValidator1.IsValid(input);
 
         isValid.Should().BeFalse();
     }
@@ -70,7 +77,7 @@ public class PasswordValidatorUnitTest
     {
         string input = "P4sssw0rdWithoutUnderscore";
 
-        bool isValid = PasswordValidator.IsValid(input);
+        bool isValid = _passwordValidator1.IsValid(input);
 
         isValid.Should().BeFalse();
     }
@@ -80,7 +87,7 @@ public class PasswordValidatorUnitTest
     {
         string input = "P4sssW0rd_W1thOut_Und3rsc0r3";
 
-        bool isValid = PasswordValidator.IsValid(input);
+        bool isValid = _passwordValidator1.IsValid(input);
 
         isValid.Should().BeTrue();
     }
