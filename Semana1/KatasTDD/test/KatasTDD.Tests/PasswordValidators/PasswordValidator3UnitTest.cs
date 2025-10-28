@@ -99,6 +99,9 @@ public class PasswordValidator3
         if (input.Any(char.IsLower) == false)
             return false;
 
+        if (input.Contains('_') == false)
+            return false;
+
         throw new NotImplementedException();
     }
 }
