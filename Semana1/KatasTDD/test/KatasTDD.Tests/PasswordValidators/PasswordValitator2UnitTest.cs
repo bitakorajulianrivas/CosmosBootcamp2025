@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using KatasTDD.Domain.PasswordValidators;
 
 namespace KatasTDD.Tests.PasswordValidators
 {
@@ -20,8 +19,7 @@ namespace KatasTDD.Tests.PasswordValidators
     {
         public static bool IsValid(string? input)
         {
-            if (input == null)
-                return false;
+            return input != null;
 
             throw new NotImplementedException();
         }
