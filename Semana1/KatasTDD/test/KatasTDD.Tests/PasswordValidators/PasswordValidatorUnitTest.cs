@@ -73,6 +73,16 @@ public class PasswordValidatorUnitTest
 
         isValid.Should().BeFalse();
     }
+
+    [Fact]
+    public void IsValid_IfInputHasAllRules_ReturnTrue()
+    {
+        string input = "P4sssW0rd_W1thOut_Und3rsc0r3";
+
+        bool isValid = PasswordValidator.IsValid(input);
+
+        isValid.Should().BeTrue();
+    }
 }
 
 public static class PasswordValidator
