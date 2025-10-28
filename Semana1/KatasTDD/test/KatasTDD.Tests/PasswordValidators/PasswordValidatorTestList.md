@@ -13,8 +13,8 @@
 
 ### Validation 2:	
 - [x] validate tha a password is not null or empty.
-- [X] Validate that a password with more than 6 characters.
-- [] validate that contains a capital letter.
+- [x] Validate that a password with more than 6 characters.
+- [x] validate that contains a capital letter.
 - [] validate that contains a lowercase letter.
 - [] validate that contains a number.
 
