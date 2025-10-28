@@ -21,7 +21,7 @@
 - ### Validation 3:
 - [x] Validate that a password with more than 16 characters.
 - [x] validate that contains a capital letter.
-- [] validate that contains a lowercase letter.
+- [x] validate that contains a lowercase letter.
 - [] validate that contains an underscore.
 
 ## Iteration 3 - Multiple errors
