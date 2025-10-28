@@ -30,9 +30,7 @@ namespace KatasTDD.Tests.PasswordValidators
     {
         public static bool IsValid(string? input)
         {
-            if(input != null);
-                return false;
-            if(input != "")
+            if(string.IsNullOrEmpty(input));
                 return false;
 
             throw new NotImplementedException();
