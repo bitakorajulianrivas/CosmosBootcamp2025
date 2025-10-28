@@ -7,7 +7,7 @@
 - [x] validate that contains a capital letter. 
 - [x] validate that contains a lowercase letter.
 - [x] validate that contains a number.
-- [] validate that contains an underscore.
+- [x] validate that contains an underscore.
 
 ## Iteration 2 - Rules abstraction
 
