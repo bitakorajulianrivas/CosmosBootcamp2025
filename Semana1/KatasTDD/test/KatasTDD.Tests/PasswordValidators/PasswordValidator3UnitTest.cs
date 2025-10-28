@@ -5,7 +5,7 @@ namespace KatasTDD.Tests.PasswordValidators;
 
 public class PasswordValidator3UnitTest
 {
-    private readonly PasswordValidator3 _passwordValidator3;
+    private readonly PasswordValidator _passwordValidator3;
 
     public PasswordValidator3UnitTest()
     {

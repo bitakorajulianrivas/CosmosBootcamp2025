@@ -3,11 +3,11 @@ using KatasTDD.Domain.PasswordValidators;
 
 namespace KatasTDD.Tests.PasswordValidators
 {
-    public class PasswordValitator2UnitTest
+    public class PasswordValidator2UnitTest
     {
         private readonly PasswordValidator _passwordValidator2;
 
-        public PasswordValitator2UnitTest()
+        public PasswordValidator2UnitTest()
         {
             _passwordValidator2 = new PasswordValidator2();
         }
