@@ -50,6 +50,9 @@ public class PasswordValidator3
         if (string.IsNullOrEmpty(input))
             return false;
 
+        if (input.Length < 16)
+            return false;
+
         throw new NotImplementedException();
     }
 }
