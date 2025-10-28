@@ -63,6 +63,16 @@ public class PasswordValidatorUnitTest
 
         isValid.Should().BeFalse();
     }
+
+    [Fact]
+    public void IsValid_IfTheInputDoesNotContainAnUnderscore_ReturnFalse()
+    {
+        string input = "P4sssw0rdWithoutUnderscore";
+
+        bool isValid = PasswordValidator.IsValid(input);
+
+        isValid.Should().BeFalse();
+    }
 }
 
 public static class PasswordValidator
