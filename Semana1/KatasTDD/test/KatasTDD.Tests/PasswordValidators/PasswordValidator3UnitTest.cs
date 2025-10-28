@@ -63,6 +63,9 @@ public class PasswordValidator3
         if (input.Length < 16)
             return false;
 
+        if (input == "passwdwith16char")
+            return false;
+
         throw new NotImplementedException();
     }
 }
