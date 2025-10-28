@@ -95,16 +95,16 @@ public static class PasswordValidator
         if (input.Length <= 8)
             return false;
 
-        if (input.Any(char.IsUpper) == false)
+        if (!input.Any(char.IsUpper))
             return false;
 
-        if (input.Any(char.IsLower) == false)
+        if (!input.Any(char.IsLower))
             return false;
 
-        if (input.Any(char.IsDigit) == false)
+        if (!input.Any(char.IsDigit))
             return false;
 
-        if (input.Any(ch => ch == '_') == false)
+        if (input.All(ch => ch != '_'))
             return false;
 
         return true;
