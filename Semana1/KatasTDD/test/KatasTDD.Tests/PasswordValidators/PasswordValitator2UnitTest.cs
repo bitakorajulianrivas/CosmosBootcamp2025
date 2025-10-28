@@ -54,6 +54,16 @@ namespace KatasTDD.Tests.PasswordValidators
 
             isValid.Should().BeFalse();
         }
+        
+        [Fact]
+        public void IsValid_IfTheInputDoesNotContainsALowercaseLetter_returnFalse()
+        {
+            string input = "PASSWORDWITHOUTLOWERCASELETTER";
+
+            bool isValid = PasswordValidator2.IsValid(input);
+
+            isValid.Should().BeFalse();
+        }
     }
 
     public class PasswordValidator2
