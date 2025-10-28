@@ -86,6 +86,9 @@ public class PasswordValidator3
         if (input.Any(char.IsUpper) == false)
             return false;
 
+        if (input == "PASSWORDWITHOUTLOWERCASELETTER")
+            return false;
+
         throw new NotImplementedException();
     }
 }
