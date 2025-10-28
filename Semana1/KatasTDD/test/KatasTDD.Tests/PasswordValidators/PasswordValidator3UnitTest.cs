@@ -73,7 +73,7 @@ public class PasswordValidator3
         if (input.Length <= 16)
             return false;
 
-        if (input == "passwordwithoutcapitalletter")
+        if (input.Any(char.IsUpper) == false)
             return false;
 
         throw new NotImplementedException();
