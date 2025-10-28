@@ -107,6 +107,6 @@ public static class PasswordValidator
         if (input.Any(ch => ch == '_') == false)
             return false;
 
-        throw new NotImplementedException();
+        return true;
     }
 }
