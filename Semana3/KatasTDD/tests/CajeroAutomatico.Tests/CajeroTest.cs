@@ -24,17 +24,20 @@ public class CajeroTest
         montoRetirado.Should().Be(valorEnTextoEsperado);
     }
 
-    [Fact]
-    public void Retirar_SiLaCantidadEsUnMultiploExacto_RebeRetornarCantidadDeLaMismaDenominacion()
+    [Theory]
+    [InlineData(1500,  "3 billetes de 500")]
+    [InlineData(1000, "2 billetes de 500")]
+    [InlineData(400,  "2 billetes de 200")]
+    [InlineData(40,  "2 billetes de 20")]
+    [InlineData(4,  "2 monedas de 2")]
+    public void Retirar_SiLaCantidadEsUnMultiploExacto_RebeRetornarCantidadDeLaMismaDenominacion(int montoSolicitado, string valorEnTextoEsperado)
     {
-        int montoSolicitado = 1000;
         Cajero cajero = new Cajero();
         
         string montoRetirado = cajero.Retirar(montoSolicitado);
         
-        montoRetirado.Should().Be("2 billetes de 500");
+        montoRetirado.Should().Be(valorEnTextoEsperado);
     }
-    
 }
 
 public class Cajero
@@ -59,20 +62,18 @@ public class Cajero
         foreach (var denominacion in Denominaciones)
         {
             int unidadesPorDenominacion = montoSolicitado / denominacion.Key;
-            
-            if(unidadesPorDenominacion == 0)
-                continue;
 
-            string tipoDenominacion = unidadesPorDenominacion > 1
-                ? denominacion.Value + "s"
-                : denominacion.Value;
-            
-            return string.Format(FormatoValorEnTexto, 
-                unidadesPorDenominacion, 
-                tipoDenominacion, 
-                denominacion.Key);
+            if (unidadesPorDenominacion != 0)
+            {
+                string tipoDenominacion = unidadesPorDenominacion > 1
+                    ? denominacion.Value + "s" : denominacion.Value;
+
+                return string.Format(FormatoValorEnTexto,
+                    unidadesPorDenominacion,
+                    tipoDenominacion,
+                    denominacion.Key);
+            }
         }
-
         
         throw new NotImplementedException();
     }

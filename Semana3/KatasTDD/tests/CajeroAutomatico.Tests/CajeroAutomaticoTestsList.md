@@ -1,6 +1,6 @@
 ## Iteración 1:
 - [x] Retirar una cantidad igual a una sola denominación.
-- [ ] Retirar una cantidad de un múltiplo exacto.
+- [x] Retirar una cantidad de un múltiplo exacto.
 - [ ] Retirar una cantidad de varias denominaciones.
 - [ ] Retirar una cantidad con monedas.
 - [ ] Retirar una cantidad de billetes y monedas.
