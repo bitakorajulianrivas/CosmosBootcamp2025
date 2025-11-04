@@ -1,77 +1,50 @@
-using System.Text;
+using CajeroAutomatico.Models;
 
 namespace CajeroAutomatico;
 
 public class Cajero
 {
-    private const string FormatoValorEnTexto = "{0} {1} de {2}";
+    private readonly List<Dinero> _dineros = [
+        Dinero.BilleteDe(500),
+        Dinero.BilleteDe(200),
+        Dinero.BilleteDe(100),
+        Dinero.BilleteDe(50),
+        Dinero.BilleteDe(20),
+        Dinero.BilleteDe(10),
+        Dinero.BilleteDe(5),
+        Dinero.MonedaDe(2),
+        Dinero.MonedaDe(1)];
 
-    private static readonly Dictionary<int, string> DenominacionesPorTipo = new()
-    {
-        { 500, "billete" },
-        { 200, "billete" },
-        { 100, "billete" },
-        { 50,  "billete" },
-        { 20,  "billete" },
-        { 10,  "billete" },
-        { 5,   "billete" },
-        { 2,   "moneda" },
-        { 1,   "moneda" }
-    };
-    
-    private static readonly Dictionary<int, int> DenominacionesPorCantidad = new()
-    {
+    private Dictionary<int, int> _inventario = new()
+    { 
+        //Valor, Cantidad
         { 500, 2 },
         { 200, 3 },
         { 100, 5 },
-        { 50,  12 },
-        { 20,  20 },
-        { 10,  50 },
-        { 5,   100 },
-        { 2,   250 },
-        { 1,   500 }
+        { 50, 12 },
+        { 20, 20 },
+        { 10, 50 },
+        { 5, 100 },
+        { 2, 250 },
+        { 1, 500 }
     };
 
-    public string[] Retirar(int montoSolicitado)
+    public List<MontoRetirado> Retirar(int montoSolicitado)
     {
-        var denominacionesRetornadas = new List<string>();
-        
-        foreach (var denominacion in DenominacionesPorTipo)
+        var montoARetirar = new List<MontoRetirado>();
+
+        foreach (var dinero in _dineros)
         {
-            int unidadesPorDenominacion = montoSolicitado / denominacion.Key;
+            int unidadesPorMonto = dinero
+                .ObtenerUnidadesAPartirDe(montoSolicitado);
 
-            if (unidadesPorDenominacion != 0)
-            {
-                string tipoDenominacion = unidadesPorDenominacion > 1
-                    ? denominacion.Value + "s" : denominacion.Value;
+            if(unidadesPorMonto > 0)
+                montoARetirar.Add(
+                    new MontoRetirado(dinero, unidadesPorMonto));
 
-                var denominacionRetornada = 
-                    string.Format(FormatoValorEnTexto,
-                        unidadesPorDenominacion,
-                        tipoDenominacion,
-                        denominacion.Key);
-                    
-                denominacionesRetornadas.Add(denominacionRetornada);
-                
-                montoSolicitado %= denominacion.Key;
-            }
-        }
-        
-        return  denominacionesRetornadas.ToArray();
-    }
-
-    public string MostrarDistribucion()
-    {
-        string contenido = "| Valor | Tipo    | Número de unidades|\n" +
-                           "|-------|---------|-------------------|\n";
-        
-        foreach (var denominacion in DenominacionesPorTipo)
-        {
-            contenido += $"| {denominacion.Key}   | " +
-                         $"{DenominacionesPorTipo[denominacion.Key]}    | " +
-                         $"{DenominacionesPorCantidad[denominacion.Key]}                 |\n";
+            montoSolicitado = montoSolicitado % dinero.ObtenerValor();
         }
 
-        return contenido;
+        return montoARetirar;
     }
 }

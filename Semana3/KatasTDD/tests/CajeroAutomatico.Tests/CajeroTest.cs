@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using CajeroAutomatico.Utilities;
+using FluentAssertions;
 
 namespace CajeroAutomatico.Tests;
 
@@ -20,7 +21,7 @@ public class CajeroTest
         
         var montoRetirado = cajero.Retirar(montoSolicitado);
         
-        montoRetirado.Should().BeEquivalentTo(valorEnTextoEsperado);
+        montoRetirado.ConvertirATexto().Should().BeEquivalentTo(valorEnTextoEsperado);
     }
 
     [Theory]
@@ -35,7 +36,7 @@ public class CajeroTest
         
         var montoRetirado = cajero.Retirar(montoSolicitado);
         
-        montoRetirado.Should().BeEquivalentTo(valorEnTextoEsperado);
+        montoRetirado.ConvertirATexto().Should().BeEquivalentTo(valorEnTextoEsperado);
     }
 
     [Theory]
@@ -50,29 +51,6 @@ public class CajeroTest
         
         var montoRetirado = cajero.Retirar(montoSolicitado);
         
-        montoRetirado.Should().BeEquivalentTo(valorEnTextoEsperado);
-    }
-
-    [Fact]
-    public void MostrarDistribucion_SiNoHanRealizadoRetiros_DebeRetornarLaDistribucionInicial()
-    {
-        Cajero cajero = new Cajero();
-        
-        var montoRetirado = cajero.MostrarDistribucion();
-
-        var distribucionEsperada = 
-            "| Valor | Tipo    | Número de unidades|\n" +
-            "|-------|---------|-------------------|\n" +
-            "| 500   | billete | 2                 |\n" +
-            "| 200   | billete | 3                 |\n" +
-            "| 100   | billete | 5                 |\n" +
-            "| 50    | billete | 12                |\n" +
-            "| 20    | billete | 20                |\n" +
-            "| 10    | billete | 50                |\n" +
-            "| 5     | billete | 100               |\n" +
-            "| 2     | moneda  | 250               |\n" +
-            "| 1     | moneda  | 500               |";
-        
-        montoRetirado.Should().Be(distribucionEsperada);
+        montoRetirado.ConvertirATexto().Should().BeEquivalentTo(valorEnTextoEsperado);
     }
 }
