@@ -58,6 +58,17 @@ public class CajeroTest
         
         montoRetirado.Should().Be("1 billete de 20");
     }
+    
+    [Fact]
+    public void Retirar_SiLaCantidadSonDiez_DebeRetornarUnBilleteDeDiez()
+    {
+        int montoSolicitado = 10;
+        Cajero cajero = new Cajero();
+        
+        string montoRetirado = cajero.Retirar(montoSolicitado);
+        
+        montoRetirado.Should().Be("1 billete de 10");
+    }
 }
 
 public class Cajero
@@ -78,6 +89,9 @@ public class Cajero
         
         if(montoSolitado == 20)
             return "1 billete de 20";
+        
+        if(montoSolitado == 10)
+            return "1 billete de 10";
         
         throw new NotImplementedException();
     }
