@@ -39,20 +39,17 @@ public class CajeroTest
         montoRetirado.Should().BeEquivalentTo(valorEnTextoEsperado);
     }
 
-    [Fact]
-    public void Retirar_SiCantidadTieneVariasDenominaciones_DebeRetirarListaDeDenominaciones()
+    [Theory]
+    [InlineData(1825, "3 billetes de 500", "1 billete de 200", "1 billete de 100", "1 billete de 20", "1 billete de 5")]
+    [InlineData(1725, "3 billetes de 500", "1 billete de 200", "1 billete de 20", "1 billete de 5")]
+    [InlineData(1475, "2 billetes de 500", "2 billetes de 200", "1 billete de 50", "1 billete de 20", "1 billete de 5")]
+    public void Retirar_SiCantidadTieneVariasDenominaciones_DebeRetirarListaDeDenominaciones(int montoSolicitado, params string[] valorEnTextoEsperado)
     {
-        int montoSolicitado = 1725;
         Cajero cajero = new Cajero();
         
         var montoRetirado = cajero.Retirar(montoSolicitado);
         
-        montoRetirado.Should()
-            .BeEquivalentTo(new List<string>(){
-            "3 billetes de 500", 
-            "1 billete de 200", 
-            "1 billete de 20", 
-            "1 billete de 5"});
+        montoRetirado.Should().BeEquivalentTo(valorEnTextoEsperado);
     }
 }
 
