@@ -52,50 +52,27 @@ public class CajeroTest
         
         montoRetirado.Should().BeEquivalentTo(valorEnTextoEsperado);
     }
-}
 
-public class Cajero
-{
-    private const string FormatoValorEnTexto = "{0} {1} de {2}";
-
-    private static readonly Dictionary<int, string> Denominaciones = new()
+    [Fact]
+    public void MostrarDistribucion_SiNoHanRealizadoRetiros_DebeRetornarLaDistribucionInicial()
     {
-        { 500, "billete" },
-        { 200, "billete" },
-        { 100, "billete" },
-        { 50,  "billete" },
-        { 20,  "billete" },
-        { 10,  "billete" },
-        { 5,   "billete" },
-        { 2,   "moneda" },
-        { 1,   "moneda" }
-    };
-
-    public string[] Retirar(int montoSolicitado)
-    {
-        var denominacionesRetornadas = new List<string>();
+        Cajero cajero = new Cajero();
         
-        foreach (var denominacion in Denominaciones)
-        {
-            int unidadesPorDenominacion = montoSolicitado / denominacion.Key;
+        var montoRetirado = cajero.MostrarDistribucion();
 
-            if (unidadesPorDenominacion != 0)
-            {
-                string tipoDenominacion = unidadesPorDenominacion > 1
-                    ? denominacion.Value + "s" : denominacion.Value;
-
-                var denominacionRetornada = 
-                    string.Format(FormatoValorEnTexto,
-                        unidadesPorDenominacion,
-                        tipoDenominacion,
-                        denominacion.Key);
-                    
-                denominacionesRetornadas.Add(denominacionRetornada);
-                
-                montoSolicitado %= denominacion.Key;
-            }
-        }
+        var distribucionEsperada = 
+            "| Valor | Tipo    | Número de unidades|\n" +
+            "|-------|---------|-------------------|\n" +
+            "| 500   | billete | 2                 |\n" +
+            "| 200   | billete | 3                 |\n" +
+            "| 100   | billete | 5                 |\n" +
+            "| 50    | billete | 12                |\n" +
+            "| 20    | billete | 20                |\n" +
+            "| 10    | billete | 50                |\n" +
+            "| 5     | billete | 100               |\n" +
+            "| 2     | moneda  | 250               |\n" +
+            "| 1     | moneda  | 500               |";
         
-        return  denominacionesRetornadas.ToArray();
+        montoRetirado.Should().Be(distribucionEsperada);
     }
 }

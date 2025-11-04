@@ -6,6 +6,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{18CFFFA4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CajeroAutomatico.Tests", "tests\CajeroAutomatico.Tests\CajeroAutomatico.Tests.csproj", "{60FFB6AF-EAEC-4F65-A768-1ED149240477}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CajeroAutomatico", "src\CajeroAutomatico\CajeroAutomatico.csproj", "{FBC5DA6D-18E5-4D75-81F0-B5C216FBA09E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,11 +15,16 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{60FFB6AF-EAEC-4F65-A768-1ED149240477} = {18CFFFA4-1B86-4A42-89F3-C152CF3170F4}
+		{FBC5DA6D-18E5-4D75-81F0-B5C216FBA09E} = {B4521150-C243-4B07-A658-6E14E7E1CCAA}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{60FFB6AF-EAEC-4F65-A768-1ED149240477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{60FFB6AF-EAEC-4F65-A768-1ED149240477}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60FFB6AF-EAEC-4F65-A768-1ED149240477}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60FFB6AF-EAEC-4F65-A768-1ED149240477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC5DA6D-18E5-4D75-81F0-B5C216FBA09E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC5DA6D-18E5-4D75-81F0-B5C216FBA09E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC5DA6D-18E5-4D75-81F0-B5C216FBA09E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC5DA6D-18E5-4D75-81F0-B5C216FBA09E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
