@@ -2,8 +2,8 @@
 - [x] Retirar una cantidad igual a una sola denominación.
 - [x] Retirar una cantidad de un múltiplo exacto.
 - [x] Retirar una cantidad de varias denominaciones.
-- [ ] Retirar una cantidad con monedas.
-- [ ] Retirar una cantidad de billetes y monedas.
+- [x] Retirar una cantidad con monedas.
+- [x] Retirar una cantidad de billetes y monedas.
 
 ## Iteración 2
 - [ ] Lanzar excepción si el cajero no dispone de dinero suficiente.

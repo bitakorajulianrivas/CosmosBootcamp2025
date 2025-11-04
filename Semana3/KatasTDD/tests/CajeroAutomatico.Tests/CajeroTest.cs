@@ -1,5 +1,4 @@
-﻿using System.Security.Policy;
-using FluentAssertions;
+﻿using FluentAssertions;
 
 namespace CajeroAutomatico.Tests;
 
@@ -43,6 +42,8 @@ public class CajeroTest
     [InlineData(1825, "3 billetes de 500", "1 billete de 200", "1 billete de 100", "1 billete de 20", "1 billete de 5")]
     [InlineData(1725, "3 billetes de 500", "1 billete de 200", "1 billete de 20", "1 billete de 5")]
     [InlineData(1475, "2 billetes de 500", "2 billetes de 200", "1 billete de 50", "1 billete de 20", "1 billete de 5")]
+    [InlineData(128, "1 billete de 100", "1 billete de 20", "1 billete de 5", "1 moneda de 2", "1 moneda de 1")]
+    [InlineData(3, "1 moneda de 2", "1 moneda de 1")]
     public void Retirar_SiCantidadTieneVariasDenominaciones_DebeRetirarListaDeDenominaciones(int montoSolicitado, params string[] valorEnTextoEsperado)
     {
         Cajero cajero = new Cajero();
