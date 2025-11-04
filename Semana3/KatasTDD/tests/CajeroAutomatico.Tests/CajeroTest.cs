@@ -15,13 +15,13 @@ public class CajeroTest
     [InlineData(5, "1 billete de 5")]
     [InlineData(2, "1 moneda de 2")]
     [InlineData(1, "1 moneda de 1")]
-    public void Retirar_SiLaCantidadEsUnaDenominacion_DebeRetornarUnaDenominacion(int montoSolicitado, string valorEnTextoEsperado)
+    public void Retirar_SiLaCantidadEsUnaDenominacion_DebeRetornarUnaDenominacion(int montoSolicitado, params string[] valorEnTextoEsperado)
     {
         Cajero cajero = new Cajero();
         
-        string montoRetirado = cajero.Retirar(montoSolicitado);
+        var montoRetirado = cajero.Retirar(montoSolicitado);
         
-        montoRetirado.Should().Be(valorEnTextoEsperado);
+        montoRetirado.Should().BeEquivalentTo(valorEnTextoEsperado);
     }
 
     [Theory]
@@ -30,13 +30,29 @@ public class CajeroTest
     [InlineData(400,  "2 billetes de 200")]
     [InlineData(40,  "2 billetes de 20")]
     [InlineData(4,  "2 monedas de 2")]
-    public void Retirar_SiLaCantidadEsUnMultiploExacto_RebeRetornarCantidadDeLaMismaDenominacion(int montoSolicitado, string valorEnTextoEsperado)
+    public void Retirar_SiLaCantidadEsUnMultiploExacto_RebeRetornarCantidadDeLaMismaDenominacion(int montoSolicitado, params string[] valorEnTextoEsperado)
     {
         Cajero cajero = new Cajero();
         
-        string montoRetirado = cajero.Retirar(montoSolicitado);
+        var montoRetirado = cajero.Retirar(montoSolicitado);
         
-        montoRetirado.Should().Be(valorEnTextoEsperado);
+        montoRetirado.Should().BeEquivalentTo(valorEnTextoEsperado);
+    }
+
+    [Fact]
+    public void Retirar_SiCantidadTieneVariasDenominaciones_DebeRetirarListaDeDenominaciones()
+    {
+        int montoSolicitado = 1725;
+        Cajero cajero = new Cajero();
+        
+        var montoRetirado = cajero.Retirar(montoSolicitado);
+        
+        montoRetirado.Should()
+            .BeEquivalentTo(new List<string>(){
+            "3 billetes de 500", 
+            "1 billete de 200", 
+            "1 billete de 20", 
+            "1 billete de 5"});
     }
 }
 
@@ -57,8 +73,10 @@ public class Cajero
         { 1,   "moneda" }
     };
 
-    public string Retirar(int montoSolicitado)
+    public string[] Retirar(int montoSolicitado)
     {
+        var denominacionesRetornadas = new List<string>();
+        
         foreach (var denominacion in Denominaciones)
         {
             int unidadesPorDenominacion = montoSolicitado / denominacion.Key;
@@ -68,13 +86,18 @@ public class Cajero
                 string tipoDenominacion = unidadesPorDenominacion > 1
                     ? denominacion.Value + "s" : denominacion.Value;
 
-                return string.Format(FormatoValorEnTexto,
-                    unidadesPorDenominacion,
-                    tipoDenominacion,
-                    denominacion.Key);
+                var denominacionRetornada = 
+                    string.Format(FormatoValorEnTexto,
+                        unidadesPorDenominacion,
+                        tipoDenominacion,
+                        denominacion.Key);
+                    
+                denominacionesRetornadas.Add(denominacionRetornada);
+                
+                montoSolicitado %= denominacion.Key;
             }
         }
         
-        throw new NotImplementedException();
+        return  denominacionesRetornadas.ToArray();
     }
 }
