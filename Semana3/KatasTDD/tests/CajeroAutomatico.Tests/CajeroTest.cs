@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Security.Policy;
+using FluentAssertions;
 
 namespace CajeroAutomatico.Tests;
 
@@ -22,27 +23,56 @@ public class CajeroTest
         
         montoRetirado.Should().Be(valorEnTextoEsperado);
     }
+
+    [Fact]
+    public void Retirar_SiLaCantidadEsUnMultiploExacto_RebeRetornarCantidadDeLaMismaDenominacion()
+    {
+        int montoSolicitado = 1000;
+        Cajero cajero = new Cajero();
+        
+        string montoRetirado = cajero.Retirar(montoSolicitado);
+        
+        montoRetirado.Should().Be("2 billetes de 500");
+    }
+    
 }
 
 public class Cajero
 {
+    private const string FormatoValorEnTexto = "{0} {1} de {2}";
+
+    private static readonly Dictionary<int, string> Denominaciones = new()
+    {
+        { 500, "billete" },
+        { 200, "billete" },
+        { 100, "billete" },
+        { 50,  "billete" },
+        { 20,  "billete" },
+        { 10,  "billete" },
+        { 5,   "billete" },
+        { 2,   "moneda" },
+        { 1,   "moneda" }
+    };
+
     public string Retirar(int montoSolicitado)
     {
-        var denominaciones = new Dictionary<int, string>
+        foreach (var denominacion in Denominaciones)
         {
-            { 500, "1 billete de 500" },
-            { 200, "1 billete de 200" },
-            { 100, "1 billete de 100" },
-            { 50,  "1 billete de 50" },
-            { 20,  "1 billete de 20" },
-            { 10,  "1 billete de 10" },
-            { 5,   "1 billete de 5" },
-            { 2,   "1 moneda de 2" },
-            { 1,   "1 moneda de 1" }
-        };
-        
-        if (denominaciones.TryGetValue(montoSolicitado, out string? descripcion))
-            return descripcion;
+            int unidadesPorDenominacion = montoSolicitado / denominacion.Key;
+            
+            if(unidadesPorDenominacion == 0)
+                continue;
+
+            string tipoDenominacion = unidadesPorDenominacion > 1
+                ? denominacion.Value + "s"
+                : denominacion.Value;
+            
+            return string.Format(FormatoValorEnTexto, 
+                unidadesPorDenominacion, 
+                tipoDenominacion, 
+                denominacion.Key);
+        }
+
         
         throw new NotImplementedException();
     }
