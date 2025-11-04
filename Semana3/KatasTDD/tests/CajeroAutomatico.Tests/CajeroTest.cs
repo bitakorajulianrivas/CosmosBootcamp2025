@@ -91,6 +91,17 @@ public class CajeroTest
         
         montoRetirado.Should().Be("1 moneda de 2");
     }
+    
+    [Fact]
+    public void Retirar_SiLaCantidadEsUna_DebeRetornarUnaMonedaDeUno()
+    {
+        int montoSolicitado = 1;
+        Cajero cajero = new Cajero();
+        
+        string montoRetirado = cajero.Retirar(montoSolicitado);
+        
+        montoRetirado.Should().Be("1 moneda de 1");
+    }
 }
 
 public class Cajero
@@ -120,6 +131,9 @@ public class Cajero
         
         if(montoSolitado == 2)
             return "1 moneda de 2";
+        
+        if(montoSolitado == 1)
+            return "1 moneda de 1";
         
         throw new NotImplementedException();
     }
