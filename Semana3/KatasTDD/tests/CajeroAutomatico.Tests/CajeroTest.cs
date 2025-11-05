@@ -1,4 +1,5 @@
-﻿using CajeroAutomatico.Utilities;
+﻿using CajeroAutomatico.Models;
+using CajeroAutomatico.Utilities;
 using FluentAssertions;
 
 namespace CajeroAutomatico.Tests;
@@ -25,7 +26,6 @@ public class CajeroTest
     }
 
     [Theory]
-    [InlineData(1500,  "3 billetes de 500")]
     [InlineData(1000, "2 billetes de 500")]
     [InlineData(400,  "2 billetes de 200")]
     [InlineData(40,  "2 billetes de 20")]
@@ -40,8 +40,9 @@ public class CajeroTest
     }
 
     [Theory]
-    [InlineData(1825, "3 billetes de 500", "1 billete de 200", "1 billete de 100", "1 billete de 20", "1 billete de 5")]
-    [InlineData(1725, "3 billetes de 500", "1 billete de 200", "1 billete de 20", "1 billete de 5")]
+    [InlineData(1500, "2 billetes de 500", "2 billetes de 200", "1 billete de 100")]
+    [InlineData(1825, "2 billetes de 500", "3 billetes de 200", "2 billetes de 100", "1 billete de 20", "1 billete de 5")]
+    [InlineData(1725, "2 billetes de 500", "3 billetes de 200", "1 billete de 100", "1 billete de 20", "1 billete de 5")]
     [InlineData(1475, "2 billetes de 500", "2 billetes de 200", "1 billete de 50", "1 billete de 20", "1 billete de 5")]
     [InlineData(128, "1 billete de 100", "1 billete de 20", "1 billete de 5", "1 moneda de 2", "1 moneda de 1")]
     [InlineData(3, "1 moneda de 2", "1 moneda de 1")]
@@ -63,5 +64,21 @@ public class CajeroTest
 
         action.Should().ThrowExactly<ArgumentException>()
             .WithMessage(CajeroErrores.ElCajeroNoDisponeDeDineroSuficienteParaEstaTransaccion);
-}
+    }
+
+    [Fact]
+    public void Retirar_SiElCajeroNoDisponeDeMasBilletes_Debe_DevolverLaMismaCantidadEnOtrasDenominaciones()
+    {
+        Cajero cajero = new Cajero();
+        int montoSolicitado = 1_725;
+
+        List<MontoRetiro> montoRetirado = cajero.Retirar(montoSolicitado);
+
+        montoRetirado.Should().BeEquivalentTo([
+            new MontoRetiro(Dinero.BilleteDe(500), Cantidad: 2),
+            new MontoRetiro(Dinero.BilleteDe(200), Cantidad: 3),
+            new MontoRetiro(Dinero.BilleteDe(100), Cantidad: 1),
+            new MontoRetiro(Dinero.BilleteDe(20),  Cantidad: 1),
+            new MontoRetiro(Dinero.BilleteDe(5),   Cantidad: 1)]);
+    }
 }

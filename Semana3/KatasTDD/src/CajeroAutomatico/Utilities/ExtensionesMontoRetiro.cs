@@ -14,7 +14,7 @@ public static class ExtensionesMontoRetiro
         string.Format(FormatoValorEnTexto,
             monto.Cantidad,
             monto.ConvertirTipoEnPrural(),
-            monto.Dinero.ObtenerValor());
+            monto.Dinero.Valor);
 
     private static string ConvertirTipoEnPrural(this MontoRetiro monto) =>
         monto.EsMasDeUnaUnidad()

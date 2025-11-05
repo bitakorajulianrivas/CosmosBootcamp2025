@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using CajeroAutomatico.Models;
 
 namespace CajeroAutomatico;
@@ -33,22 +34,29 @@ public class Cajero
 
     public List<MontoRetiro> Retirar(int montoSolicitado)
     {
-        List<MontoRetiro> montosARetirar = [];
-
         LanzarExcepcionSiNoDisponeDeFondosSuficienes(montoSolicitado);
+
+        List<MontoRetiro> resultado = [];
+        int valorRestante = montoSolicitado;
 
         foreach (var dinero in _dinerosEstablecidos)
         {
-            int unidadesPorMonto = dinero
-                .ObtenerUnidadesAPartirDe(montoSolicitado);
+            int unidadesDivisiblesPorMonto = dinero
+                .ObtenerUnidadesDivisiblesAPartirDe(valorRestante);
 
-            if(unidadesPorMonto > 0)
-                montosARetirar.Add(new MontoRetiro(dinero, unidadesPorMonto));
+            int cantidadDisponibleParaRetirar = _fondosDisponibles[dinero.Valor];
 
-            montoSolicitado = montoSolicitado % dinero.ObtenerValor();
+            int unidadMinima = Math.Min(unidadesDivisiblesPorMonto, cantidadDisponibleParaRetirar);
+
+            if (unidadMinima > 0)
+            {
+                resultado.Add(new MontoRetiro(dinero, unidadMinima));
+
+                valorRestante -= dinero.Valor * unidadMinima;
+            }
         }
 
-        return montosARetirar;
+        return resultado;
     }
 
     private void LanzarExcepcionSiNoDisponeDeFondosSuficienes(int montoSolicitado)
