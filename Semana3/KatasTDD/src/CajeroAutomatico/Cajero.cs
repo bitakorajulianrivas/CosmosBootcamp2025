@@ -18,7 +18,7 @@ public class Cajero
         Dinero.MonedaDe(1)
     ];
 
-    private Dictionary<int, int> _fondosDisponibles = new()
+    private readonly Dictionary<int, int> _fondosDisponibles = new()
     {
         //valor, cantidad
         {500, 2},
@@ -55,6 +55,7 @@ public class Cajero
 
             resultado.Add(new MontoRetiro(dinero, cantidadDeUnidadesARetirar));
             valorRestante -= dinero.Valor * cantidadDeUnidadesARetirar;
+            _fondosDisponibles[dinero.Valor] -= cantidadDeUnidadesARetirar;
         }
 
         return resultado;

@@ -102,4 +102,49 @@ public class CajeroTest
             new MontoDisponible(Dinero.BilleteDe(1),   Cantidad: 500)
         ]);
     }
+
+    [Fact]
+    public void ConsutarFondoDisponible_SiElCajeroRealizaRetirosPor1725_DebeMostrarLaCantidadDeUnidadesRestantesPorCadaDenominacion()
+    {
+        int montoSolicitado = 1_725;
+        Cajero cajero = new Cajero();
+        cajero.Retirar(montoSolicitado);
+
+        List<MontoDisponible> fondoDisponible = cajero
+            .ConsutarFondoDisponible();
+
+        fondoDisponible.Should().BeEquivalentTo([
+            new MontoDisponible(Dinero.BilleteDe(500), Cantidad: 0),
+            new MontoDisponible(Dinero.BilleteDe(200), Cantidad: 0),
+            new MontoDisponible(Dinero.BilleteDe(100), Cantidad: 4),
+            new MontoDisponible(Dinero.BilleteDe(50),  Cantidad: 12),
+            new MontoDisponible(Dinero.BilleteDe(20),  Cantidad: 19),
+            new MontoDisponible(Dinero.BilleteDe(10),  Cantidad: 50),
+            new MontoDisponible(Dinero.BilleteDe(5),   Cantidad: 99),
+            new MontoDisponible(Dinero.BilleteDe(2),   Cantidad: 250),
+            new MontoDisponible(Dinero.BilleteDe(1),   Cantidad: 500)
+        ]);
+    }
+
+    [Fact]
+    public void ConsutarFondoDisponible_SiElCajeroSeQuedaSinFondos_DebeMostrarSinDenominacionesDisponibles()
+    {
+        Cajero cajero = new Cajero();
+        cajero.Retirar(5100);
+
+        List<MontoDisponible> fondoDisponible = cajero
+            .ConsutarFondoDisponible();
+
+        fondoDisponible.Should().BeEquivalentTo([
+            new MontoDisponible(Dinero.BilleteDe(500), Cantidad: 0),
+            new MontoDisponible(Dinero.BilleteDe(200), Cantidad: 0),
+            new MontoDisponible(Dinero.BilleteDe(100), Cantidad: 0),
+            new MontoDisponible(Dinero.BilleteDe(50),  Cantidad: 0),
+            new MontoDisponible(Dinero.BilleteDe(20),  Cantidad: 0),
+            new MontoDisponible(Dinero.BilleteDe(10),  Cantidad: 0),
+            new MontoDisponible(Dinero.BilleteDe(5),   Cantidad: 0),
+            new MontoDisponible(Dinero.BilleteDe(2),   Cantidad: 0),
+            new MontoDisponible(Dinero.BilleteDe(1),   Cantidad: 0)
+        ]);
+    }
 }
