@@ -18,7 +18,7 @@ public class Cajero
         Dinero.MonedaDe(1)
     ];
 
-    private readonly Dictionary<int, int> _fondosDisponibles = new()
+    private Dictionary<int, int> _fondosDisponibles = new()
     {
         //valor, cantidad
         {500, 2},
@@ -44,16 +44,17 @@ public class Cajero
             int unidadesDivisiblesPorMonto = dinero
                 .ObtenerUnidadesDivisiblesAPartirDe(valorRestante);
 
-            int cantidadDisponibleParaRetirar = _fondosDisponibles[dinero.Valor];
+            int cantidadDeUnidadesDiponibles = _fondosDisponibles[dinero.Valor];
 
-            int unidadMinima = Math.Min(unidadesDivisiblesPorMonto, cantidadDisponibleParaRetirar);
+            int cantidadDeUnidadesARetirar = Math
+                .Min(unidadesDivisiblesPorMonto,
+                    cantidadDeUnidadesDiponibles);
 
-            if (unidadMinima > 0)
-            {
-                resultado.Add(new MontoRetiro(dinero, unidadMinima));
+            if (cantidadDeUnidadesARetirar <= 0)
+                continue;
 
-                valorRestante -= dinero.Valor * unidadMinima;
-            }
+            resultado.Add(new MontoRetiro(dinero, cantidadDeUnidadesARetirar));
+            valorRestante -= dinero.Valor * cantidadDeUnidadesARetirar;
         }
 
         return resultado;
@@ -67,4 +68,13 @@ public class Cajero
 
     private int TotalFondoDisponible() => _fondosDisponibles
         .Sum(elemento => elemento.Key * elemento.Value);
+
+    public List<MontoDisponible> ConsutarFondoDisponible()
+    {
+        return (from fondo in _fondosDisponibles
+            join dinero in _dinerosEstablecidos
+                on fondo.Key equals dinero.Valor
+            select new MontoDisponible(dinero, fondo.Value))
+            .ToList();
+    }
 }
