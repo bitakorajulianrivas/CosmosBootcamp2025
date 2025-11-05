@@ -53,4 +53,15 @@ public class CajeroTest
         
         montoRetirado.ConvertirATexto().Should().BeEquivalentTo(valorEnTextoEsperado);
     }
+
+    [Fact]
+    public void Retirar_SiElCajeroNoDisponeDeDineroSuficiente_DebeLanzarExcepcion()
+    {
+        Cajero cajero = new Cajero();
+
+        Action action = () => cajero.Retirar(100_000);
+
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage(CajeroErrores.ElCajeroNoDisponeDeDineroSuficienteParaEstaTransaccion);
+}
 }

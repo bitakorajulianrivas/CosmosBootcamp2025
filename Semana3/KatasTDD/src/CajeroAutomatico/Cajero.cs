@@ -4,7 +4,8 @@ namespace CajeroAutomatico;
 
 public class Cajero
 {
-    private readonly List<Dinero> _dineros = [
+    private readonly List<Dinero> _dinerosEstablecidos =
+    [
         Dinero.BilleteDe(500),
         Dinero.BilleteDe(200),
         Dinero.BilleteDe(100),
@@ -13,23 +14,49 @@ public class Cajero
         Dinero.BilleteDe(10),
         Dinero.BilleteDe(5),
         Dinero.MonedaDe(2),
-        Dinero.MonedaDe(1)];
+        Dinero.MonedaDe(1)
+    ];
+
+    private readonly Dictionary<int, int> _fondosDisponibles = new()
+    {
+        //valor, cantidad
+        {500, 2},
+        {200, 3},
+        {100, 5},
+        {50, 12},
+        {20, 20},
+        {10, 50},
+        {5, 100},
+        {2, 250},
+        {1, 500}
+    };
 
     public List<MontoRetiro> Retirar(int montoSolicitado)
     {
-        List<MontoRetiro> montoARetirar = [];
+        List<MontoRetiro> montosARetirar = [];
 
-        foreach (var dinero in _dineros)
+        LanzarExcepcionSiNoDisponeDeFondosSuficienes(montoSolicitado);
+
+        foreach (var dinero in _dinerosEstablecidos)
         {
             int unidadesPorMonto = dinero
                 .ObtenerUnidadesAPartirDe(montoSolicitado);
 
             if(unidadesPorMonto > 0)
-                montoARetirar.Add(new MontoRetiro(dinero, unidadesPorMonto));
+                montosARetirar.Add(new MontoRetiro(dinero, unidadesPorMonto));
 
             montoSolicitado = montoSolicitado % dinero.ObtenerValor();
         }
 
-        return montoARetirar;
+        return montosARetirar;
     }
+
+    private void LanzarExcepcionSiNoDisponeDeFondosSuficienes(int montoSolicitado)
+    {
+        if (montoSolicitado > TotalFondoDisponible())
+            throw new ArgumentException(CajeroErrores.ElCajeroNoDisponeDeDineroSuficienteParaEstaTransaccion);
+    }
+
+    private int TotalFondoDisponible() => _fondosDisponibles
+        .Sum(elemento => elemento.Key * elemento.Value);
 }
