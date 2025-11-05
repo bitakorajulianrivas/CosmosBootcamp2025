@@ -4,4 +4,7 @@ public static class CajeroErrores
 {
     public const string ElCajeroNoDisponeDeDineroSuficienteParaEstaTransaccion = 
         "El cajero no dispone de dinero suficiente para esta transacción.";
+
+    public const string DebeRetirarMinimoUnaUnidad =
+        "Debe retirar mínimo una unidad.";
 }

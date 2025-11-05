@@ -34,6 +34,7 @@ public class Cajero
 
     public List<MontoRetiro> Retirar(int montoSolicitado)
     {
+        LanzarExcepcionSiNoRetiraUnidades(montoSolicitado);
         LanzarExcepcionSiNoDisponeDeFondosSuficienes(montoSolicitado);
 
         List<MontoRetiro> resultado = [];
@@ -60,6 +61,12 @@ public class Cajero
 
         return resultado;
     }
+
+    private static void LanzarExcepcionSiNoRetiraUnidades(int montoSolicitado)
+    {
+        if (montoSolicitado <= 0)
+            throw new ArgumentException(CajeroErrores.DebeRetirarMinimoUnaUnidad);
+}
 
     private void LanzarExcepcionSiNoDisponeDeFondosSuficienes(int montoSolicitado)
     {

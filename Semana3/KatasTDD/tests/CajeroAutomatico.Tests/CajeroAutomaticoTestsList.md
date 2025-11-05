@@ -8,5 +8,5 @@
 ## Iteración 2
 - [x] Lanzar excepción si el cajero no dispone de dinero suficiente.
 - [x] Si el cajero no tiene más billetes suficientes, debe devoler otras denominaciones.
-- [ ] Validaciones de borde al retirar mínimo una unidad y máximo el total disponible.
+- [x] Validaciones de borde al retirar mínimo una unidad y máximo el total disponible.
 - [ ] Validar cuando el cajero no tenga fondos.

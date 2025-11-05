@@ -147,4 +147,15 @@ public class CajeroTest
             new MontoDisponible(Dinero.BilleteDe(1),   Cantidad: 0)
         ]);
     }
+
+    [Fact]
+    public void Retirar_SiRealizarnRetirosIgualOMenorACero_DebeLanzarExcepcion()
+    {
+        Cajero cajero = new Cajero();
+
+        Action action = () => cajero.Retirar(0);
+
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage(CajeroErrores.DebeRetirarMinimoUnaUnidad);
+    }
 }
