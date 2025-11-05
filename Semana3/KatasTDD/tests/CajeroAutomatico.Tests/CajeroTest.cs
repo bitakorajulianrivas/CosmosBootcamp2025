@@ -83,6 +83,18 @@ public class CajeroTest
     }
 
     [Fact]
+    public void Retirar_SiElCajeroSeQuedaSinFondos_DebeLanzarExcepcion()
+    {
+        Cajero cajero = new Cajero();
+        cajero.Retirar(5_100);
+
+        Action action = () => cajero.Retirar(1);
+
+        action.Should().ThrowExactly<ArgumentException>()
+            .WithMessage(CajeroErrores.ElCajeroNoDisponeDeDineroSuficienteParaEstaTransaccion);
+    }
+
+    [Fact]
     public void ConsutarFondoDisponible_SiElCajeroNoHaRealizadoRetiros_DebeMostrarLaCantidadDeUnidadesPorCadaDenominacion()
     {
         Cajero cajero = new Cajero();
@@ -147,6 +159,7 @@ public class CajeroTest
             new MontoDisponible(Dinero.BilleteDe(1),   Cantidad: 0)
         ]);
     }
+
 
     [Fact]
     public void Retirar_SiRealizarnRetirosIgualOMenorACero_DebeLanzarExcepcion()
