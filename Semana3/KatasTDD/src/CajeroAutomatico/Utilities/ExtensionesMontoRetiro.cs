@@ -12,12 +12,12 @@ public static class ExtensionesMontoRetiro
 
     private static string ConvertirATexto(this MontoRetiro monto) =>
         string.Format(FormatoValorEnTexto,
-            monto.Cantidad,
+            monto.ObtenerCantidad(),
             monto.ConvertirTipoEnPrural(),
-            monto.Dinero.Valor);
+            monto.ObtenerValor());
 
     private static string ConvertirTipoEnPrural(this MontoRetiro monto) =>
         monto.EsMasDeUnaUnidad()
-            ? monto.Dinero.ObtenerTipoEnMinuscula() + "s"
-            : monto.Dinero.ObtenerTipoEnMinuscula();
+            ? monto.ObtenerTipo().ToString().ToLower() + "s"
+            : monto.ObtenerTipo().ToString().ToLower();
 }

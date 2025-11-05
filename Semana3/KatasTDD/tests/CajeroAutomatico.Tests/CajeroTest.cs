@@ -74,12 +74,12 @@ public class CajeroTest
 
         List<MontoRetiro> montoRetirado = cajero.Retirar(montoSolicitado);
 
-        montoRetirado.Should().BeEquivalentTo([
-            new MontoRetiro(Dinero.BilleteDe(500), Cantidad: 2),
-            new MontoRetiro(Dinero.BilleteDe(200), Cantidad: 3),
-            new MontoRetiro(Dinero.BilleteDe(100), Cantidad: 1),
-            new MontoRetiro(Dinero.BilleteDe(20),  Cantidad: 1),
-            new MontoRetiro(Dinero.BilleteDe(5),   Cantidad: 1)]);
+        montoRetirado.ConvertirATexto().Should().BeEquivalentTo([
+            "2 billetes de 500", 
+            "3 billetes de 200", 
+            "1 billete de 100", 
+            "1 billete de 20", 
+            "1 billete de 5"]);
     }
 
     [Fact]
@@ -93,76 +93,74 @@ public class CajeroTest
         action.Should().ThrowExactly<ArgumentException>()
             .WithMessage(CajeroErrores.ElCajeroNoDisponeDeDineroSuficienteParaEstaTransaccion);
     }
-
     [Fact]
-    public void ConsutarFondoDisponible_SiElCajeroNoHaRealizadoRetiros_DebeMostrarLaCantidadDeUnidadesPorCadaDenominacion()
+    public void ConsutarInventario_SiElCajeroNoHaRealizadoRetiros_DebeMostrarLaCantidadDeUnidadesPorCadaDenominacion()
     {
         Cajero cajero = new Cajero();
         
-        List<MontoDisponible> fondoDisponible = cajero
-            .ConsutarFondoDisponible();
+        List<MontoInventario> fondoDisponible = cajero
+            .ConsultarInventario();
 
         fondoDisponible.Should().BeEquivalentTo([
-            new MontoDisponible(Dinero.BilleteDe(500), Cantidad: 2),
-            new MontoDisponible(Dinero.BilleteDe(200), Cantidad: 3),
-            new MontoDisponible(Dinero.BilleteDe(100), Cantidad: 5),
-            new MontoDisponible(Dinero.BilleteDe(50),  Cantidad: 12),
-            new MontoDisponible(Dinero.BilleteDe(20),  Cantidad: 20),
-            new MontoDisponible(Dinero.BilleteDe(10),  Cantidad: 50),
-            new MontoDisponible(Dinero.BilleteDe(5),   Cantidad: 100),
-            new MontoDisponible(Dinero.BilleteDe(2),   Cantidad: 250),
-            new MontoDisponible(Dinero.BilleteDe(1),   Cantidad: 500)
+            new MontoInventario(Cantidad: 2, Dinero.BilleteDeQuinientos()),
+            new MontoInventario(Cantidad: 3, Dinero.BilleteDeDoscientos()),
+            new MontoInventario(Cantidad: 5, Dinero.BilleteDeCien()),
+            new MontoInventario(Cantidad: 12, Dinero.BilleteDeCincuenta()),
+            new MontoInventario(Cantidad: 20, Dinero.BilleteDeVeinte()),
+            new MontoInventario(Cantidad: 50, Dinero.BilleteDeDiez()),
+            new MontoInventario(Cantidad: 100, Dinero.BilleteDeCinco()),
+            new MontoInventario(Cantidad: 250, Dinero.MonedaDeDos()),
+            new MontoInventario(Cantidad: 500, Dinero.MonedaDeUno())
         ]);
     }
 
     [Fact]
-    public void ConsutarFondoDisponible_SiElCajeroRealizaRetirosPor1725_DebeMostrarLaCantidadDeUnidadesRestantesPorCadaDenominacion()
+    public void ConsutarInventario_SiElCajeroRealizaRetirosPor1725_DebeMostrarLaCantidadDeUnidadesRestantesPorCadaDenominacion()
     {
         int montoSolicitado = 1_725;
         Cajero cajero = new Cajero();
         cajero.Retirar(montoSolicitado);
 
-        List<MontoDisponible> fondoDisponible = cajero
-            .ConsutarFondoDisponible();
+        List<MontoInventario> fondoDisponible = cajero
+            .ConsultarInventario();
 
         fondoDisponible.Should().BeEquivalentTo([
-            new MontoDisponible(Dinero.BilleteDe(500), Cantidad: 0),
-            new MontoDisponible(Dinero.BilleteDe(200), Cantidad: 0),
-            new MontoDisponible(Dinero.BilleteDe(100), Cantidad: 4),
-            new MontoDisponible(Dinero.BilleteDe(50),  Cantidad: 12),
-            new MontoDisponible(Dinero.BilleteDe(20),  Cantidad: 19),
-            new MontoDisponible(Dinero.BilleteDe(10),  Cantidad: 50),
-            new MontoDisponible(Dinero.BilleteDe(5),   Cantidad: 99),
-            new MontoDisponible(Dinero.BilleteDe(2),   Cantidad: 250),
-            new MontoDisponible(Dinero.BilleteDe(1),   Cantidad: 500)
+            new MontoInventario(Cantidad: 0, Dinero.BilleteDeQuinientos()),
+            new MontoInventario(Cantidad: 0, Dinero.BilleteDeDoscientos()),
+            new MontoInventario(Cantidad: 4, Dinero.BilleteDeCien()),
+            new MontoInventario(Cantidad: 12, Dinero.BilleteDeCincuenta()),
+            new MontoInventario(Cantidad: 19, Dinero.BilleteDeVeinte()),
+            new MontoInventario(Cantidad: 50, Dinero.BilleteDeDiez()),
+            new MontoInventario(Cantidad: 99, Dinero.BilleteDeCinco()),
+            new MontoInventario(Cantidad: 250, Dinero.MonedaDeDos()),
+            new MontoInventario(Cantidad: 500, Dinero.MonedaDeUno())
         ]);
     }
 
     [Fact]
-    public void ConsutarFondoDisponible_SiElCajeroSeQuedaSinFondos_DebeMostrarSinDenominacionesDisponibles()
+    public void ConsutarInventario_SiElCajeroSeQuedaSinFondos_DebeMostrarSinDenominacionesDisponibles()
     {
         Cajero cajero = new Cajero();
         cajero.Retirar(5100);
 
-        List<MontoDisponible> fondoDisponible = cajero
-            .ConsutarFondoDisponible();
+        List<MontoInventario> fondoDisponible = cajero
+            .ConsultarInventario();
 
         fondoDisponible.Should().BeEquivalentTo([
-            new MontoDisponible(Dinero.BilleteDe(500), Cantidad: 0),
-            new MontoDisponible(Dinero.BilleteDe(200), Cantidad: 0),
-            new MontoDisponible(Dinero.BilleteDe(100), Cantidad: 0),
-            new MontoDisponible(Dinero.BilleteDe(50),  Cantidad: 0),
-            new MontoDisponible(Dinero.BilleteDe(20),  Cantidad: 0),
-            new MontoDisponible(Dinero.BilleteDe(10),  Cantidad: 0),
-            new MontoDisponible(Dinero.BilleteDe(5),   Cantidad: 0),
-            new MontoDisponible(Dinero.BilleteDe(2),   Cantidad: 0),
-            new MontoDisponible(Dinero.BilleteDe(1),   Cantidad: 0)
+            new MontoInventario(Cantidad: 0, Dinero.BilleteDeQuinientos()),
+            new MontoInventario(Cantidad: 0, Dinero.BilleteDeDoscientos()),
+            new MontoInventario(Cantidad: 0, Dinero.BilleteDeCien()),
+            new MontoInventario(Cantidad: 0, Dinero.BilleteDeCincuenta()),
+            new MontoInventario(Cantidad: 0, Dinero.BilleteDeVeinte()),
+            new MontoInventario(Cantidad: 0, Dinero.BilleteDeDiez()),
+            new MontoInventario(Cantidad: 0, Dinero.BilleteDeCinco()),
+            new MontoInventario(Cantidad: 0, Dinero.MonedaDeDos()),
+            new MontoInventario(Cantidad: 0, Dinero.MonedaDeUno())
         ]);
     }
 
-
     [Fact]
-    public void Retirar_SiRealizarnRetirosIgualOMenorACero_DebeLanzarExcepcion()
+    public void Retirar_SiRealizaRetirosIgualOMenorACero_DebeLanzarExcepcion()
     {
         Cajero cajero = new Cajero();
 

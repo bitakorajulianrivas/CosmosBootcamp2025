@@ -1,6 +1,14 @@
-﻿namespace CajeroAutomatico.Models;
+﻿using CajeroAutomatico.Enums;
 
-public record MontoRetiro(Dinero Dinero, int Cantidad)
+namespace CajeroAutomatico.Models;
+
+public class MontoRetiro(int cantidad, Dinero dinero)
 {
-    public bool EsMasDeUnaUnidad() => Cantidad > 1;
+    public int ObtenerCantidad() => cantidad;
+    public int ObtenerValor() => dinero.Valor;
+    public Tipo ObtenerTipo() => dinero.Tipo;
+
+    public bool EsMasDeUnaUnidad() => cantidad > 1;
+    public bool ExisteCantidad() => cantidad > 0;
+    public int MultiplicarPorCantidad() => dinero.Valor * cantidad;
 }

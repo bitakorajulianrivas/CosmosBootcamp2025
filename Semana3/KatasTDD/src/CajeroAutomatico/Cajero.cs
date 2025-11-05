@@ -1,88 +1,74 @@
-using System.Runtime.CompilerServices;
 using CajeroAutomatico.Models;
 
 namespace CajeroAutomatico;
 
 public class Cajero
 {
-    private readonly List<Dinero> _dinerosEstablecidos =
+    private readonly List<MontoInventario> _inventario =
     [
-        Dinero.BilleteDe(500),
-        Dinero.BilleteDe(200),
-        Dinero.BilleteDe(100),
-        Dinero.BilleteDe(50),
-        Dinero.BilleteDe(20),
-        Dinero.BilleteDe(10),
-        Dinero.BilleteDe(5),
-        Dinero.MonedaDe(2),
-        Dinero.MonedaDe(1)
+        new (Cantidad: 2, Dinero.BilleteDeQuinientos()),
+        new (Cantidad: 3, Dinero.BilleteDeDoscientos()),
+        new (Cantidad: 5, Dinero.BilleteDeCien()),
+        new (Cantidad: 12, Dinero.BilleteDeCincuenta()),
+        new (Cantidad: 20, Dinero.BilleteDeVeinte()),
+        new (Cantidad: 50, Dinero.BilleteDeDiez()),
+        new (Cantidad: 100, Dinero.BilleteDeCinco()),
+        new (Cantidad: 250, Dinero.MonedaDeDos()),
+        new (Cantidad: 500, Dinero.MonedaDeUno())
     ];
 
-    private readonly Dictionary<int, int> _fondosDisponibles = new()
+    public List<MontoRetiro> Retirar(int valorARetirar)
     {
-        //valor, cantidad
-        {500, 2},
-        {200, 3},
-        {100, 5},
-        {50, 12},
-        {20, 20},
-        {10, 50},
-        {5, 100},
-        {2, 250},
-        {1, 500}
-    };
-
-    public List<MontoRetiro> Retirar(int montoSolicitado)
-    {
-        LanzarExcepcionSiNoRetiraUnidades(montoSolicitado);
-        LanzarExcepcionSiNoDisponeDeFondosSuficienes(montoSolicitado);
+        LanzarExcepcionSiNoIngresaMontoPositivo(valorARetirar);
+        LanzarExcepcionSiNoHayFondosSuficienes(valorARetirar);
 
         List<MontoRetiro> resultado = [];
-        int valorRestante = montoSolicitado;
+        int valorRestante = valorARetirar;
 
-        foreach (var dinero in _dinerosEstablecidos)
+        foreach (MontoInventario montoInventario in _inventario)
         {
-            int unidadesDivisiblesPorMonto = dinero
-                .ObtenerUnidadesDivisiblesAPartirDe(valorRestante);
+            MontoRetiro montoCreado = CrearMontoRetiro(montoInventario, valorRestante);
 
-            int cantidadDeUnidadesDiponibles = _fondosDisponibles[dinero.Valor];
+            if (montoCreado.ExisteCantidad())
+            {
+                resultado.Add(montoCreado);
 
-            int cantidadDeUnidadesARetirar = Math
-                .Min(unidadesDivisiblesPorMonto,
-                    cantidadDeUnidadesDiponibles);
+                valorRestante -= montoCreado.MultiplicarPorCantidad();
 
-            if (cantidadDeUnidadesARetirar <= 0)
-                continue;
-
-            resultado.Add(new MontoRetiro(dinero, cantidadDeUnidadesARetirar));
-            valorRestante -= dinero.Valor * cantidadDeUnidadesARetirar;
-            _fondosDisponibles[dinero.Valor] -= cantidadDeUnidadesARetirar;
+                montoInventario.ReducirCantidad(montoCreado.ObtenerCantidad());
+            }
         }
 
         return resultado;
     }
 
-    private static void LanzarExcepcionSiNoRetiraUnidades(int montoSolicitado)
+    private static MontoRetiro CrearMontoRetiro(MontoInventario montoInventario, int valorRestante)
+    {
+        int unidadesPorCadaMonto = montoInventario
+            .ObtenerCantidadDeUnidadesPorMonto(valorRestante);
+            
+        int cantidadDisponibleARetirar = Math
+            .Min(unidadesPorCadaMonto, montoInventario.Cantidad);
+
+        return new MontoRetiro(cantidadDisponibleARetirar, montoInventario.Dinero);
+    }
+
+    private static void LanzarExcepcionSiNoIngresaMontoPositivo(int montoSolicitado)
     {
         if (montoSolicitado <= 0)
-            throw new ArgumentException(CajeroErrores.DebeRetirarMinimoUnaUnidad);
-}
-
-    private void LanzarExcepcionSiNoDisponeDeFondosSuficienes(int montoSolicitado)
-    {
-        if (montoSolicitado > TotalFondoDisponible())
-            throw new ArgumentException(CajeroErrores.ElCajeroNoDisponeDeDineroSuficienteParaEstaTransaccion);
+            throw new ArgumentException(CajeroErrores
+                .DebeRetirarMinimoUnaUnidad);
     }
 
-    private int TotalFondoDisponible() => _fondosDisponibles
-        .Sum(elemento => elemento.Key * elemento.Value);
-
-    public List<MontoDisponible> ConsutarFondoDisponible()
+    private void LanzarExcepcionSiNoHayFondosSuficienes(int montoSolicitado)
     {
-        return (from fondo in _fondosDisponibles
-            join dinero in _dinerosEstablecidos
-                on fondo.Key equals dinero.Valor
-            select new MontoDisponible(dinero, fondo.Value))
-            .ToList();
+        if (montoSolicitado > TotalInventario())
+            throw new ArgumentException(CajeroErrores
+                .ElCajeroNoDisponeDeDineroSuficienteParaEstaTransaccion);
     }
+
+    public List<MontoInventario> ConsultarInventario() => _inventario;
+
+    private int TotalInventario() => _inventario
+        .Sum(monto => monto.MultiplicarPorCantidad());
 }
