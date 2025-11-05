@@ -15,23 +15,9 @@ public class Cajero
         Dinero.MonedaDe(2),
         Dinero.MonedaDe(1)];
 
-    private Dictionary<int, int> _inventario = new()
-    { 
-        //Valor, Cantidad
-        { 500, 2 },
-        { 200, 3 },
-        { 100, 5 },
-        { 50, 12 },
-        { 20, 20 },
-        { 10, 50 },
-        { 5, 100 },
-        { 2, 250 },
-        { 1, 500 }
-    };
-
-    public List<MontoRetirado> Retirar(int montoSolicitado)
+    public List<MontoRetiro> Retirar(int montoSolicitado)
     {
-        var montoARetirar = new List<MontoRetirado>();
+        List<MontoRetiro> montoARetirar = [];
 
         foreach (var dinero in _dineros)
         {
@@ -39,8 +25,7 @@ public class Cajero
                 .ObtenerUnidadesAPartirDe(montoSolicitado);
 
             if(unidadesPorMonto > 0)
-                montoARetirar.Add(
-                    new MontoRetirado(dinero, unidadesPorMonto));
+                montoARetirar.Add(new MontoRetiro(dinero, unidadesPorMonto));
 
             montoSolicitado = montoSolicitado % dinero.ObtenerValor();
         }
