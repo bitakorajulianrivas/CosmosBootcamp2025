@@ -2,73 +2,83 @@ using CajeroAutomatico.Models;
 
 namespace CajeroAutomatico;
 
-public class Cajero
+public class Cajero : ICajero
 {
-    private readonly List<MontoInventario> _inventario =
-    [
-        new (Cantidad: 2, Dinero.BilleteDeQuinientos()),
-        new (Cantidad: 3, Dinero.BilleteDeDoscientos()),
-        new (Cantidad: 5, Dinero.BilleteDeCien()),
-        new (Cantidad: 12, Dinero.BilleteDeCincuenta()),
-        new (Cantidad: 20, Dinero.BilleteDeVeinte()),
-        new (Cantidad: 50, Dinero.BilleteDeDiez()),
-        new (Cantidad: 100, Dinero.BilleteDeCinco()),
-        new (Cantidad: 250, Dinero.MonedaDeDos()),
-        new (Cantidad: 500, Dinero.MonedaDeUno())
-    ];
+    private readonly List<BilleteDisponible> _billetesDisponibles;
 
-    public List<MontoRetiro> Retirar(int valorARetirar)
+    public Cajero()
     {
-        LanzarExcepcionSiNoIngresaMontoPositivo(valorARetirar);
+        _billetesDisponibles = [
+            new BilleteDisponible(Cantidad: 2, Dinero.BilleteDeQuinientos()),
+            new BilleteDisponible(Cantidad: 3, Dinero.BilleteDeDoscientos()),
+            new BilleteDisponible(Cantidad: 5, Dinero.BilleteDeCien()),
+            new BilleteDisponible(Cantidad: 12, Dinero.BilleteDeCincuenta()),
+            new BilleteDisponible(Cantidad: 20, Dinero.BilleteDeVeinte()),
+            new BilleteDisponible(Cantidad: 50, Dinero.BilleteDeDiez()),
+            new BilleteDisponible(Cantidad: 100, Dinero.BilleteDeCinco()),
+            new BilleteDisponible(Cantidad: 250, Dinero.MonedaDeDos()),
+            new BilleteDisponible(Cantidad: 500, Dinero.MonedaDeUno())
+        ];
+    }
+
+    public List<BilleteRetiro> Retirar(int valorARetirar)
+    {
+        LanzarExcepcionSiElValorARetirarEsMenorOIgualACero(valorARetirar);
         LanzarExcepcionSiNoHayFondosSuficienes(valorARetirar);
 
-        List<MontoRetiro> resultado = [];
-        int valorRestante = valorARetirar;
+        List<BilleteRetiro> billetesARetirar = [];
+        int valorRestanteARetirar = valorARetirar;
 
-        foreach (MontoInventario montoInventario in _inventario)
+        foreach (BilleteDisponible billeteDisponible in _billetesDisponibles)
         {
-            MontoRetiro montoCreado = CrearMontoRetiro(montoInventario, valorRestante);
+            BilleteRetiro billeteARetirar = 
+                RetirarCantidadDeBilletesPorCadaCifra(billeteDisponible, valorRestanteARetirar);
 
-            if (montoCreado.ExisteCantidad())
-            {
-                resultado.Add(montoCreado);
+            if (billeteARetirar.TieneBilletes() == false)
+                continue;
 
-                valorRestante -= montoCreado.MultiplicarPorCantidad();
+            billetesARetirar.Add(billeteARetirar);
 
-                montoInventario.ReducirCantidad(montoCreado.ObtenerCantidad());
-            }
+            billeteDisponible.ReducirBilletesDisponibles(billeteARetirar.ObtenerCantidad());
+
+            valorRestanteARetirar -= billeteARetirar.Totalizar();
         }
 
-        return resultado;
+        return billetesARetirar;
     }
 
-    private static MontoRetiro CrearMontoRetiro(MontoInventario montoInventario, int valorRestante)
-    {
-        int unidadesPorCadaMonto = montoInventario
-            .ObtenerCantidadDeUnidadesPorMonto(valorRestante);
-            
-        int cantidadDisponibleARetirar = Math
-            .Min(unidadesPorCadaMonto, montoInventario.Cantidad);
+    public List<BilleteDisponible> ConsultarInventario() => _billetesDisponibles;
 
-        return new MontoRetiro(cantidadDisponibleARetirar, montoInventario.Dinero);
+    private static BilleteRetiro RetirarCantidadDeBilletesPorCadaCifra(
+        BilleteDisponible billeteDisponible, int valorRestante)
+    {
+        int cantidadBilleteARetirar = billeteDisponible
+            .ObtenerUnidadesDisponiblesParaRetirar(valorRestante);
+
+        return new BilleteRetiro(cantidadBilleteARetirar,
+            billeteDisponible.Dinero);
     }
 
-    private static void LanzarExcepcionSiNoIngresaMontoPositivo(int montoSolicitado)
+    private static void LanzarExcepcionSiElValorARetirarEsMenorOIgualACero(int valorARetirar)
     {
-        if (montoSolicitado <= 0)
+        if (valorARetirar <= 0)
             throw new ArgumentException(CajeroErrores
                 .DebeRetirarMinimoUnaUnidad);
     }
 
-    private void LanzarExcepcionSiNoHayFondosSuficienes(int montoSolicitado)
+    private void LanzarExcepcionSiNoHayFondosSuficienes(int valorARetirar)
     {
-        if (montoSolicitado > TotalInventario())
+        if (valorARetirar > TotalizarInventario())
             throw new ArgumentException(CajeroErrores
                 .ElCajeroNoDisponeDeDineroSuficienteParaEstaTransaccion);
     }
 
-    public List<MontoInventario> ConsultarInventario() => _inventario;
+    private int TotalizarInventario() => _billetesDisponibles
+        .Sum(monto => monto.Totalizar());
+}
 
-    private int TotalInventario() => _inventario
-        .Sum(monto => monto.MultiplicarPorCantidad());
+public interface ICajero
+{
+    List<BilleteRetiro> Retirar(int valorARetirar);
+    List<BilleteDisponible> ConsultarInventario();
 }
