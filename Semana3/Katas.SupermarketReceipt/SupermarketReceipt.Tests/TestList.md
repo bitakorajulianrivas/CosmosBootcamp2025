@@ -1,7 +1,7 @@
 ﻿# Supermarket Receipt test-list
 
 ## Product
-- [ ] Have a name and a price
+- [x] Have a name and a price
 - [ ] Allow decimal prices
 - [ ] Throw an exception when price is negative
 
