@@ -2,8 +2,8 @@
 
 ## Product
 - [x] Have a name and a price
-- [ ] Allow decimal prices
-- [ ] Throw an exception when price is negative
+- [x] Allow decimal prices
+- [x] Throw an exception when price is negative
 
 ## Product quantity
 - [ ] Store product and quantity
