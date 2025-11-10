@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using SupermarketReceipt.Domain;
 
 namespace SupermarketReceipt.Tests;
 
@@ -28,35 +29,6 @@ public class ProductTest
         Action action = () => new Product("Apple", -0.99m);
         
         action.Should().Throw<ArgumentException>()
-            .WithMessage(Product.PriceShouldBePositive);
+            .WithMessage(ProductException.PriceShouldBePositive);
     }
-    
-}
-
-public class Product
-{
-    public const string? PriceShouldBePositive = "The price should be positive.";
-    
-    private readonly string _name;
-    private readonly decimal _price;
-
-    public Product(string name, decimal price)
-    {
-        ValidatePositivePrice(price);
-        
-        _name = name;
-        _price = price;
-    }
-
-    private static void ValidatePositivePrice(decimal price)
-    {
-        if(price < 0)
-            throw new ArgumentException(PriceShouldBePositive);
-    }
-
-    private const string ProductFormat = 
-        "Name: {0}. Price: € {1}.";
-
-    public override string ToString() => 
-        string.Format(ProductFormat, _name, _price);
 }

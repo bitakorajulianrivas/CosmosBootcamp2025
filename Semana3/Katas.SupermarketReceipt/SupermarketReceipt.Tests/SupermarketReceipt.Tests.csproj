@@ -19,4 +19,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SupermarketReceipt.Domain\SupermarketReceipt.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
