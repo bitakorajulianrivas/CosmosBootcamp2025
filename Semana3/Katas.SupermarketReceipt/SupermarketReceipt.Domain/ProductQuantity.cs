@@ -14,6 +14,9 @@ public class ProductQuantity
         Product = product;
         Quantity = quantity;
     }
+    
+    public decimal CalculateTotalPricePerQuantity() => 
+        Product.CalculatePrice(Quantity);
 
     private static void ValidatePositiveQuantity(int quantity)
     {
@@ -21,6 +24,9 @@ public class ProductQuantity
             throw new ArgumentException(
                 ProductQuantityException.TheQuantityCannotBeZeroOrNegative);
     }
+
+    public ProductQuantity CloneAddingQuantity(ProductQuantity productQuantity) => 
+        new(Product, Quantity + productQuantity.Quantity);
 
     public override string ToString() => 
         string.Format(Format, Product, Quantity);

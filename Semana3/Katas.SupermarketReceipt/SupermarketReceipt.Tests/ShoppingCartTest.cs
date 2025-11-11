@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Collections;
+using FluentAssertions;
 using SupermarketReceipt.Domain;
 
 namespace SupermarketReceipt.Tests;
@@ -76,10 +77,9 @@ public class ShoppingCartTest
         
         totalPrice.Should().Be(expectedTotalPrice);
     }
-    
 }
 
-public class ShoppingCart
+public class ShoppingCart 
 {
     private List<ProductQuantity> _products = [];
     
@@ -99,14 +99,9 @@ public class ShoppingCart
 
     private void EditProductQuantity(ProductQuantity productQuantity, ProductQuantity existingProduct)
     {
-        int newQuantity = existingProduct.Quantity + productQuantity.Quantity;
         _products.Remove(existingProduct);
-        _products.Add(new ProductQuantity(existingProduct.Product, newQuantity));
+        _products.Add(existingProduct.CloneAddingQuantity(productQuantity));
     }
 
-    public decimal GetTotalPrice()
-    {
-        return _products.Sum(product => product.Product
-            .CalculatePrice(product.Quantity));
-    }
+    public decimal GetTotalPrice() => _products.Sum(product => product.CalculateTotalPricePerQuantity());
 }
