@@ -12,7 +12,7 @@
 ## Shopping cart
 - [x] Be empty when created
 - [x] Add a single product
-- [ ] Add multiple different products
+- [x] Add multiple different products
 - [ ] Accumulate quantity when adding the same product
 - [ ] Return total price without discounts
 - [ ] Be iterable over items

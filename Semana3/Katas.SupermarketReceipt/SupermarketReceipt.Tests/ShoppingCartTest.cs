@@ -27,6 +27,21 @@ public class ShoppingCartTest
         shoppingCart.GetStringProducts().Should().BeEquivalentTo([
             "Name: Apple. Price: € 0.99. Quantity: 1."]);
     }
+
+    [Fact]
+    public void ShoppingCart_ShouldAddMultipleDifferentProducts()
+    {
+        ShoppingCart shoppingCart = new();
+        
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Apple", 0.99m), quantity: 2));
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Banana", 1.99m), quantity: 3));
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Pear", 0.99m), quantity: 4));
+
+        shoppingCart.GetStringProducts().Should().BeEquivalentTo(
+            "Name: Apple. Price: € 0.99. Quantity: 2.",
+            "Name: Banana. Price: € 1.99. Quantity: 3.",
+            "Name: Pear. Price: € 0.99. Quantity: 4.");
+    }
 }
 
 public class ShoppingCart
