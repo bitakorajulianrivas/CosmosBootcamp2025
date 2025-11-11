@@ -44,4 +44,9 @@ public class Product : IEquatable<Product>
     {
         return HashCode.Combine(_name, _price);
     }
+
+    public decimal CalculatePrice(int productQuantity)
+    {
+        return _price * productQuantity;
+    }
 }

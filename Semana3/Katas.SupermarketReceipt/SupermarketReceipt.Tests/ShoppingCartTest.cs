@@ -60,6 +60,22 @@ public class ShoppingCartTest
             "Name: Banana. Price: € 1.99. Quantity: 5.",
             "Name: Pear. Price: € 0.99. Quantity: 6.");
     }
+
+    [Fact]
+    public void ShoppingCart_ShouldReturnTotalPriceWithoutDiscounts()
+    {
+        decimal expectedTotalPrice = 2.97m + 5.97m + 3.96m + 3.98m;
+        ShoppingCart shoppingCart = new();
+        
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Apple", 0.99m), quantity: 3));
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Banana", 1.99m), quantity: 3));
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Pear", 0.99m), quantity: 4));
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Banana", 1.99m), quantity: 2));
+
+        decimal totalPrice = shoppingCart.GetTotalPrice();
+        
+        totalPrice.Should().Be(expectedTotalPrice);
+    }
     
 }
 
@@ -86,5 +102,11 @@ public class ShoppingCart
         int newQuantity = existingProduct.Quantity + productQuantity.Quantity;
         _products.Remove(existingProduct);
         _products.Add(new ProductQuantity(existingProduct.Product, newQuantity));
+    }
+
+    public decimal GetTotalPrice()
+    {
+        return _products.Sum(product => product.Product
+            .CalculatePrice(product.Quantity));
     }
 }

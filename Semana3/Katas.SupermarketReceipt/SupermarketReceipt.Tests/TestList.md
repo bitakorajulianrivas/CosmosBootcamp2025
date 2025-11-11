@@ -14,7 +14,7 @@
 - [x] Add a single product
 - [x] Add multiple different products
 - [x] Accumulate quantity when adding the same product
-- [ ] Return total price without discounts
+- [x] Return total price without discounts
 - [ ] Be iterable over items
 
 ## Receipt
