@@ -10,7 +10,7 @@
 - [x] Throw an exception when quantity is zero or negative
 
 ## Shopping cart
-- [ ] Be empty when created
+- [x] Be empty when created
 - [ ] Add a single product
 - [ ] Add multiple different products
 - [ ] Accumulate quantity when adding the same product
