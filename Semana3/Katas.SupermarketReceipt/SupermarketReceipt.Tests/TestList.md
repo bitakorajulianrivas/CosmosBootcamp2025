@@ -6,7 +6,7 @@
 - [x] Throw an exception when price is negative
 
 ## Product quantity
-- [ ] Store product and quantity
+- [x] Store product and quantity
 - [ ] Throw an exception when quantity is zero or negative
 
 ## Shopping cart
