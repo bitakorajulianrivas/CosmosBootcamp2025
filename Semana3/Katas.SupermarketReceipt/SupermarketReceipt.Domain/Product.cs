@@ -2,6 +2,9 @@
 
 public class Product
 {
+    private const string ProductFormat = 
+        "Name: {0}. Price: € {1}.";
+    
     private readonly string _name;
     private readonly decimal _price;
 
@@ -18,10 +21,7 @@ public class Product
         if(price < 0)
             throw new ArgumentException(ProductException.PriceShouldBePositive);
     }
-
-    private const string ProductFormat = 
-        "Name: {0}. Price: € {1}.";
-
+    
     public override string ToString() => 
         string.Format(ProductFormat, _name, _price);
 }
