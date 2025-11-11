@@ -42,15 +42,49 @@ public class ShoppingCartTest
             "Name: Banana. Price: € 1.99. Quantity: 3.",
             "Name: Pear. Price: € 0.99. Quantity: 4.");
     }
+
+    [Fact]
+    public void ShoppingCart_ShouldAccumulateQuantity_WhenAddingSameProduct()
+    {
+        ShoppingCart shoppingCart = new();
+        
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Apple", 0.99m), quantity: 3));
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Banana", 1.99m), quantity: 3));
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Pear", 0.99m), quantity: 4));
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Banana", 1.99m), quantity: 2));
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Pear", 0.99m), quantity: 2));
+        shoppingCart.AddProductItem(new ProductQuantity(product: new Product("Apple", 0.99m), quantity: 4));
+        
+        shoppingCart.GetStringProducts().Should().BeEquivalentTo(
+            "Name: Apple. Price: € 0.99. Quantity: 7.",
+            "Name: Banana. Price: € 1.99. Quantity: 5.",
+            "Name: Pear. Price: € 0.99. Quantity: 6.");
+    }
+    
 }
 
 public class ShoppingCart
 {
-    private readonly List<ProductQuantity> _products = [];
+    private List<ProductQuantity> _products = [];
     
     public IReadOnlyCollection<string> GetStringProducts() => 
         _products.Select(product => product.ToString()).ToList();
 
-    public void AddProductItem(ProductQuantity productQuantity) => 
-        _products.Add(productQuantity);
+    public void AddProductItem(ProductQuantity productQuantity)
+    {
+        ProductQuantity? existingProduct = _products.FirstOrDefault(product =>
+            product.Product.Equals(productQuantity.Product));
+
+        if (existingProduct != null) 
+            EditProductQuantity(productQuantity, existingProduct);
+        else
+            _products.Add(productQuantity);
+    }
+
+    private void EditProductQuantity(ProductQuantity productQuantity, ProductQuantity existingProduct)
+    {
+        int newQuantity = existingProduct.Quantity + productQuantity.Quantity;
+        _products.Remove(existingProduct);
+        _products.Add(new ProductQuantity(existingProduct.Product, newQuantity));
+    }
 }
