@@ -7,7 +7,7 @@
 
 ## Product quantity
 - [x] Store product and quantity
-- [ ] Throw an exception when quantity is zero or negative
+- [x] Throw an exception when quantity is zero or negative
 
 ## Shopping cart
 - [ ] Be empty when created
