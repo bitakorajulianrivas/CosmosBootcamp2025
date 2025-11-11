@@ -4,19 +4,19 @@ public class ProductQuantity
 {
     private const string Format = "{0} Quantity: {1}.";
 
-    public Product Product { get; }
-    public int Quantity { get; }
+    private readonly Product _product;
+    private readonly int _quantity;
 
     public ProductQuantity(Product product, int quantity)
     { 
         ValidatePositiveQuantity(quantity);
         
-        Product = product;
-        Quantity = quantity;
+        _product = product;
+        _quantity = quantity;
     }
     
     public decimal CalculateTotalPricePerQuantity() => 
-        Product.CalculatePrice(Quantity);
+        _product.CalculatePrice(_quantity);
 
     private static void ValidatePositiveQuantity(int quantity)
     {
@@ -25,9 +25,12 @@ public class ProductQuantity
                 ProductQuantityException.TheQuantityCannotBeZeroOrNegative);
     }
 
-    public ProductQuantity CloneAddingQuantity(ProductQuantity productQuantity) => 
-        new(Product, Quantity + productQuantity.Quantity);
+    public bool Compare(ProductQuantity productQuantity) => 
+        _product.Equals(productQuantity._product);
 
+    public ProductQuantity CloneAddingQuantity(ProductQuantity productQuantity) => 
+        new(_product, _quantity + productQuantity._quantity);
+    
     public override string ToString() => 
-        string.Format(Format, Product, Quantity);
+        string.Format(Format, _product, _quantity);
 }

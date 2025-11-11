@@ -1,6 +1,6 @@
 ﻿namespace SupermarketReceipt.Domain;
 
-public class Product : IEquatable<Product>
+public record Product 
 {
     private const string ProductFormat = 
         "Name: {0}. Price: € {1}.";
@@ -22,31 +22,11 @@ public class Product : IEquatable<Product>
             throw new ArgumentException(ProductException.PriceShouldBePositive);
     }
     
-    public override string ToString() => 
-        string.Format(ProductFormat, _name, _price);
-
-    public bool Equals(Product? other)
-    {
-        if (other is null) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return _name == other._name && _price == other._price;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((Product)obj);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(_name, _price);
-    }
-
     public decimal CalculatePrice(int productQuantity)
     {
         return _price * productQuantity;
     }
+    
+    public override string ToString() => 
+        string.Format(ProductFormat, _name, _price);
 }
