@@ -11,7 +11,7 @@
 
 ## Shopping cart
 - [x] Be empty when created
-- [ ] Add a single product
+- [x] Add a single product
 - [ ] Add multiple different products
 - [ ] Accumulate quantity when adding the same product
 - [ ] Return total price without discounts
