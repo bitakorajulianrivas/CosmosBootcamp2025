@@ -21,7 +21,7 @@ public class WordWrapTest
     }  
     
     [Fact]
-    public void c()
+    public void Wrap_IfInputTextIsFourCharsAndColumnNumberIsTwo_ShouldInsertNewLineForEachTwoColumns()
     {
         var result = Wrap("word", 2);
 
