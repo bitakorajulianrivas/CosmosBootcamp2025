@@ -13,7 +13,7 @@ public class WordWrapTest
     }
 
     [Fact]
-    public void b()
+    public void Wrap_IfInputTextLengthIsLessThanColumnNumber_ShouldReturnTheSameString()
     {
         var result = Wrap("this", 10);
 
