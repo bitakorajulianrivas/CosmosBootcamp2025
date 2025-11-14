@@ -21,7 +21,7 @@ public class WordWrapTest
     }  
     
     [Fact]
-    public void Wrap_IfInputTextIsFourCharsAndColumnNumberIsTwo_ShouldInsertNewLineForEachTwoColumns()
+    public void Wrap_IfInputTextHasFourCharsAndColumnNumberIsTwo_ShouldInsertNewLineForEachTwoColumns()
     {
         var result = Wrap("word", 2);
 
@@ -29,7 +29,7 @@ public class WordWrapTest
     }
 
     [Fact]
-    public void d()
+    public void Wrap_IfInputTextHasTenCharsAndColumnNumerIsThree_ShouldInsertNewLineForEachThreeColumns()
     {
         var result = Wrap("abcdefghij", 3);
 
