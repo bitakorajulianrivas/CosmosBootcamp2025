@@ -5,7 +5,7 @@ namespace WordWrap.Tests;
 public class WordWrapTest
 {
     [Fact]
-    public void a()
+    public void Wrap_IfInputTextIsEmptyAndColumnNumberIsOne_ShouldReturnEmptyString()
     {
         var result = Wrap("", 1);
 
