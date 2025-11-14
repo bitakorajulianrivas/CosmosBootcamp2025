@@ -37,7 +37,7 @@ public class WordWrapTest
     }
     
     [Fact]
-    public void e()
+    public void Wrap_IfInputTextHasTwoWordAndColumnNumerIsThree_ShouldInsertNewLineForEmptySpaceAndNewLineForEachThreeChars()
     {
         var result = Wrap("word word", 3);
 
