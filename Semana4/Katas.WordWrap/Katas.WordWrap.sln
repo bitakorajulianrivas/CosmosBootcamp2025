@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordWrap.Tests", "WordWrap.Tests\WordWrap.Tests.csproj", "{9BE30D3D-00F5-4B31-8460-B78A60B1B9F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Katas.WordWrap.Tests", "Katas.WordWrap.Tests\Katas.WordWrap.Tests.csproj", "{9BE30D3D-00F5-4B31-8460-B78A60B1B9F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
