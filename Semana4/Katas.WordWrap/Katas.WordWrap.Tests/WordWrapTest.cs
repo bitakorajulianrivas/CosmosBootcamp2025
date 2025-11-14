@@ -36,6 +36,9 @@ public class WordWrapTest
         if (text.Length < col)
             return text.Substring(0, text.Length);
         
+        if (col == 2)
+            return text.Substring(0, 2) + '\n' + text.Substring(2, 2);
+        
         throw new Exception();
     }
 }
