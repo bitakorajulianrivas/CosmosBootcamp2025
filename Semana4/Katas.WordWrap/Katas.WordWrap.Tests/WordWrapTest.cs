@@ -50,10 +50,15 @@ public class WordWrapTest
         string[] wordsArray = text.Split(' ');
         List<string> result = new List<string>();
 
-        foreach (var word in wordsArray) 
-            result.Add(WrapByWord(word, col, separator));
-        
-        return string.Join(separator, result);
+        if (wordsArray.Length <= 2)
+        {
+            foreach (var word in wordsArray) 
+                result.Add(WrapByWord(word, col, separator));
+    
+            return string.Join(separator, result);
+        }
+
+        throw new NotImplementedException();
     }
 
     private static string WrapByWord(string text, int col, char separator)
