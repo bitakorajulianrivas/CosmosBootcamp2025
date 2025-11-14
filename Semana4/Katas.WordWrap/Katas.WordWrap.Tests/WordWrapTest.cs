@@ -28,16 +28,19 @@ public class WordWrapTest
         result.Should().Be("wo\nrd");
     } 
     
-    private static string Wrap(string text, int col)
+    private static string Wrap(string text, int columnName)
     {
-        if (col == 1)
+        char separator = '\n';
+        
+        if (columnName == 1)
             return text.Substring(0);
         
-        if (text.Length < col)
-            return text.Substring(0, text.Length);
+        if (columnName == 2)
+            return text.Substring(0, columnName) + separator + 
+                   text.Substring(columnName, columnName);
         
-        if (col == 2)
-            return text.Substring(0, 2) + '\n' + text.Substring(2, 2);
+        if (text.Length < columnName)
+            return text.Substring(0, text.Length);
         
         throw new Exception();
     }
