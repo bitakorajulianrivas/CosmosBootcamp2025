@@ -47,6 +47,17 @@ public class WordWrapTest
     private static string Wrap(string text, int col)
     {
         const char separator = '\n';
+        string[] wordsArray = text.Split(' ');
+        List<string> result = new List<string>();
+
+        foreach (var word in wordsArray) 
+            result.Add(WrapByWord(word, col, separator));
+        
+        return string.Join(separator, result);
+    }
+
+    private static string WrapByWord(string text, int col, char separator)
+    {
         string result = string.Empty;
         
         if (text.Length <= col)
