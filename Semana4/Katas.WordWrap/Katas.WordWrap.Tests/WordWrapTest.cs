@@ -35,27 +35,23 @@ public class WordWrapTest
 
         result.Should().Be("abc\ndef\nghi\nj");
     }
-    
-    private static string Wrap(string text, int columnName)
+
+    private static string Wrap(string text, int col)
     {
-        char separator = '\n';
+        const char separator = '\n';
+        string result = string.Empty;
         
-        if (columnName == 1)
-            return text.Substring(0);
+        if (text.Length <= col)
+            return text;
         
-        if (columnName == 2)
-            return text.Substring(0, columnName) + separator + 
-                   text.Substring(columnName, columnName);
+        for (int index = 0; index < text.Length; index++)
+        {
+            if(index > 0 && index % col == 0)
+                result += separator; 
+            
+            result += text[index];
+        }
         
-        if (columnName == 3)
-            return text.Substring(0, columnName) + separator +
-                   text.Substring(columnName * 1, columnName) + separator + 
-                   text.Substring(columnName * 2, columnName) + separator + 
-                   text.Substring(columnName * 3, 1);
-        
-        if (text.Length < columnName)
-            return text.Substring(0, text.Length);
-        
-        throw new Exception();
+        return result;
     }
 }
