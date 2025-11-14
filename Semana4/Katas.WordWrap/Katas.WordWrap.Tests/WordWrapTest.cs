@@ -15,7 +15,7 @@ public class WordWrapTest
     private static string Wrap(string text, int col)
     {
         if (col == 1)
-            return string.Empty;
+            return text.Substring(0);
         
         throw new Exception();
     }
