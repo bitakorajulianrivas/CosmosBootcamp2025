@@ -25,6 +25,9 @@ public class WordWrapTest
         if (col == 1)
             return text.Substring(0);
         
+        if (col == 10)
+            return text.Substring(0, 4);
+        
         throw new Exception();
     }
 }
