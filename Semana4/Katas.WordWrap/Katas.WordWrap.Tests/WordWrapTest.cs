@@ -48,10 +48,10 @@ public class WordWrapTest
                    text.Substring(columnName, columnName);
         
         if (columnName == 3)
-            return text.Substring(0, 3) + separator +
-                   text.Substring(3, 3) + separator + 
-                   text.Substring(6, 3) + separator + 
-                   text.Substring(9, 1);
+            return text.Substring(0, columnName) + separator +
+                   text.Substring(columnName * 1, columnName) + separator + 
+                   text.Substring(columnName * 2, columnName) + separator + 
+                   text.Substring(columnName * 3, 1);
         
         if (text.Length < columnName)
             return text.Substring(0, text.Length);
