@@ -20,7 +20,7 @@ public class Jugador
 
         if (tipo == "Gunship")
             Tablero[x, y] = 'G';
-        
+
         if (tipo == "Destroyer")
         {
             if (esVertical)
@@ -39,10 +39,20 @@ public class Jugador
 
         if (tipo == "Carrier")
         {
-            Tablero[x, y] = 'C';
-            Tablero[x + 1, y] = 'C';
-            Tablero[x + 2, y] = 'C';
-            Tablero[x + 3, y] = 'C';
+            if (esVertical)
+            {
+                Tablero[x, y] = 'C';
+                Tablero[x, y + 1] = 'C';
+                Tablero[x, y + 2] = 'C';
+                Tablero[x, y + 3] = 'C';
+            }
+            else
+            {
+                Tablero[x, y] = 'C';
+                Tablero[x + 1, y] = 'C';
+                Tablero[x + 2, y] = 'C';
+                Tablero[x + 3, y] = 'C';
+            }
         }
     }
 }
