@@ -1,5 +1,4 @@
-﻿
-using FluentAssertions;
+﻿using FluentAssertions;
 
 namespace Katas.Battleship.Tests;
 
@@ -10,12 +9,12 @@ public class BatallaNavalTest
     {
         var jugador1 = new Jugador("pollo");
         var batallaNaval = new BatallaNaval();
-        
+
         batallaNaval.AgregarJugador(jugador1);
-        
+
         batallaNaval.Jugador1.Apodo.Should().Be("pollo");
     }
-    
+
     [Fact]
     public void Si_AgregoJugador2_Debe_ExistirJugador2()
     {
@@ -24,9 +23,9 @@ public class BatallaNavalTest
         var jugador1 = new Jugador("pollo");
         var jugador2 = new Jugador("gato");
         batallaNaval.AgregarJugador(jugador1);
-        
+
         batallaNaval.AgregarJugador(jugador2);
-        
+
         batallaNaval.Jugador2.Apodo.Should().Be("gato");
     }
 
@@ -39,10 +38,11 @@ public class BatallaNavalTest
         var jugador2 = new Jugador("gato");
         batallaNaval.AgregarJugador(jugador2);
         var jugador3 = new Jugador("perro");
-        
+
         var action = () => batallaNaval.AgregarJugador(jugador3);
-        
-        action.Should().Throw<ArgumentException>().WithMessage("Error");
+
+        action.Should().Throw<ArgumentException>()
+            .WithMessage("Solo se permiten 2 jugadores.");
     }
 
     [Fact]
@@ -65,28 +65,34 @@ public class BatallaNavalTest
     public void SI_InicioSinJugadores_Debe_LanzarExcepcion()
     {
         var batallaNaval = new BatallaNaval();
-        var action = () =>   batallaNaval.Iniciar();
-        
+        var action = () => batallaNaval.Iniciar();
+
         action.Should().Throw<ArgumentException>().WithMessage("No Estan los Jugadores Configurados.");
     }
 }
 
 public class BatallaNaval
 {
+    private const string NoEstanLosJugadoresConfigurados = "No Estan los Jugadores Configurados.";
+    private const string SoloSePermitenJugadores = "Solo se permiten 2 jugadores.";
     public Jugador Jugador1 { get; private set; }
     public Jugador Jugador2 { get; private set; }
-    public char[,] Tablero { get; set; }
+    public char[,] Tablero { get; private set; }
 
     public void AgregarJugador(Jugador jugador)
     {
-        if(ExisteJugador1() && ExisteJugador2())
-            throw new ArgumentException("Error");
+        ValidarMaximo2Jugadores();
 
         if (Jugador1 == null)
             Jugador1 = jugador;
         else
             Jugador2 = jugador;
+    }
 
+    private void ValidarMaximo2Jugadores()
+    {
+        if (ExisteJugador1() && ExisteJugador2())
+            throw new ArgumentException(SoloSePermitenJugadores);
     }
 
     private bool ExisteJugador2() => Jugador2 != null;
@@ -95,9 +101,15 @@ public class BatallaNaval
 
     public void Iniciar()
     {
+        ValidarExistenJugadores();
+
+        Tablero = new char[10, 10];
+    }
+
+    private void ValidarExistenJugadores()
+    {
         if (!ExisteJugador1() || !ExisteJugador2())
-            throw new ArgumentException("No Estan los Jugadores Configurados.");
-        Tablero= new char[10,10];
+            throw new ArgumentException(NoEstanLosJugadoresConfigurados);
     }
 }
 
@@ -107,6 +119,6 @@ public class Jugador
 
     public Jugador(string apodo)
     {
-       Apodo = apodo;
+        Apodo = apodo;
     }
 }
