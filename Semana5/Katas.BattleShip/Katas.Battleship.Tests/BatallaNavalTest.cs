@@ -184,7 +184,7 @@ public class BatallaNavalTest
         var batallaNaval = CrearJuegoYAgregarJugadores();
         Action action = () =>  batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 11, y: 11);
         
-        action.Should().Throw<ArgumentException>().WithMessage("El Barco se encuetra Fuera del tablero ");
+        action.Should().Throw<ArgumentException>().WithMessage("El barco se encuentra fuera del tablero.");
     }
     
     private static BatallaNaval CrearJuegoYAgregarJugadores()
