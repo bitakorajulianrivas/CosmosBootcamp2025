@@ -52,6 +52,14 @@ public class WordWrapTest
         result.Should().Be("word\nword");
     } 
     
+    [Fact]
+    public void Wrap_IfInputTextHasTwoWordAndColumnNumerIsFive_ShouldInsertNewLineForEmptySpace()
+    {
+        var result = Wrap("word word", 5);
+
+        result.Should().Be("word\nword");
+    }
+    
     private static string Wrap(string text, int col)
     {
         const char separator = '\n';
