@@ -48,11 +48,7 @@ public class BatallaNavalTest
     [Fact]
     public void Si_inicioUnJuego_Debe_ExistirUnTableroParaCadaJugadorY2Jugadores()
     {
-        var batallaNaval = new BatallaNaval();
-        var jugador1 = new Jugador("pollo");
-        batallaNaval.AgregarJugador(jugador1);
-        var jugador2 = new Jugador("gato");
-        batallaNaval.AgregarJugador(jugador2);
+        var batallaNaval = CrearJuegoYAgregarJugadores();
 
         batallaNaval.Iniciar();
         
@@ -72,55 +68,25 @@ public class BatallaNavalTest
         action.Should().Throw<ArgumentException>()
             .WithMessage("No Estan los Jugadores Configurados.");
     }
-}
 
-public class BatallaNaval
-{
-    private const string NoEstanLosJugadoresConfigurados = "No Estan los Jugadores Configurados.";
-    private const string SoloSePermitenJugadores = "Solo se permiten 2 jugadores.";
-    public Jugador Jugador1 { get; private set; }
-    public Jugador Jugador2 { get; private set; }
-
-    public void AgregarJugador(Jugador jugador)
+    [Fact]
+    public void Si_AgregoBarcosAlJuego_Debe_ExistirBarcosEnElTablero()
     {
-        ValidarMaximo2Jugadores();
+        var batallaNaval = CrearJuegoYAgregarJugadores();
+        
+        batallaNaval.Iniciar();
+        batallaNaval.Jugador1.AgregarBarco(x:2 , y:2, tipo: "Gunship");
 
-        if (Jugador1 == null)
-            Jugador1 = jugador;
-        else
-            Jugador2 = jugador;
+        batallaNaval.Jugador1.Tablero[2, 2].Should().Be('G');
     }
-
-    private void ValidarMaximo2Jugadores()
+    
+    private static BatallaNaval CrearJuegoYAgregarJugadores()
     {
-        if (ExisteJugador1() && ExisteJugador2())
-            throw new ArgumentException(SoloSePermitenJugadores);
-    }
-
-    private bool ExisteJugador2() => Jugador2 != null;
-
-    private bool ExisteJugador1() => Jugador1 != null;
-
-    public void Iniciar()
-    {
-        ValidarExistenJugadores();
-    }
-
-    private void ValidarExistenJugadores()
-    {
-        if (!ExisteJugador1() || !ExisteJugador2())
-            throw new ArgumentException(NoEstanLosJugadoresConfigurados);
-    }
-}
-
-public class Jugador
-{
-    public string Apodo { get; private set; }
-    public char[,] Tablero { get; set; }
-
-    public Jugador(string apodo)
-    {
-        Apodo = apodo;
-        Tablero =  new char[10, 10];
+        var batallaNaval = new BatallaNaval();
+        var jugador1 = new Jugador("pollo");
+        batallaNaval.AgregarJugador(jugador1);
+        var jugador2 = new Jugador("gato");
+        batallaNaval.AgregarJugador(jugador2);
+        return batallaNaval;
     }
 }
