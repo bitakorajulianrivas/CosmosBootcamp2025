@@ -12,7 +12,10 @@ public class Jugador
         Apodo = apodo;
         Tablero = new char[10, 10];
         CantidadCarrier = 0;
+        CantidadDestroyers = 0;
     }
+
+    public int CantidadDestroyers { get; set; }
 
 
     public void AgregarBarco(Barco barco, int x, int y, bool esVertical = false)
@@ -21,6 +24,8 @@ public class Jugador
             throw new ArgumentException(YaExisteBarcoEnLaPosiciónEnviada);
         if (CantidadCarrier >= barco.CantidadBarcos)
             throw new ArgumentException("Solo se puede Asignar un Carrier");
+        if (CantidadDestroyers >= barco.CantidadBarcos)
+            throw new ArgumentException("Solo se puede Asignar dos destroyers");
         AsignarBarco(barco, x, y, esVertical);
     }
 
@@ -34,6 +39,9 @@ public class Jugador
                 Tablero[x + indice, y] = barco.Letra;
         }
 
-        CantidadCarrier++;
+        if (barco.Tipo == "Carrier")
+            CantidadCarrier++;
+        else
+            CantidadDestroyers++;
     }
 }
