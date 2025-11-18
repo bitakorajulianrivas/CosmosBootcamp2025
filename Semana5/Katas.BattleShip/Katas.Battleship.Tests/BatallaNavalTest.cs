@@ -60,7 +60,15 @@ public class BatallaNavalTest
         batallaNaval.Jugador1.Should().NotBeNull();
         batallaNaval.Jugador2.Should().NotBeNull();
     }
-    
+
+    [Fact]
+    public void SI_InicioSinJugadores_Debe_LanzarExcepcion()
+    {
+        var batallaNaval = new BatallaNaval();
+        var action = () =>   batallaNaval.Iniciar();
+        
+        action.Should().Throw<ArgumentException>().WithMessage("No Estan los Jugadores Configurados.");
+    }
 }
 
 public class BatallaNaval
@@ -87,7 +95,9 @@ public class BatallaNaval
 
     public void Iniciar()
     {
-        Tablero=  new char[10,10];
+        if (!ExisteJugador1() || !ExisteJugador2())
+            throw new ArgumentException("No Estan los Jugadores Configurados.");
+        Tablero= new char[10,10];
     }
 }
 
