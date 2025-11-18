@@ -53,20 +53,19 @@ public class BatallaNaval
 
     public void AgregarJugador(Jugador jugador)
     {
-        if(Jugador1 is not null && Jugador2 is not null)
+        if(ExisteJugador1() && ExisteJugador2())
             throw new ArgumentException("Error");
-        
-        if (Jugador1 is null)
-        {
+
+        if (Jugador1 == null)
             Jugador1 = jugador;
-        }
         else
-        {
             Jugador2 = jugador;
-        }
-        
+
     }
-    
+
+    private bool ExisteJugador2() => Jugador2 != null;
+
+    private bool ExisteJugador1() => Jugador1 != null;
 }
 
 public class Jugador
