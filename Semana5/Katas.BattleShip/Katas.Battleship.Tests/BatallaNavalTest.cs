@@ -46,7 +46,7 @@ public class BatallaNavalTest
     }
 
     [Fact]
-    public void Si_inicioUnJuego_Debe_ExistirUnTableroY2Jugadores()
+    public void Si_inicioUnJuego_Debe_ExistirUnTableroParaCadaJugadorY2Jugadores()
     {
         var batallaNaval = new BatallaNaval();
         var jugador1 = new Jugador("pollo");
@@ -57,6 +57,9 @@ public class BatallaNavalTest
         batallaNaval.Iniciar();
 
         batallaNaval.Tablero.Should().NotBeNull();
+        batallaNaval.Jugador1.Tablero.Should().NotBeNull();
+        batallaNaval.Jugador2.Tablero.Should().NotBeNull();
+
         batallaNaval.Jugador1.Should().NotBeNull();
         batallaNaval.Jugador2.Should().NotBeNull();
     }
@@ -116,6 +119,7 @@ public class BatallaNaval
 public class Jugador
 {
     public string Apodo { get; private set; }
+    public object Tablero { get; set; }
 
     public Jugador(string apodo)
     {
