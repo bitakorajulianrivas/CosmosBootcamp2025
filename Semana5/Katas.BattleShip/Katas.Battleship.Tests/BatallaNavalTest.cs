@@ -88,7 +88,18 @@ public class BatallaNavalTest
         
        action.Should().Throw<ArgumentException>()
            .WithMessage("Ya existe barco en la posición enviada.");
+    }
 
+    [Fact]
+    public void Si_AgregoDestroyer_Debe_ExistirBarcoConTresCasillas()
+    {
+        var batallaNaval = CrearJuegoYAgregarJugadores();
+
+        batallaNaval.Jugador1.AgregarBarco(x: 2, y: 2, tipo: "Destroyer");
+        
+        batallaNaval.Jugador1.Tablero[1, 1].Should().Be('D');
+        batallaNaval.Jugador1.Tablero[2, 1].Should().Be('D');
+        batallaNaval.Jugador1.Tablero[3, 1].Should().Be('D');
     }
     
     

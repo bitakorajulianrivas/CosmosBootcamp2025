@@ -2,6 +2,7 @@
 
 public class Jugador
 {
+    private const string YaExisteBarcoEnLaPosiciónEnviada = "Ya existe barco en la posición enviada.";
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
 
@@ -14,8 +15,9 @@ public class Jugador
 
     public void AgregarBarco(int x, int y, string tipo)
     {
-        if (Tablero[x, y] != default(char))
-            throw new ArgumentException("Ya existe barco en la posición enviada.");
+        if (Tablero[x, y] != '\0')
+            throw new ArgumentException(YaExisteBarcoEnLaPosiciónEnviada);
+        
         Tablero[x, y] = 'G';
     }
 }
