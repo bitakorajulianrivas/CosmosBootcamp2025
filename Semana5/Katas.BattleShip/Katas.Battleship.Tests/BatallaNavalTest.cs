@@ -163,6 +163,20 @@ public class BatallaNavalTest
 
         action.Should().Throw<ArgumentException>().WithMessage("Solo se puede Asignar dos destroyers");
     }
+
+    [Fact]
+    public void Si_TengoCuatroGunshipsYAgregoUnQuinto_Debe_LanzarExcepcion()
+    {
+        var batallaNaval = CrearJuegoYAgregarJugadores();
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 1, y: 1);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 2, y: 2);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 3, y: 3);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 4, y: 4);
+        
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 5, y: 5);
+        
+        action.Should().Throw<ArgumentException>().WithMessage("Solo se puede Asignar cuatro gunships");
+    }
     
     
     private static BatallaNaval CrearJuegoYAgregarJugadores()
