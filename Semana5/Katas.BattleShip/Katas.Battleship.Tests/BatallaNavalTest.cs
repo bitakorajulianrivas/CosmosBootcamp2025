@@ -5,16 +5,14 @@ namespace Katas.Battleship.Tests;
 public class BatallaNavalTest
 {
     [Fact]
-    public void SI_AgregoJugador_Debe_ExistirJugador()
+    public void SI_AgregoJugador1_Debe_ExistirJugador1()
     {
-        var apodo = "pollo";
-        var jugador = new Jugador(apodo);
-
+        var jugador1 = new Jugador("pollo");
         var batallaNaval = new BatallaNaval();
-        batallaNaval.AgregarJugador(jugador);
+        
+        batallaNaval.AgregarJugador(jugador1);
         
         batallaNaval.Jugador1.Apodo.Should().Be("pollo");
-
     }
 }
 
@@ -22,7 +20,7 @@ public class BatallaNaval
 {
     public void AgregarJugador(Jugador jugador)
     {
-        throw new NotImplementedException();
+        Jugador1 = jugador;
     }
 
     public Jugador Jugador1 { get; set; }
@@ -32,7 +30,7 @@ public class Jugador
 {
     public Jugador(string apodo)
     {
-        throw new NotImplementedException();
+       Apodo = apodo;
     }
 
     public string Apodo { get; set; }
