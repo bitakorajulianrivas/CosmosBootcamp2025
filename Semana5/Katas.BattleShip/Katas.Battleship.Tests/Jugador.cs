@@ -22,17 +22,17 @@ public class Jugador
             Tablero[x, y] = 'G';
         else
         {
-            if (esVertical is false)
-            {
-                Tablero[x, y] = 'D';
-                Tablero[x + 1, y] = 'D';
-                Tablero[x + 2, y] = 'D';
-            }
-            else
+            if (esVertical)
             {
                 Tablero[x, y] = 'D';
                 Tablero[x, y + 1] = 'D';
                 Tablero[x, y + 2] = 'D';
+            }
+            else
+            {
+                Tablero[x, y] = 'D';
+                Tablero[x + 1, y] = 'D';
+                Tablero[x + 2, y] = 'D';
             }
         }
     }
