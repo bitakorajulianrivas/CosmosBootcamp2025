@@ -87,7 +87,7 @@ public class BatallaNavalTest
        Action action=()=> batallaNaval.Jugador1.AgregarBarco(x:2 , y:2, tipo: "Gunship");
         
        action.Should().Throw<ArgumentException>()
-           .WithMessage("Ya existe Barco en la posición enviada ");
+           .WithMessage("Ya existe barco en la posición enviada.");
 
     }
     
