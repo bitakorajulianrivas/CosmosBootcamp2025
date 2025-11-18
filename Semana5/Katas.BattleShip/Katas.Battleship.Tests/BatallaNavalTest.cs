@@ -34,10 +34,7 @@ public class BatallaNaval
 
     public void AgregarJugador(Jugador jugador)
     {
-        if (Jugador1 == null)
-        {
-            Jugador1 = jugador;
-        }
+        Jugador1 ??= jugador;
 
         Jugador2 = jugador;
     }
