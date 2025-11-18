@@ -13,7 +13,7 @@ public class Jugador
     }
 
 
-    public void AgregarBarco(int x, int y, string tipo)
+    public void AgregarBarco(int x, int y, string tipo, bool esVertical = false)
     {
         if (Tablero[x, y] != '\0')
             throw new ArgumentException(YaExisteBarcoEnLaPosiciónEnviada);

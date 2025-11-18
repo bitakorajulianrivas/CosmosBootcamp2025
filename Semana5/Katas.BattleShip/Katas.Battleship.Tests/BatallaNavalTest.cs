@@ -72,7 +72,7 @@ public class BatallaNavalTest
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
         
-        batallaNaval.Jugador1.AgregarBarco(x:2 , y:2, tipo: "Gunship");
+        batallaNaval.Jugador1.AgregarBarco(x: 2 , y: 2, tipo: "Gunship");
 
         batallaNaval.Jugador1.Tablero[2, 2].Should().Be('G');
     }
@@ -82,9 +82,9 @@ public class BatallaNavalTest
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
         
-        batallaNaval.Jugador1.AgregarBarco(x:2 , y:2, tipo: "Gunship");
+        batallaNaval.Jugador1.AgregarBarco(x: 2 , y: 2, tipo: "Gunship");
 
-       Action action=()=> batallaNaval.Jugador1.AgregarBarco(x:2 , y:2, tipo: "Gunship");
+       Action action=()=> batallaNaval.Jugador1.AgregarBarco(x: 2 , y: 2, tipo: "Gunship");
         
        action.Should().Throw<ArgumentException>()
            .WithMessage("Ya existe barco en la posición enviada.");
@@ -100,6 +100,18 @@ public class BatallaNavalTest
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('D');
         batallaNaval.Jugador1.Tablero[2, 1].Should().Be('D');
         batallaNaval.Jugador1.Tablero[3, 1].Should().Be('D');
+    }
+
+    [Fact]
+    public void Si_AgregoDestroyerConOrientacionVertical_Debe_ExistirBarcoConTresCasillas()
+    {
+        var batallaNaval = CrearJuegoYAgregarJugadores();
+
+        batallaNaval.Jugador1.AgregarBarco(x: 1, y: 1, tipo: "Destroyer", esVertical: true);
+        
+        batallaNaval.Jugador1.Tablero[1, 1].Should().Be('D');
+        batallaNaval.Jugador1.Tablero[1, 2].Should().Be('D');
+        batallaNaval.Jugador1.Tablero[1, 3].Should().Be('D');
     }
     
     
