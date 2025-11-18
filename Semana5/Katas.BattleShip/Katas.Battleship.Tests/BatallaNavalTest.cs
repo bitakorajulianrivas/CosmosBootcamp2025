@@ -119,10 +119,11 @@ public class BatallaNaval
 public class Jugador
 {
     public string Apodo { get; private set; }
-    public object Tablero { get; set; }
+    public char[,] Tablero { get; set; }
 
     public Jugador(string apodo)
     {
         Apodo = apodo;
+        Tablero =  new char[10, 10];
     }
 }
