@@ -139,7 +139,19 @@ public class BatallaNavalTest
         batallaNaval.Jugador1.Tablero[1, 3].Should().Be('C');
         batallaNaval.Jugador1.Tablero[1, 4].Should().Be('C');
     }
-    
+
+    [Fact]
+    public void SI_Tengo1CarrierYAgregoOtro_Debe_LanzarExcepcion()
+    { 
+        var batallaNaval = CrearJuegoYAgregarJugadores();
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1  );
+        
+        Action action=()=> batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 5, y: 5  );
+        action.Should().Throw<ArgumentException>()
+            .WithMessage("Solo se puede Asignar un Carrier");
+
+        
+    }
     
     
     private static BatallaNaval CrearJuegoYAgregarJugadores()
