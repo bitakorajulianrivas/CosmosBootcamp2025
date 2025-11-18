@@ -72,7 +72,7 @@ public class BatallaNavalTest
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
         
-        batallaNaval.Jugador1.AgregarBarco(x: 2 , y: 2, tipo: "Gunship");
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 2 , y: 2);
 
         batallaNaval.Jugador1.Tablero[2, 2].Should().Be('G');
     }
@@ -82,9 +82,9 @@ public class BatallaNavalTest
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
         
-        batallaNaval.Jugador1.AgregarBarco(x: 2 , y: 2, tipo: "Gunship");
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 2 , y: 2);
 
-       Action action=()=> batallaNaval.Jugador1.AgregarBarco(x: 2 , y: 2, tipo: "Gunship");
+       Action action=()=> batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 2 , y: 2);
         
        action.Should().Throw<ArgumentException>()
            .WithMessage("Ya existe barco en la posición enviada.");
@@ -95,7 +95,7 @@ public class BatallaNavalTest
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
 
-        batallaNaval.Jugador1.AgregarBarco(x: 1, y: 1, tipo: "Destroyer");
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 1, y: 1);
         
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('D');
         batallaNaval.Jugador1.Tablero[2, 1].Should().Be('D');
@@ -107,7 +107,7 @@ public class BatallaNavalTest
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
 
-        batallaNaval.Jugador1.AgregarBarco(x: 1, y: 1, tipo: "Destroyer", esVertical: true);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 1, y: 1, esVertical: true);
         
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('D');
         batallaNaval.Jugador1.Tablero[1, 2].Should().Be('D');
@@ -119,7 +119,7 @@ public class BatallaNavalTest
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
 
-        batallaNaval.Jugador1.AgregarBarco(x: 1, y: 1, tipo: "Carrier");
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1);
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('C');
         batallaNaval.Jugador1.Tablero[2, 1].Should().Be('C');
@@ -132,7 +132,7 @@ public class BatallaNavalTest
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
 
-        batallaNaval.Jugador1.AgregarBarco(x: 1, y: 1, tipo: "Carrier", esVertical: true);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1, esVertical: true);
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('C');
         batallaNaval.Jugador1.Tablero[1, 2].Should().Be('C');

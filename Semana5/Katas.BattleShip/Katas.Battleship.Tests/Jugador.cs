@@ -13,46 +13,22 @@ public class Jugador
     }
 
 
-    public void AgregarBarco(int x, int y, string tipo, bool esVertical = false)
+    public void AgregarBarco(Barco barco, int x, int y, bool esVertical = false)
     {
         if (Tablero[x, y] != '\0')
             throw new ArgumentException(YaExisteBarcoEnLaPosiciónEnviada);
+        
+        AsignarBarco(barco, x, y, esVertical);
+    }
 
-        if (tipo == "Gunship")
-            Tablero[x, y] = 'G';
-
-        if (tipo == "Destroyer")
+    private void AsignarBarco(Barco barco, int x, int y, bool esVertical)
+    {
+        for (int indice = 0; indice < barco.Tamanio; indice++)
         {
             if (esVertical)
-            {
-                Tablero[x, y] = 'D';
-                Tablero[x, y + 1] = 'D';
-                Tablero[x, y + 2] = 'D';
-            }
+                Tablero[x, y + indice] = barco.Letra;
             else
-            {
-                Tablero[x, y] = 'D';
-                Tablero[x + 1, y] = 'D';
-                Tablero[x + 2, y] = 'D';
-            }
-        }
-
-        if (tipo == "Carrier")
-        {
-            if (esVertical)
-            {
-                Tablero[x, y] = 'C';
-                Tablero[x, y + 1] = 'C';
-                Tablero[x, y + 2] = 'C';
-                Tablero[x, y + 3] = 'C';
-            }
-            else
-            {
-                Tablero[x, y] = 'C';
-                Tablero[x + 1, y] = 'C';
-                Tablero[x + 2, y] = 'C';
-                Tablero[x + 3, y] = 'C';
-            }
+                Tablero[x + indice, y] = barco.Letra;
         }
     }
 }
