@@ -146,11 +146,22 @@ public class BatallaNavalTest
         var batallaNaval = CrearJuegoYAgregarJugadores();
         batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1  );
         
-        Action action=()=> batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 5, y: 5  );
+        Action action = ()=> batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 5, y: 5  );
         action.Should().Throw<ArgumentException>()
             .WithMessage("Solo se puede Asignar un Carrier");
+    }
 
+    [Fact]
+    public void Si_TengoUnCarrierYDosDestroyerYAgregoUnTercero_Debe_LanzarExcepcion()
+    {
+        var batallaNaval = CrearJuegoYAgregarJugadores();
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 2, y: 2);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 3, y: 3);
         
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 4, y: 4);
+
+        action.Should().Throw<ArgumentException>().WithMessage("Solo se puede Asignar dos destroyers");
     }
     
     
