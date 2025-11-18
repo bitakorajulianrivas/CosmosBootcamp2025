@@ -18,20 +18,21 @@ public class BatallaNavalTest
 
 public class BatallaNaval
 {
+    public Jugador Jugador1 { get; private set; }
+    
     public void AgregarJugador(Jugador jugador)
     {
         Jugador1 = jugador;
     }
-
-    public Jugador Jugador1 { get; set; }
+    
 }
 
 public class Jugador
 {
+    public string Apodo { get; private set; }
+
     public Jugador(string apodo)
     {
        Apodo = apodo;
     }
-
-    public string Apodo { get; set; }
 }
