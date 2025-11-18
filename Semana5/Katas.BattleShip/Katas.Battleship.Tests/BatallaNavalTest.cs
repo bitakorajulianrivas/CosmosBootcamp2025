@@ -44,12 +44,30 @@ public class BatallaNavalTest
         
         action.Should().Throw<ArgumentException>().WithMessage("Error");
     }
+
+    [Fact]
+    public void Si_inicioUnJuego_Debe_ExistirUnTableroY2Jugadores()
+    {
+        var batallaNaval = new BatallaNaval();
+        var jugador1 = new Jugador("pollo");
+        batallaNaval.AgregarJugador(jugador1);
+        var jugador2 = new Jugador("gato");
+        batallaNaval.AgregarJugador(jugador2);
+
+        batallaNaval.Iniciar();
+
+        batallaNaval.Tablero.Should().NotBeNull();
+        batallaNaval.Jugador1.Should().NotBeNull();
+        batallaNaval.Jugador2.Should().NotBeNull();
+    }
+    
 }
 
 public class BatallaNaval
 {
     public Jugador Jugador1 { get; private set; }
     public Jugador Jugador2 { get; private set; }
+    public char[,] Tablero { get; set; }
 
     public void AgregarJugador(Jugador jugador)
     {
@@ -66,6 +84,11 @@ public class BatallaNaval
     private bool ExisteJugador2() => Jugador2 != null;
 
     private bool ExisteJugador1() => Jugador1 != null;
+
+    public void Iniciar()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public class Jugador
