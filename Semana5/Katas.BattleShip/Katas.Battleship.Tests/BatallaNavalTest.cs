@@ -76,6 +76,22 @@ public class BatallaNavalTest
 
         batallaNaval.Jugador1.Tablero[2, 2].Should().Be('G');
     }
+
+    [Fact]
+    public void SI_Agrego2BarcoEnLaMismaPosicion_Debe_LanzarExcepcion ()
+    {
+        var batallaNaval = CrearJuegoYAgregarJugadores();
+        
+        batallaNaval.Jugador1.AgregarBarco(x:2 , y:2, tipo: "Gunship");
+
+       Action action=()=> batallaNaval.Jugador1.AgregarBarco(x:2 , y:2, tipo: "Gunship");
+        
+       action.Should().Throw<ArgumentException>()
+           .WithMessage("Ya existe Barco en la posición enviada ");
+
+    }
+    
+    
     
     private static BatallaNaval CrearJuegoYAgregarJugadores()
     {
