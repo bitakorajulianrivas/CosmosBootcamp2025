@@ -178,13 +178,16 @@ public class BatallaNavalTest
         action.Should().Throw<ArgumentException>().WithMessage("Solo se puede asignar 4 barcos de tipo Gunship.");
     }
 
-    [Fact]
-    public void Si_AgregoBarcosQueEsteFueraDelasCoordenadas_Debe_LanzarExcepcion()
+    [Theory]
+    [InlineData(11, 11)]
+    [InlineData(-1, -1)]
+    public void Si_AgregoBarcosQueEsteFueraDelasCoordenadas_Debe_LanzarExcepcion(int x, int y)
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
-        Action action = () =>  batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 11, y: 11);
+        Action action = () =>  batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x, y);
         
-        action.Should().Throw<ArgumentException>().WithMessage("El barco se encuentra fuera del tablero.");
+        action.Should().Throw<ArgumentException>()
+            .WithMessage("El barco se encuentra fuera del tablero.");
     }
     
     private static BatallaNaval CrearJuegoYAgregarJugadores()
