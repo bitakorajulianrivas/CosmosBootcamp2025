@@ -87,7 +87,7 @@ public class BatallaNaval
 
     public void Iniciar()
     {
-        throw new NotImplementedException();
+        Tablero=  new char[10,10];
     }
 }
 
