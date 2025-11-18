@@ -95,7 +95,7 @@ public class BatallaNavalTest
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
 
-        batallaNaval.Jugador1.AgregarBarco(x: 2, y: 2, tipo: "Destroyer");
+        batallaNaval.Jugador1.AgregarBarco(x: 1, y: 1, tipo: "Destroyer");
         
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('D');
         batallaNaval.Jugador1.Tablero[2, 1].Should().Be('D');

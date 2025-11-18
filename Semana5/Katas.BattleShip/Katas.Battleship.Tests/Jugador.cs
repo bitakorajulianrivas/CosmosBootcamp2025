@@ -18,6 +18,13 @@ public class Jugador
         if (Tablero[x, y] != '\0')
             throw new ArgumentException(YaExisteBarcoEnLaPosiciónEnviada);
         
-        Tablero[x, y] = 'G';
+        if (tipo == "Gunship")
+            Tablero[x, y] = 'G';
+        else
+        {
+            Tablero[x, y] = 'D';
+            Tablero[x + 1, y] = 'D';
+            Tablero[x + 2, y] = 'D';
+        }
     }
 }
