@@ -13,7 +13,10 @@ public class Jugador
         Tablero = new char[10, 10];
         CantidadCarrier = 0;
         CantidadDestroyers = 0;
+        CantidadGunships = 0;
     }
+
+    public int CantidadGunships { get; set; }
 
     public int CantidadDestroyers { get; set; }
 
@@ -26,6 +29,8 @@ public class Jugador
             throw new ArgumentException("Solo se puede Asignar un Carrier");
         if (CantidadDestroyers >= barco.CantidadBarcos)
             throw new ArgumentException("Solo se puede Asignar dos destroyers");
+        if (CantidadGunships >= barco.CantidadBarcos)
+            throw new ArgumentException("Solo se puede Asignar cuatro gunships");
         AsignarBarco(barco, x, y, esVertical);
     }
 
@@ -41,7 +46,11 @@ public class Jugador
 
         if (barco.Tipo == "Carrier")
             CantidadCarrier++;
-        else
+        if (barco.Tipo == "Destroyer")
             CantidadDestroyers++;
+        else
+        {
+            CantidadGunships++;
+        }
     }
 }
