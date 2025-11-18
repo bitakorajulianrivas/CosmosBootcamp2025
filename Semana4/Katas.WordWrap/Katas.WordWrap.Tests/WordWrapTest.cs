@@ -44,21 +44,24 @@ public class WordWrapTest
         result.Should().Be("wor\nd\nwor\nd");
     }
 
+    [Fact]
+    public void Wrap_IfInputTextHasTwoWordAndColumnNumerIsSix_ShouldInsertNewLineForEmptySpace()
+    {
+        var result = Wrap("word word", 6);
+
+        result.Should().Be("word\nword");
+    } 
+    
     private static string Wrap(string text, int col)
     {
         const char separator = '\n';
         string[] wordsArray = text.Split(' ');
         List<string> result = new List<string>();
+        
+        foreach (var word in wordsArray) 
+            result.Add(WrapByWord(word, col, separator));
 
-        if (wordsArray.Length <= 2)
-        {
-            foreach (var word in wordsArray) 
-                result.Add(WrapByWord(word, col, separator));
-    
-            return string.Join(separator, result);
-        }
-
-        throw new NotImplementedException();
+        return string.Join(separator, result);
     }
 
     private static string WrapByWord(string text, int col, char separator)
