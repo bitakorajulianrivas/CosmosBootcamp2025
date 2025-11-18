@@ -126,6 +126,19 @@ public class BatallaNavalTest
         batallaNaval.Jugador1.Tablero[3, 1].Should().Be('C');
         batallaNaval.Jugador1.Tablero[4, 1].Should().Be('C');
     }
+
+    [Fact]
+    public void Si_AgregoCarrierConOrientacionVertical_DebeExistirBarcoConCuatroCasillas()
+    {
+        var batallaNaval = CrearJuegoYAgregarJugadores();
+
+        batallaNaval.Jugador1.AgregarBarco(x: 1, y: 1, tipo: "Carrier", esVertical: true);
+
+        batallaNaval.Jugador1.Tablero[1, 1].Should().Be('C');
+        batallaNaval.Jugador1.Tablero[1, 2].Should().Be('C');
+        batallaNaval.Jugador1.Tablero[1, 3].Should().Be('C');
+        batallaNaval.Jugador1.Tablero[1, 4].Should().Be('C');
+    }
     
     
     
