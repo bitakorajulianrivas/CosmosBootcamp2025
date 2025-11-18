@@ -25,6 +25,20 @@ public class BatallaNavalTest
         
         batallaNaval.Jugador2.Apodo.Should().Be("gato");
     }
+
+    [Fact]
+    public void Si_AgregoJugador3_Debe_LanzarExcepcion()
+    {
+        var batallaNaval = new BatallaNaval();
+        var jugador1 = new Jugador("pollo");
+        batallaNaval.AgregarJugador(jugador1);
+        var jugador2 = new Jugador("gato");
+        batallaNaval.AgregarJugador(jugador2);
+
+        Action action = () => batallaNaval.AgregarJugador(new Jugador("perro"));
+        
+        action.Should().Throw<ArgumentException>("Solo se permiten 2 jugadores.");
+    }
 }
 
 public class BatallaNaval
