@@ -55,8 +55,7 @@ public class BatallaNavalTest
         batallaNaval.AgregarJugador(jugador2);
 
         batallaNaval.Iniciar();
-
-        batallaNaval.Tablero.Should().NotBeNull();
+        
         batallaNaval.Jugador1.Tablero.Should().NotBeNull();
         batallaNaval.Jugador2.Tablero.Should().NotBeNull();
 
@@ -70,7 +69,8 @@ public class BatallaNavalTest
         var batallaNaval = new BatallaNaval();
         var action = () => batallaNaval.Iniciar();
 
-        action.Should().Throw<ArgumentException>().WithMessage("No Estan los Jugadores Configurados.");
+        action.Should().Throw<ArgumentException>()
+            .WithMessage("No Estan los Jugadores Configurados.");
     }
 }
 
@@ -80,7 +80,6 @@ public class BatallaNaval
     private const string SoloSePermitenJugadores = "Solo se permiten 2 jugadores.";
     public Jugador Jugador1 { get; private set; }
     public Jugador Jugador2 { get; private set; }
-    public char[,] Tablero { get; private set; }
 
     public void AgregarJugador(Jugador jugador)
     {
@@ -105,8 +104,6 @@ public class BatallaNaval
     public void Iniciar()
     {
         ValidarExistenJugadores();
-
-        Tablero = new char[10, 10];
     }
 
     private void ValidarExistenJugadores()
