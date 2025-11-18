@@ -49,8 +49,6 @@ public class BatallaNavalTest
     public void Si_inicioUnJuego_Debe_ExistirUnTableroParaCadaJugadorY2Jugadores()
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
-
-        batallaNaval.Iniciar();
         
         batallaNaval.Jugador1.Tablero.Should().NotBeNull();
         batallaNaval.Jugador2.Tablero.Should().NotBeNull();
@@ -74,7 +72,6 @@ public class BatallaNavalTest
     {
         var batallaNaval = CrearJuegoYAgregarJugadores();
         
-        batallaNaval.Iniciar();
         batallaNaval.Jugador1.AgregarBarco(x:2 , y:2, tipo: "Gunship");
 
         batallaNaval.Jugador1.Tablero[2, 2].Should().Be('G');
@@ -87,6 +84,9 @@ public class BatallaNavalTest
         batallaNaval.AgregarJugador(jugador1);
         var jugador2 = new Jugador("gato");
         batallaNaval.AgregarJugador(jugador2);
+        
+        batallaNaval.Iniciar();
+        
         return batallaNaval;
     }
 }

@@ -14,6 +14,6 @@ public class Jugador
 
     public void AgregarBarco(int x, int y, string tipo)
     {
-        throw new NotImplementedException();
+        Tablero[x, y] = 'G';
     }
 }
