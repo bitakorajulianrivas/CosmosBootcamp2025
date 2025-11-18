@@ -3,35 +3,37 @@
 public class Jugador
 {
     private const string YaExisteBarcoEnLaPosiciónEnviada = "Ya existe barco en la posición enviada.";
+    private const string SoloSePuedeAsignarBarcosDeTipo = "Solo se puede asignar {0} barcos de tipo {1}.";
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
-    public int CantidadCarrier { get; set; }
+
+    private Dictionary<TipoBarco, int> _barcosAsignados = new()
+    {
+        { TipoBarco.Carrier, 0 },
+        { TipoBarco.Destroyer, 0 },
+        { TipoBarco.Gunship, 0 }
+    };
 
     public Jugador(string apodo)
     {
         Apodo = apodo;
         Tablero = new char[10, 10];
-        CantidadCarrier = 0;
-        CantidadDestroyers = 0;
-        CantidadGunships = 0;
     }
-
-    public int CantidadGunships { get; set; }
-
-    public int CantidadDestroyers { get; set; }
 
 
     public void AgregarBarco(Barco barco, int x, int y, bool esVertical = false)
     {
         if (Tablero[x, y] != '\0')
             throw new ArgumentException(YaExisteBarcoEnLaPosiciónEnviada);
-        if (CantidadCarrier >= barco.CantidadBarcos)
-            throw new ArgumentException("Solo se puede Asignar un Carrier");
-        if (CantidadDestroyers >= barco.CantidadBarcos)
-            throw new ArgumentException("Solo se puede Asignar dos destroyers");
-        if (CantidadGunships >= barco.CantidadBarcos)
-            throw new ArgumentException("Solo se puede Asignar cuatro gunships");
+        
+        ValidarBarcosAsignados(barco);
         AsignarBarco(barco, x, y, esVertical);
+    }
+
+    private void ValidarBarcosAsignados(Barco barco)
+    {
+        if (_barcosAsignados[barco.Tipo] >= barco.CantidadBarcos)
+            throw new ArgumentException(string.Format(SoloSePuedeAsignarBarcosDeTipo, barco.CantidadBarcos, barco.Tipo));
     }
 
     private void AsignarBarco(Barco barco, int x, int y, bool esVertical)
@@ -44,13 +46,6 @@ public class Jugador
                 Tablero[x + indice, y] = barco.Letra;
         }
 
-        if (barco.Tipo == "Carrier")
-            CantidadCarrier++;
-        if (barco.Tipo == "Destroyer")
-            CantidadDestroyers++;
-        else
-        {
-            CantidadGunships++;
-        }
+        _barcosAsignados[barco.Tipo]++;
     }
 }

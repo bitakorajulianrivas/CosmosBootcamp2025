@@ -148,7 +148,7 @@ public class BatallaNavalTest
         
         Action action = ()=> batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 5, y: 5  );
         action.Should().Throw<ArgumentException>()
-            .WithMessage("Solo se puede Asignar un Carrier");
+            .WithMessage("Solo se puede asignar 1 barcos de tipo Carrier.");
     }
 
     [Fact]
@@ -161,7 +161,7 @@ public class BatallaNavalTest
         
         Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 4, y: 4);
 
-        action.Should().Throw<ArgumentException>().WithMessage("Solo se puede Asignar dos destroyers");
+        action.Should().Throw<ArgumentException>().WithMessage("Solo se puede asignar 2 barcos de tipo Destroyer.");
     }
 
     [Fact]
@@ -175,7 +175,7 @@ public class BatallaNavalTest
         
         Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 5, y: 5);
         
-        action.Should().Throw<ArgumentException>().WithMessage("Solo se puede Asignar cuatro gunships");
+        action.Should().Throw<ArgumentException>().WithMessage("Solo se puede asignar 4 barcos de tipo Gunship.");
     }
     
     
