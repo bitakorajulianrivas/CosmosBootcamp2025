@@ -1,4 +1,5 @@
-﻿using AwesomeAssertions;
+﻿
+using FluentAssertions;
 
 namespace Katas.Battleship.Tests;
 
@@ -18,9 +19,12 @@ public class BatallaNavalTest
     [Fact]
     public void Si_AgregoJugador2_Debe_ExistirJugador2()
     {
-        var jugador2 = new Jugador("gato");
         var batallaNaval = new BatallaNaval();
-            
+
+        var jugador1 = new Jugador("pollo");
+        var jugador2 = new Jugador("gato");
+        batallaNaval.AgregarJugador(jugador1);
+        
         batallaNaval.AgregarJugador(jugador2);
         
         batallaNaval.Jugador2.Apodo.Should().Be("gato");
@@ -34,10 +38,11 @@ public class BatallaNavalTest
         batallaNaval.AgregarJugador(jugador1);
         var jugador2 = new Jugador("gato");
         batallaNaval.AgregarJugador(jugador2);
-
-        Action action = () => batallaNaval.AgregarJugador(new Jugador("perro"));
+        var jugador3 = new Jugador("perro");
         
-        action.Should().Throw<ArgumentException>("Solo se permiten 2 jugadores.");
+        var action = () => batallaNaval.AgregarJugador(jugador3);
+        
+        action.Should().Throw<ArgumentException>().WithMessage("Error");
     }
 }
 
@@ -48,9 +53,18 @@ public class BatallaNaval
 
     public void AgregarJugador(Jugador jugador)
     {
-        Jugador1 ??= jugador;
-
-        Jugador2 = jugador;
+        if(Jugador1 is not null && Jugador2 is not null)
+            throw new ArgumentException("Error");
+        
+        if (Jugador1 is null)
+        {
+            Jugador1 = jugador;
+        }
+        else
+        {
+            Jugador2 = jugador;
+        }
+        
     }
     
 }
