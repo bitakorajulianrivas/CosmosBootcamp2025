@@ -34,7 +34,7 @@ public class BatallaNavalBuilder
 
     public BatallaNavalBuilder ValidarJugadores()
     {
-        _batallaNaval.ValidarExistenJugadores();
+        _batallaNaval.ValidarQueExistanDosJugadores();
         return this;
     }
 

@@ -2,50 +2,71 @@
 
 public class Jugador
 {
+    private const int CasillaMaxima = 10;
+    private const int CasillaMinima = 0;
+    private readonly int _cantidadMaximaDeBarcos = 7;
+    private const char CasillaPorDefecto = '\0';
+    private const char CasillaVacia = ' ';
+
+    
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
-    private int NumeroDeBarcosAsginados => _barcosAsignados.Sum(x => x.Value);
     public char[,] TableroDisparos { get; set; }
-
+    
+    private int NumeroDeBarcosAsginados => _barcosAsignados
+        .Sum(x => x.Value);
+    
     private readonly Dictionary<TipoBarco, int> _barcosAsignados = new()
     {
         { TipoBarco.Carrier, 0 },
         { TipoBarco.Destroyer, 0 },
         { TipoBarco.Gunship, 0 }
     };
+    
 
     public Jugador(string apodo)
     {
         Apodo = apodo;
-        Tablero = new char[10, 10];
-        TableroDisparos = new char[10, 10];
+        Tablero = new char[CasillaMaxima, CasillaMaxima];
+        TableroDisparos = (char[,])Tablero.Clone();
     }
 
-    public void ValidarBarcos()
-    {
-        if (NumeroDeBarcosAsginados < 7)
-            throw new ArgumentException(JugadorMensajes.FaltaBarcosPorAsignar);
-    }
+
 
     public void AgregarBarco(Barco barco, Posicion posicion)
     {
-        const int casillaMax = 10;
-        const int casillaMin = 0;
-
-        if (posicion.EjeX >= casillaMax || posicion.EjeY >= casillaMax ||
-            posicion.EjeX < casillaMin || posicion.EjeY < casillaMin)
-            throw new ArgumentException(JugadorMensajes.ElBarcoSeEncuentraFueraDelTablero);
-        if (Tablero[posicion.EjeX, posicion.EjeY] != '\0')
-            throw new ArgumentException(JugadorMensajes.YaExisteBarcoEnLaPosiciónEnviada);
-
-        ValidarBarcosAsignadosPorTipo(barco);
+        ValidarBordesDelTablero(posicion);
+        ValidarSobreposicionDeBarcos(posicion);
+        ValidarCantidadDeBarcosAsignadosPorTipo(barco);
+        
         AsignarBarco(barco, posicion.EjeX, posicion.EjeY, posicion.EsVertical);
     }
 
+    public void ValidarQueExistanSieteBarcosAsignadosPorTablero()
+    {
+        if (NumeroDeBarcosAsginados < _cantidadMaximaDeBarcos)
+            throw new ArgumentException(JugadorMensajes.FaltaBarcosPorAsignar);
+    }
+    
+    private void ValidarSobreposicionDeBarcos(Posicion posicion)
+    {
+        if (Tablero[posicion.EjeX, posicion.EjeY] != CasillaPorDefecto)
+            throw new ArgumentException(JugadorMensajes.YaExisteBarcoEnLaPosiciónEnviada);
+    }
 
-    public bool TieneTodosLosBarcosAsginados() => NumeroDeBarcosAsginados == 7;
+    private static void ValidarBordesDelTablero(Posicion posicion)
+    {
+        if (posicion.EjeX >= CasillaMaxima || 
+            posicion.EjeY >= CasillaMaxima ||
+            posicion.EjeX < CasillaMinima || 
+            posicion.EjeY < CasillaMinima)
+            throw new ArgumentException(JugadorMensajes.ElBarcoSeEncuentraFueraDelTablero);
+    }
 
-    private void ValidarBarcosAsignadosPorTipo(Barco barco)
+
+    public bool TieneTodosLosBarcosAsginados() => NumeroDeBarcosAsginados == _cantidadMaximaDeBarcos;
+
+    private void ValidarCantidadDeBarcosAsignadosPorTipo(Barco barco)
     {
         if (_barcosAsignados[barco.Tipo] >= barco.CantidadBarcos)
             throw new ArgumentException(string.Format(JugadorMensajes.SoloSePuedeAsignarBarcosDeTipo,
@@ -65,6 +86,12 @@ public class Jugador
         _barcosAsignados[barco.Tipo]++;
     }
 
+    public char RecibirDisparo(int x, int y) => 
+        Tablero[x, y] = ExisteBarcoEn(x, y) ? 'x' : 'o';
+
+    public char RegistrarDisparo(int x, int y, char disparo) => 
+        TableroDisparos[x, y] = disparo;
+    
     public string ImprimirTablero()
     {
         string tablero = "\n" +
@@ -87,7 +114,13 @@ public class Jugador
         return tablero;
     }
 
-    private char ObtenerCasilla(int fila, int columna) =>
-        Tablero[fila, columna] == '\0' ? ' ' : Tablero[fila, columna];
+    private char ObtenerCasilla(int fila, int columna)
+    {
+        return Tablero[fila, columna] == CasillaPorDefecto ? CasillaVacia : Tablero[fila, columna];
+    }
+
+    private bool ExisteBarcoEn(int x, int y) => 
+        Tablero[x, y] != CasillaPorDefecto;
+
 
 } 

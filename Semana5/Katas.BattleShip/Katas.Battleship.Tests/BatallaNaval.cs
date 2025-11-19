@@ -10,7 +10,7 @@ public class BatallaNaval
 
     public void AgregarJugador(Jugador jugador)
     {
-        ValidarMaximo2Jugadores();
+        ValidarQueExistanSoloDosJugadores();
 
         if (Jugador1 == null)
             Jugador1 = jugador;
@@ -18,7 +18,7 @@ public class BatallaNaval
             Jugador2 = jugador;
     }
 
-    private void ValidarMaximo2Jugadores()
+    private void ValidarQueExistanSoloDosJugadores()
     {
         if (ExisteJugador1() && ExisteJugador2())
             throw new ArgumentException(SoloSePermitenJugadores);
@@ -28,7 +28,7 @@ public class BatallaNaval
 
     private bool ExisteJugador1() => Jugador1 != null;
 
-    public void ValidarExistenJugadores()
+    public void ValidarQueExistanDosJugadores()
     {
         if (!ExisteJugador1() || !ExisteJugador2())
             throw new ArgumentException(NoEstanLosJugadoresConfigurados);
@@ -36,8 +36,8 @@ public class BatallaNaval
 
     public void Iniciar()
     {
-        Jugador1.ValidarBarcos();
-        Jugador2.ValidarBarcos();
+        Jugador1.ValidarQueExistanSieteBarcosAsignadosPorTablero();
+        Jugador2.ValidarQueExistanSieteBarcosAsignadosPorTablero();
     }
 
 
@@ -58,17 +58,7 @@ public class BatallaNaval
 
     public void Disparar(int x, int y)
     {
-        if(Jugador2.Tablero[x, y] != '\0')
-        {
-            Jugador2.Tablero[x, y] = 'x';
-            Jugador1.TableroDisparos[x, y] = 'x';
-        }
-        else
-        {
-            Jugador2.Tablero[x, y] = 'o';
-            Jugador1.TableroDisparos[x, y] = 'o';
-        }
-
-         
+        char disparo = Jugador2.RecibirDisparo(x, y);
+        Jugador1.RegistrarDisparo(x, y, disparo);
     }
 }

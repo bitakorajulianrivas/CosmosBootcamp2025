@@ -509,6 +509,5 @@ public class BatallaNavalTest
 
         batallaNaval.Jugador2.Tablero[1, 4].Should().Be('x');
         batallaNaval.Jugador1.TableroDisparos[1, 4].Should().Be('x');
-
     }
 }
