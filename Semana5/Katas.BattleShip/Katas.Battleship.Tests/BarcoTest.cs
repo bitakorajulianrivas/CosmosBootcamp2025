@@ -21,5 +21,4 @@ public class BarcoTest
         barco.ObtenerCoordenadas().Should().BeEquivalentTo([
             (1,1), (1, 2), (1, 3), (1, 4)]);
     }
-    
 }

@@ -15,7 +15,7 @@ public class Jugador
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
     public char[,] TableroDisparos { get; set; }
-    public List<(Barco, Posicion, bool)> Barcos; 
+    public List<Barco> Barcos; 
     
     private int NumeroDeBarcosAsginados => _barcosAsignados
         .Sum(x => x.Value);
@@ -45,6 +45,7 @@ public class Jugador
         ValidarCantidadDeBarcosAsignadosPorTipo(barco);
         
         AsignarBarco(barco, posicion);
+        
     }
 
     public void ValidarQueExistanSieteBarcosAsignadosPorTablero()
@@ -89,7 +90,7 @@ public class Jugador
         }
 
         _barcosAsignados[barco.Tipo]++;
-        Barcos.Add((barco, posicion, true));
+        Barcos.Add(barco);
     }
 
     public char RecibirDisparo(int x, int y)
@@ -98,6 +99,7 @@ public class Jugador
         {
             cantidadDisparosAcerdos++;
             Tablero[x, y] = 'x';
+           
         }
         else
         {
@@ -107,7 +109,13 @@ public class Jugador
 
         return Tablero[x, y];
     }
-    
+
+    private void ObtenerBarco(int x, int y)
+    {
+        Barco barco = Barcos.First(barco =>
+            barco.ObtenerCoordenadas().Contains((x, y)));
+    }
+
 
     public char RegistrarDisparo(int x, int y, char disparo) => 
         TableroDisparos[x, y] = disparo;
