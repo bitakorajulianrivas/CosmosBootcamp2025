@@ -25,5 +25,8 @@ public class Barco
     }
 
 
-
+    public (int x, int y)[] ObtenerCoordenadas()
+    {
+        throw new NotImplementedException();
+    }
 }
