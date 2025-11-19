@@ -271,6 +271,36 @@ public class BatallaNavalTest
         batallaNaval.Jugador1.NumeroDeBarcosAsginados.Should().Be(7);
         batallaNaval.Jugador2.NumeroDeBarcosAsginados.Should().Be(7);
     }
+
+    [Fact]
+    public void Si_InicioJuegoYNoTengoLos7BarcosAsignadoPorJugador_Debe_LanzarExcepcion()
+    { 
+        var batallaNaval = new BatallaNavalBuilder()
+            .AgregarJugador("Pollo")
+            .AgregarJugador("Gato")
+            .ValidarJugadores()
+            .AgregarBarcosJugador1(
+                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
+                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
+                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
+                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 6)))
+               
+            .AgregarBarcoJugador2(
+                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
+                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
+                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
+                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 6)),
+                (Barco.Gunship(), Posicion.Horizontal(7, 7)))
+            .Construir();
+
+        Action action =()=>batallaNaval.Iniciar();
+        action.Should().Throw<ArgumentException>()
+            .WithMessage("Falta barcos por asignar.");
+    }
 }
 
 public class BatallaNavalBuilder
