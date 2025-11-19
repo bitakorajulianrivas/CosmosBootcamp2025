@@ -41,8 +41,18 @@ public class BatallaNaval
     }
 
 
-    public string Imprimir(string pollo)
+    public string Imprimir(string apodo)
     {
-        throw new NotImplementedException();
+        Jugador jugador = ObtenerJugador(apodo);
+
+        return jugador.ImprimirTablero();
+    }
+
+    private Jugador ObtenerJugador(string apodo)
+    {
+        if (Jugador1.Apodo == apodo)
+            return Jugador1;
+        
+        return Jugador2;
     }
 }
