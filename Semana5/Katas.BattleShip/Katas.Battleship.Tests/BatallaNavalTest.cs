@@ -447,6 +447,39 @@ public class BatallaNavalTest
     }
 
     [Fact]
+    public void Si_DisparaSinIniciarElJuego_DebeLanzarExcepcion()
+    {
+        var batallaNaval = new BatallaNavalBuilder()
+            .AgregarJugador("Pollo")
+            .AgregarJugador("Gato")
+            .ValidarJugadores()
+            .AgregarBarcosJugador1([
+                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
+                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
+                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
+                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 6)),
+                (Barco.Gunship(), Posicion.Horizontal(7, 7))
+            ])
+            .AgregarBarcosJugador2([
+                (Barco.Carrier(), Posicion.Vertical(1, 4)),
+                (Barco.Destroyer(), Posicion.Horizontal(1, 0)),
+                (Barco.Destroyer(), Posicion.Vertical(8, 1)),
+                (Barco.Gunship(), Posicion.Horizontal(0, 2)),
+                (Barco.Gunship(), Posicion.Horizontal(0, 9)),
+                (Barco.Gunship(), Posicion.Horizontal(3, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 7))
+            ])
+            .Construir();
+        
+        Action action = () => batallaNaval.Disparar(x:0, y:0);
+        
+        action.Should().Throw<ArgumentException>()
+            .WithMessage("No puede disparar sin iniciar el juego.");
+    }
+    
+    [Fact]
     public void Si_ElJugador1Dispara_Debe_MarcarlaCasillaApuntadaEnTableroDelJugador2YtenerUnTableroAuxiliarConLosDisparosRealizados()
     {
         var batallaNaval = new BatallaNavalBuilder()
@@ -543,6 +576,7 @@ public class BatallaNavalTest
         batallaNaval.ObtenerJugadorActual().Apodo.Should().Be("Gato");
         batallaNaval.ObtenerJugadorOponente().Apodo.Should().Be("Pollo");
     }
+    
     [Fact]
     public void Si_Realizo2Disparos_Debe_CambiarJugadorActualYJugadorOponente()
     {
