@@ -24,19 +24,6 @@ public class Barco
         Posicion = posicion;
     }
 
-    public List<(int x, int y)> ObtenerCoordenadas()
-    {
-        List<(int x, int y)> coordenadas = [];
 
-        for (int indice = 0; indice < Tamanio; indice++)
-        {
-            if(Posicion.EsVertical)
-                coordenadas.Add((Posicion.EjeX, Posicion.EjeY + indice));
-            else
-                coordenadas.Add((Posicion.EjeX + indice, Posicion.EjeY ));
-        }
-
-        return coordenadas;
-    }
 
 }
