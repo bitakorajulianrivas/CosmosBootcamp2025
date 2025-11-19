@@ -4,6 +4,7 @@ public class Jugador
 {
     private const string YaExisteBarcoEnLaPosiciónEnviada = "Ya existe barco en la posición enviada.";
     private const string SoloSePuedeAsignarBarcosDeTipo = "Solo se puede asignar {0} barcos de tipo {1}.";
+    private const string ElBarcoSeEncuentraFueraDelTablero = "El barco se encuentra fuera del tablero.";
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
 
@@ -23,8 +24,10 @@ public class Jugador
 
     public void AgregarBarco(Barco barco, int x, int y, bool esVertical = false)
     {
-        if (x >= 10 || y >= 10  || x<0 || y<0 )
-            throw new ArgumentException("El barco se encuentra fuera del tablero.");
+        const int casillaMax = 10;
+        const int casillaMin = 0;
+        if (x >= casillaMax || y >= casillaMax  || x<casillaMin || y<casillaMin )
+            throw new ArgumentException(ElBarcoSeEncuentraFueraDelTablero);
         if (Tablero[x, y] != '\0')
             throw new ArgumentException(YaExisteBarcoEnLaPosiciónEnviada);
         
