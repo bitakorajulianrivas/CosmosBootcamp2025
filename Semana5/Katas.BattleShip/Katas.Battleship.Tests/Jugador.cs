@@ -70,12 +70,12 @@ public class Jugador
            "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
            "-------------------------------------------| \n";
         
-        for (int fila = 0; fila < 10; fila++)
+        for (int columna = 0; columna < 10; columna++)
         {
-            tablero += $" {fila} |";
-            for (int columna = 0; columna <  10; columna++)
+            tablero += $" {columna} |";
+            for (int fila = 0; fila <  10; fila++)
             {
-                tablero += $" {' '} |";
+                tablero += $" {ObtenerCasilla(fila, columna) } |";
             }
 
             tablero += " \n";
@@ -85,5 +85,12 @@ public class Jugador
             "-------------------------------------------| \n\n";
 
         return tablero;
+    }
+
+    private char ObtenerCasilla(int fila, int columna)
+    {
+        if (Tablero[fila, columna] == '\0')
+            return ' ';
+        return Tablero[fila,columna];
     }
 }
