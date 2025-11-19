@@ -7,6 +7,7 @@ public class Jugador
     private const string ElBarcoSeEncuentraFueraDelTablero = "El barco se encuentra fuera del tablero.";
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
+    public int NumeroDeBarcosAsginados { get; set; }
 
     private Dictionary<TipoBarco, int> _barcosAsignados = new()
     {
@@ -33,6 +34,11 @@ public class Jugador
         
         ValidarBarcosAsignados(barco);
         AsignarBarco(barco, x, y, esVertical);
+    }
+
+    public void AgregarBarco(Barco barco, Posicion posicion)
+    {
+        AgregarBarco(barco, posicion.EjeX, posicion.EjeY, posicion.EsVertical);
     }
 
     private void ValidarBarcosAsignados(Barco barco)

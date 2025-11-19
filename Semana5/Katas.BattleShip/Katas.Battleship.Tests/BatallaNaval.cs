@@ -27,14 +27,14 @@ public class BatallaNaval
 
     private bool ExisteJugador1() => Jugador1 != null;
 
-    public void Iniciar()
-    {
-        ValidarExistenJugadores();
-    }
-
-    private void ValidarExistenJugadores()
+    public void ValidarExistenJugadores()
     {
         if (!ExisteJugador1() || !ExisteJugador2())
             throw new ArgumentException(NoEstanLosJugadoresConfigurados);
+    }
+
+    public void Iniciar()
+    {
+        throw new NotImplementedException();
     }
 }
