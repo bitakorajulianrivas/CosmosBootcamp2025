@@ -35,6 +35,7 @@ public class BatallaNaval
 
     public void Iniciar()
     {
-
+        if (Jugador1.NumeroDeBarcosAsginados < 7) 
+            throw new ArgumentException("Falta barcos por asignar.");
     }
 }
