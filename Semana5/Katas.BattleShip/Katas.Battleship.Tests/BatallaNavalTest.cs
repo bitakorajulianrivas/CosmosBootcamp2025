@@ -339,7 +339,7 @@ public class BatallaNavalTest
     }
 
     [Fact]
-    public void Si_ImprimeSinBarcos_DebeMostrarElTableroDelJugador1Vacio()
+    public void Si_ImprimeSinBarcos_Debe_MostrarElTableroDelJugador1Vacio()
     {
         var batallaNaval = new BatallaNavalBuilder()
             .AgregarJugador("Pollo")
@@ -368,5 +368,43 @@ public class BatallaNavalTest
         tablero.Should().Be(tableroEsperado);
     }
     
+        [Fact]
+    public void Si_ImprimeTableroDelJugador1_Debe_MostrarElTableroConBarcos()
+    {
+        var batallaNaval = new BatallaNavalBuilder()
+            .AgregarJugador("Pollo")
+            .AgregarJugador("Gato")
+            .ValidarJugadores()
+            .AgregarBarcosJugador1([
+                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
+                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
+                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
+                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 6)),
+                (Barco.Gunship(), Posicion.Horizontal(7, 7))
+            ])
+            .Construir();
+
+        string tableroEsperado = "\n" +
+             "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+             "-------------------------------------------| \n" +
+             " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 1 |   | C | C | C | C |   |   |   |   |   | \n" +
+             " 2 |   |   | D | D | D |   |   |   |   |   | \n" +
+             " 3 |   |   |   | D | D | D |   |   |   |   | \n" +
+             " 4 |   |   |   |   | G |   |   |   |   |   | \n" +
+             " 5 |   |   |   |   |   | G |   |   |   |   | \n" +
+             " 6 |   |   |   |   |   |   | G |   |   |   | \n" +
+             " 7 |   |   |   |   |   |   |   | G |   |   | \n" +
+             " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
+             "-------------------------------------------| \n" +
+             "\n";
+
+        string tablero = batallaNaval.Imprimir("Pollo");
+
+        tablero.Should().Be(tableroEsperado);
+    }
     
 }
