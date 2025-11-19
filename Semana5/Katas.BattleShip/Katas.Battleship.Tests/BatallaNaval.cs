@@ -55,4 +55,10 @@ public class BatallaNaval
         
         return Jugador2;
     }
+
+    public void Disparar(int x, int y)
+    {
+        Jugador2.Tablero[x, y] = 'o';
+        Jugador1.TableroDisparos[x, y] = 'o';
+    }
 }
