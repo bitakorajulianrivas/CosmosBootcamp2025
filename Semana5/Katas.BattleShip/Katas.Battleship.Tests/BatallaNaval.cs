@@ -6,7 +6,8 @@ public class BatallaNaval
     private bool _juegoIniciado = false;
     private const string NoEstanLosJugadoresConfigurados = "No Estan los Jugadores Configurados.";
     private const string SoloSePermitenJugadores = "Solo se permiten 2 jugadores.";
-   
+    private const string? NoPuedeDispararSinIniciarElJuego = "No puede disparar sin iniciar el juego.";
+
     public Jugador Jugador1 { get; private set; }
     public Jugador Jugador2 { get; private set; }
     
@@ -62,8 +63,8 @@ public class BatallaNaval
 
     public void Disparar(int x, int y)
     {
-        if (_juegoIniciado == false)
-            throw new ArgumentException("No puede disparar sin iniciar el juego.");
+        if (!_juegoIniciado)
+            throw new ArgumentException(NoPuedeDispararSinIniciarElJuego);
         
         char disparo = Jugador2.RecibirDisparo(x, y);
         Jugador1.RegistrarDisparo(x, y, disparo);
