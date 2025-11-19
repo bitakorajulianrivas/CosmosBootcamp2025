@@ -7,7 +7,9 @@ public class Jugador
     private readonly int _cantidadMaximaDeBarcos = 7;
     private const char CasillaPorDefecto = '\0';
     private const char CasillaVacia = ' ';
-
+    private int cantidadDisparosAcerdos = 0;
+    private int cantidaDisparosFallidos = 0;
+    private int cantidadDisparosTotales => cantidadDisparosAcerdos + cantidaDisparosFallidos;
     
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
@@ -86,8 +88,21 @@ public class Jugador
         _barcosAsignados[barco.Tipo]++;
     }
 
-    public char RecibirDisparo(int x, int y) => 
-        Tablero[x, y] = ExisteBarcoEn(x, y) ? 'x' : 'o';
+    public char RecibirDisparo(int x, int y)
+    {
+        if(ExisteBarcoEn(x, y))
+        {
+            Tablero[x, y] = 'x';
+            cantidadDisparosAcerdos++;
+        }
+        else
+        {
+            Tablero[x, y] = 'o';
+            cantidaDisparosFallidos++;
+        }
+
+        return Tablero[x, y];
+    }
 
     public char RegistrarDisparo(int x, int y, char disparo) => 
         TableroDisparos[x, y] = disparo;
@@ -123,8 +138,9 @@ public class Jugador
         Tablero[x, y] != CasillaPorDefecto;
 
 
-    public string ObtenerInforme()
-    {
-        throw new NotImplementedException();
-    }
+    public string ObtenerInforme() =>
+        string.Format("Total disparos: {0}.\n" + "Perdidos: {1}.\n" + "Acertados: {2}.\n", 
+            cantidadDisparosTotales,
+            cantidaDisparosFallidos,
+            cantidadDisparosAcerdos);
 } 
