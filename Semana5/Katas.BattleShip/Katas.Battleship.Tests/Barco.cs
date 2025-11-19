@@ -7,8 +7,12 @@ public class Barco
     public char Letra { get; }
     public int CantidadBarcos { get; }
     public Posicion Posicion { get; }
+    public (int x, int y)[] Coordenadas { get; }
 
-
+    public int Golpes = 0;
+    
+    public bool EsDerribado() => Golpes == Tamanio;
+    
     public static Barco Gunship(Posicion posicion) => new(TipoBarco.Gunship, 1, 'G', 4, posicion);
     public static Barco Destroyer(Posicion posicion) => new(TipoBarco.Destroyer, 3, 'D', 2, posicion);
     public static Barco Carrier(Posicion posicion) => new(TipoBarco.Carrier, 4, 'C', 1, posicion);
@@ -21,8 +25,10 @@ public class Barco
         Letra = letra;
         CantidadBarcos = cantidadBarcos;
         Posicion = posicion;
+        Coordenadas = ObtenerCoordenadas();
     }
 
+    public void Golpear() => Golpes++;
 
     public (int x, int y)[] ObtenerCoordenadas()
     {

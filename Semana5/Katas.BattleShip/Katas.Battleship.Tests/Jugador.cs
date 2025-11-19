@@ -45,7 +45,6 @@ public class Jugador
         ValidarCantidadDeBarcosAsignadosPorTipo(barco);
         
         AsignarBarco(barco, posicion);
-        
     }
 
     public void ValidarQueExistanSieteBarcosAsignadosPorTablero()
@@ -99,7 +98,9 @@ public class Jugador
         {
             cantidadDisparosAcerdos++;
             Tablero[x, y] = 'x';
-           
+            var barco = ObtenerBarco(x, y);
+            if(barco != null)
+                barco.Golpear();
         }
         else
         {
@@ -110,9 +111,9 @@ public class Jugador
         return Tablero[x, y];
     }
 
-    private void ObtenerBarco(int x, int y)
+    private Barco? ObtenerBarco(int x, int y)
     {
-        Barco barco = Barcos.First(barco =>
+        return Barcos.FirstOrDefault(barco =>
             barco.ObtenerCoordenadas().Contains((x, y)));
     }
 
@@ -157,13 +158,17 @@ public class Jugador
             cantidadDisparosTotales,
             cantidaDisparosFallidos,
             cantidadDisparosAcerdos);
+
+        var barcos = Barcos
+            .Where(barco => barco.EsDerribado())
+            .Select(barco => string.Format("{0}: ({1},{2}).\n", barco.Tipo, barco.Posicion.EjeX, barco.Posicion.EjeY))
+            .ToArray();
+
+        var barcosDerribados = barcos.Any();
         
         string informeBarcosDerribados = 
-            tieneBarcosDerribados
-                ? "Barcos derribados: [" +
-                                         "Gunship: (0,2).\n" +
-                                         "Destroyer: (1,0). \n" + 
-                                         "]"
+            barcosDerribados
+                ? "Barcos derribados: [" + string.Join("", barcos) + "]"
                 : string.Empty;
         
         return resultado + informeBarcosDerribados;

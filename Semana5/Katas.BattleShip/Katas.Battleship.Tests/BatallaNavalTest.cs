@@ -776,10 +776,10 @@ public class BatallaNavalTest
             "Perdidos: 0.\n" +
             "Acertados: 4.\n" + 
             "Barcos derribados: [" +
+                "Destroyer: (1,0).\n" + 
                 "Gunship: (0,2).\n" +
-                "Destroyer: (1,0). \n" + 
             "]";
         
-        batallaNaval.Jugador1.ObtenerInforme().Should().Be(informeEsperado);
+        batallaNaval.Jugador2.ObtenerInforme().Should().Be(informeEsperado);
     }
 }
