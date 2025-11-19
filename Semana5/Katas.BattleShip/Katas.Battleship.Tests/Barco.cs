@@ -28,9 +28,13 @@ public class Barco
     {
         (int x, int y)[] coordenadas = new (int x, int y)[Tamanio];
 
-        for (int indice = 0; indice < Tamanio; indice++) 
-            coordenadas[indice] = (Posicion.EjeX + indice, Posicion.EjeY);
-
+        for (int indice = 0; indice < Tamanio; indice++)
+        {
+            if(Posicion.EsVertical)
+                coordenadas[indice] = (Posicion.EjeX, Posicion.EjeY + indice);
+            else
+                coordenadas[indice] = (Posicion.EjeX + indice, Posicion.EjeY);        
+        }
         return coordenadas;
     }
 }
