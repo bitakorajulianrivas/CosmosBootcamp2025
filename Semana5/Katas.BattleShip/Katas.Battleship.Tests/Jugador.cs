@@ -9,7 +9,7 @@ public class Jugador
     public char[,] Tablero { get; set; }
     public int NumeroDeBarcosAsginados => _barcosAsignados.Sum(x => x.Value);
 
-    private Dictionary<TipoBarco, int> _barcosAsignados = new()
+    private readonly Dictionary<TipoBarco, int> _barcosAsignados = new()
     {
         { TipoBarco.Carrier, 0 },
         { TipoBarco.Destroyer, 0 },
