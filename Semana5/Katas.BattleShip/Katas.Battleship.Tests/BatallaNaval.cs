@@ -3,7 +3,7 @@
 public class BatallaNaval
 {
     private bool _esTurnoPrincipal = true;
-    private bool _juegoIniciado = false;
+    private bool _juegoIniciado;
     private const string NoEstanLosJugadoresConfigurados = "No Estan los Jugadores Configurados.";
     private const string SoloSePermitenJugadores = "Solo se permiten 2 jugadores.";
     private const string NoPuedeDispararSinIniciarElJuego = "No puede disparar sin iniciar el juego.";

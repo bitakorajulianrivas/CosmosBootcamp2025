@@ -79,7 +79,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(2,2)));
 
         batallaNaval.Jugador1.Tablero[2, 2].Should().Be('G');
     }
@@ -93,9 +93,9 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(2,2)));
 
-        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2));
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(2,2)));
 
         action.Should().Throw<ArgumentException>()
             .WithMessage("Ya existe barco en la posición enviada.");
@@ -110,7 +110,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(Posicion.Horizontal(1,1)));
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('D');
         batallaNaval.Jugador1.Tablero[2, 1].Should().Be('D');
@@ -126,7 +126,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(Posicion.Horizontal(1,1)), Posicion.Vertical(1, 1));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(Posicion.Vertical(1,1)));
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('D');
         batallaNaval.Jugador1.Tablero[1, 2].Should().Be('D');
@@ -142,7 +142,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(Posicion.Horizontal(1,1)));
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('C');
         batallaNaval.Jugador1.Tablero[2, 1].Should().Be('C');
@@ -159,7 +159,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(Posicion.Vertical(1,1)), Posicion.Vertical(1, 1));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(Posicion.Vertical(1,1)));
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('C');
         batallaNaval.Jugador1.Tablero[1, 2].Should().Be('C');
@@ -176,9 +176,9 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(Posicion.Horizontal(1,1)));
 
-        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(Posicion.Horizontal(5,5)), Posicion.Horizontal(5, 5));
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(Posicion.Horizontal(5,5)));
         action.Should().Throw<ArgumentException>()
             .WithMessage("Solo se puede asignar 1 barcos de tipo Carrier.");
     }
@@ -192,11 +192,11 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1));
-        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2));
-        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(Posicion.Horizontal(1,1)));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(Posicion.Horizontal(2,2)));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(Posicion.Horizontal(3,3)));
 
-        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4));
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(Posicion.Horizontal(4,4)));
 
         action.Should().Throw<ArgumentException>().WithMessage("Solo se puede asignar 2 barcos de tipo Destroyer.");
     }
@@ -210,12 +210,12 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1));
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2));
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3));
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(1,1)));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(2,2)));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(3,3)));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(4,4)));
 
-        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(5,5)), Posicion.Horizontal(5, 5));
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(5,5)));
 
         action.Should().Throw<ArgumentException>().WithMessage("Solo se puede asignar 4 barcos de tipo Gunship.");
     }
@@ -235,7 +235,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(x, y)), Posicion.Horizontal(x, y));
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(Posicion.Horizontal(x, y)));
 
         action.Should().Throw<ArgumentException>()
             .WithMessage("El barco se encuentra fuera del tablero.");
@@ -249,22 +249,22 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .Construir();
 
@@ -282,21 +282,21 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6))
+                Barco.Carrier(Posicion.Horizontal(1,1)),
+                Barco.Destroyer(Posicion.Horizontal(2,2)),
+                Barco.Destroyer(Posicion.Horizontal(3,3)),
+                Barco.Gunship(Posicion.Horizontal(4,4)),
+                Barco.Gunship(Posicion.Horizontal(5, 5)),
+                Barco.Gunship(Posicion.Horizontal(6,6))
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .Construir();
 
@@ -314,21 +314,21 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
             ])
             .Construir();
 
@@ -376,13 +376,13 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .Construir();
 
@@ -415,13 +415,13 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,4)), Posicion.Vertical(1, 4)),
-                (Barco.Destroyer(Posicion.Horizontal(1,0)), Posicion.Horizontal(1, 0)),
-                (Barco.Destroyer(Posicion.Horizontal(8,1)), Posicion.Vertical(8, 1)),
-                (Barco.Gunship(Posicion.Horizontal(0,2)), Posicion.Horizontal(0, 2)),
-                (Barco.Gunship(Posicion.Horizontal(0,9)), Posicion.Horizontal(0, 9)),
-                (Barco.Gunship(Posicion.Horizontal(3,4)), Posicion.Horizontal(3, 4)),
-                (Barco.Gunship(Posicion.Horizontal(6,7)), Posicion.Horizontal(6, 7))
+                Barco.Carrier(Posicion.Vertical(1,4)),   
+                Barco.Destroyer(Posicion.Horizontal(1,0)), 
+                Barco.Destroyer(Posicion.Vertical(8,1)), 
+                Barco.Gunship(Posicion.Horizontal(0,2)),   
+                Barco.Gunship(Posicion.Horizontal(0,9)),   
+                Barco.Gunship(Posicion.Horizontal(3,4)),   
+                Barco.Gunship(Posicion.Horizontal(6,7)),   
             ])
             .Construir();
         
@@ -454,22 +454,22 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,4)), Posicion.Vertical(1, 4)),
-                (Barco.Destroyer(Posicion.Horizontal(1,0)), Posicion.Horizontal(1, 0)),
-                (Barco.Destroyer(Posicion.Horizontal(8,1)), Posicion.Vertical(8, 1)),
-                (Barco.Gunship(Posicion.Horizontal(0,2)), Posicion.Horizontal(0, 2)),
-                (Barco.Gunship(Posicion.Horizontal(0,9)), Posicion.Horizontal(0, 9)),
-                (Barco.Gunship(Posicion.Horizontal(3,4)), Posicion.Horizontal(3, 4)),
-                (Barco.Gunship(Posicion.Horizontal(6,7)), Posicion.Horizontal(6, 7))
+                Barco.Carrier(Posicion.Vertical(1,4)),   
+                Barco.Destroyer(Posicion.Horizontal(1,0)), 
+                Barco.Destroyer(Posicion.Vertical(8,1)), 
+                Barco.Gunship(Posicion.Horizontal(0,2)),   
+                Barco.Gunship(Posicion.Horizontal(0,9)),   
+                Barco.Gunship(Posicion.Horizontal(3,4)),   
+                Barco.Gunship(Posicion.Horizontal(6,7)),   
             ])
             .Construir();
         
@@ -487,22 +487,22 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,4)), Posicion.Vertical(1, 4)),
-                (Barco.Destroyer(Posicion.Horizontal(1,0)), Posicion.Horizontal(1, 0)),
-                (Barco.Destroyer(Posicion.Horizontal(8,1)), Posicion.Vertical(8, 1)),
-                (Barco.Gunship(Posicion.Horizontal(0,2)), Posicion.Horizontal(0, 2)),
-                (Barco.Gunship(Posicion.Horizontal(0,9)), Posicion.Horizontal(0, 9)),
-                (Barco.Gunship(Posicion.Horizontal(3,4)), Posicion.Horizontal(3, 4)),
-                (Barco.Gunship(Posicion.Horizontal(6,7)), Posicion.Horizontal(6, 7))
+                Barco.Carrier(Posicion.Vertical(1,4)),   
+                Barco.Destroyer(Posicion.Horizontal(1,0)), 
+                Barco.Destroyer(Posicion.Vertical(8,1)), 
+                Barco.Gunship(Posicion.Horizontal(0,2)),   
+                Barco.Gunship(Posicion.Horizontal(0,9)),   
+                Barco.Gunship(Posicion.Horizontal(3,4)),   
+                Barco.Gunship(Posicion.Horizontal(6,7)),   
             ])
             .Construir();
         
@@ -522,22 +522,22 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,4)), Posicion.Vertical(1, 4)),
-                (Barco.Destroyer(Posicion.Horizontal(1,0)), Posicion.Horizontal(1, 0)),
-                (Barco.Destroyer(Posicion.Horizontal(8,1)), Posicion.Vertical(8, 1)),
-                (Barco.Gunship(Posicion.Horizontal(0,2)), Posicion.Horizontal(0, 2)),
-                (Barco.Gunship(Posicion.Horizontal(0,9)), Posicion.Horizontal(0, 9)),
-                (Barco.Gunship(Posicion.Horizontal(3,4)), Posicion.Horizontal(3, 4)),
-                (Barco.Gunship(Posicion.Horizontal(6,7)), Posicion.Horizontal(6, 7))
+                Barco.Carrier(Posicion.Vertical(1,4)),   
+                Barco.Destroyer(Posicion.Horizontal(1,0)), 
+                Barco.Destroyer(Posicion.Vertical(8,1)), 
+                Barco.Gunship(Posicion.Horizontal(0,2)),   
+                Barco.Gunship(Posicion.Horizontal(0,9)),   
+                Barco.Gunship(Posicion.Horizontal(3,4)),   
+                Barco.Gunship(Posicion.Horizontal(6,7)),   
             ])
             .Construir();
 
@@ -556,22 +556,22 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,4)), Posicion.Vertical(1, 4)),
-                (Barco.Destroyer(Posicion.Horizontal(1,0)), Posicion.Horizontal(1, 0)),
-                (Barco.Destroyer(Posicion.Horizontal(8,1)), Posicion.Vertical(8, 1)),
-                (Barco.Gunship(Posicion.Horizontal(0,2)), Posicion.Horizontal(0, 2)),
-                (Barco.Gunship(Posicion.Horizontal(0,9)), Posicion.Horizontal(0, 9)),
-                (Barco.Gunship(Posicion.Horizontal(3,4)), Posicion.Horizontal(3, 4)),
-                (Barco.Gunship(Posicion.Horizontal(6,7)), Posicion.Horizontal(6, 7))
+                Barco.Carrier(Posicion.Vertical(1,4)),   
+                Barco.Destroyer(Posicion.Horizontal(1,0)), 
+                Barco.Destroyer(Posicion.Vertical(8,1)), 
+                Barco.Gunship(Posicion.Horizontal(0,2)),   
+                Barco.Gunship(Posicion.Horizontal(0,9)),   
+                Barco.Gunship(Posicion.Horizontal(3,4)),   
+                Barco.Gunship(Posicion.Horizontal(6,7)),   
             ])
             .Construir();
 
@@ -591,22 +591,22 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,4)), Posicion.Vertical(1, 4)),
-                (Barco.Destroyer(Posicion.Horizontal(1,0)), Posicion.Horizontal(1, 0)),
-                (Barco.Destroyer(Posicion.Horizontal(8,1)), Posicion.Vertical(8, 1)),
-                (Barco.Gunship(Posicion.Horizontal(0,2)), Posicion.Horizontal(0, 2)),
-                (Barco.Gunship(Posicion.Horizontal(0,9)), Posicion.Horizontal(0, 9)),
-                (Barco.Gunship(Posicion.Horizontal(3,4)), Posicion.Horizontal(3, 4)),
-                (Barco.Gunship(Posicion.Horizontal(6,7)), Posicion.Horizontal(6, 7))
+                Barco.Carrier(Posicion.Vertical(1,4)),   
+                Barco.Destroyer(Posicion.Horizontal(1,0)), 
+                Barco.Destroyer(Posicion.Vertical(8,1)), 
+                Barco.Gunship(Posicion.Horizontal(0,2)),   
+                Barco.Gunship(Posicion.Horizontal(0,9)),   
+                Barco.Gunship(Posicion.Horizontal(3,4)),   
+                Barco.Gunship(Posicion.Horizontal(6,7)),   
             ])
             .Construir();
         
@@ -628,22 +628,22 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,4)), Posicion.Vertical(1, 4)),
-                (Barco.Destroyer(Posicion.Horizontal(1,0)), Posicion.Horizontal(1, 0)),
-                (Barco.Destroyer(Posicion.Horizontal(8,1)), Posicion.Vertical(8, 1)),
-                (Barco.Gunship(Posicion.Horizontal(0,2)), Posicion.Horizontal(0, 2)),
-                (Barco.Gunship(Posicion.Horizontal(0,9)), Posicion.Horizontal(0, 9)),
-                (Barco.Gunship(Posicion.Horizontal(3,4)), Posicion.Horizontal(3, 4)),
-                (Barco.Gunship(Posicion.Horizontal(6,7)), Posicion.Horizontal(6, 7))
+                Barco.Carrier(Posicion.Vertical(1,4)),   
+                Barco.Destroyer(Posicion.Horizontal(1,0)), 
+                Barco.Destroyer(Posicion.Vertical(8,1)), 
+                Barco.Gunship(Posicion.Horizontal(0,2)),   
+                Barco.Gunship(Posicion.Horizontal(0,9)),   
+                Barco.Gunship(Posicion.Horizontal(3,4)),   
+                Barco.Gunship(Posicion.Horizontal(6,7)),   
             ])
             .Construir();
         
@@ -677,22 +677,22 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,4)), Posicion.Vertical(1, 4)),
-                (Barco.Destroyer(Posicion.Horizontal(1,0)), Posicion.Horizontal(1, 0)),
-                (Barco.Destroyer(Posicion.Horizontal(8,1)), Posicion.Vertical(8, 1)),
-                (Barco.Gunship(Posicion.Horizontal(0,2)), Posicion.Horizontal(0, 2)),
-                (Barco.Gunship(Posicion.Horizontal(0,9)), Posicion.Horizontal(0, 9)),
-                (Barco.Gunship(Posicion.Horizontal(3,4)), Posicion.Horizontal(3, 4)),
-                (Barco.Gunship(Posicion.Horizontal(6,7)), Posicion.Horizontal(6, 7))
+                Barco.Carrier(Posicion.Vertical(1,4)),   
+                Barco.Destroyer(Posicion.Horizontal(1,0)), 
+                Barco.Destroyer(Posicion.Vertical(8,1)), 
+                Barco.Gunship(Posicion.Horizontal(0,2)),   
+                Barco.Gunship(Posicion.Horizontal(0,9)),   
+                Barco.Gunship(Posicion.Horizontal(3,4)),   
+                Barco.Gunship(Posicion.Horizontal(6,7)),   
             ])
             .Construir();
         
@@ -726,22 +726,22 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .AgregarBarcosJugador1([
-                (Barco.Carrier(Posicion.Horizontal(1,1)), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(Posicion.Horizontal(2,2)), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(Posicion.Horizontal(3,3)), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(Posicion.Horizontal(4,4)), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(Posicion.Horizontal(5, 5)), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(Posicion.Horizontal(6,6)), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(Posicion.Horizontal(7,7)), Posicion.Horizontal(7, 7))
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
             ])
             .AgregarBarcosJugador2([
-                (Barco.Carrier(Posicion.Horizontal(1,4)), Posicion.Vertical(1, 4)),
-                (Barco.Destroyer(Posicion.Horizontal(1,0)), Posicion.Horizontal(1, 0)),
-                (Barco.Destroyer(Posicion.Horizontal(8,1)), Posicion.Vertical(8, 1)),
-                (Barco.Gunship(Posicion.Horizontal(0,2)), Posicion.Horizontal(0, 2)),
-                (Barco.Gunship(Posicion.Horizontal(0,9)), Posicion.Horizontal(0, 9)),
-                (Barco.Gunship(Posicion.Horizontal(3,4)), Posicion.Horizontal(3, 4)),
-                (Barco.Gunship(Posicion.Horizontal(6,7)), Posicion.Horizontal(6, 7))
+                Barco.Carrier(Posicion.Vertical(1,4)),   
+                Barco.Destroyer(Posicion.Horizontal(1,0)), 
+                Barco.Destroyer(Posicion.Vertical(8,1)), 
+                Barco.Gunship(Posicion.Horizontal(0,2)),   
+                Barco.Gunship(Posicion.Horizontal(0,9)),   
+                Barco.Gunship(Posicion.Horizontal(3,4)),   
+                Barco.Gunship(Posicion.Horizontal(6,7)),   
             ])
             .Construir();
         

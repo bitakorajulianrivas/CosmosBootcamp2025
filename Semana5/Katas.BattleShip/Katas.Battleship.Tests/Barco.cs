@@ -2,45 +2,44 @@
 
 public class Barco
 {
+    private int _golpes = 0;
+    
     public TipoBarco Tipo { get; }
+    public char Inicial { get; }
     public int Tamanio { get; }
-    public char Letra { get; }
     public int CantidadBarcos { get; }
     public Posicion Posicion { get; }
     public (int x, int y)[] Coordenadas { get; }
-
-    public int Golpes = 0;
     
-    public bool EsDerribado() => Golpes == Tamanio;
+
+    public bool EsDerribado() => _golpes == Tamanio;
     
-    public static Barco Gunship(Posicion posicion) => new(TipoBarco.Gunship, 1, 'G', 4, posicion);
-    public static Barco Destroyer(Posicion posicion) => new(TipoBarco.Destroyer, 3, 'D', 2, posicion);
-    public static Barco Carrier(Posicion posicion) => new(TipoBarco.Carrier, 4, 'C', 1, posicion);
+    public static Barco Gunship(Posicion posicion) => new(TipoBarco.Gunship, 1, 4, posicion);
+    public static Barco Destroyer(Posicion posicion) => new(TipoBarco.Destroyer, 3, 2, posicion);
+    public static Barco Carrier(Posicion posicion) => new(TipoBarco.Carrier, 4, 1, posicion);
 
 
-    private Barco(TipoBarco tipo, int tamanio, char letra, int cantidadBarcos, Posicion posicion)
+    private Barco(TipoBarco tipo, int tamanio, int cantidadBarcos, Posicion posicion)
     {
         Tipo = tipo;
         Tamanio = tamanio;
-        Letra = letra;
+        Inicial =Tipo.ToString()[0];
         CantidadBarcos = cantidadBarcos;
         Posicion = posicion;
         Coordenadas = ObtenerCoordenadas();
     }
 
-    public void Golpear() => Golpes++;
+    public void Golpear() => _golpes++;
 
     public (int x, int y)[] ObtenerCoordenadas()
     {
         (int x, int y)[] coordenadas = new (int x, int y)[Tamanio];
 
         for (int indice = 0; indice < Tamanio; indice++)
-        {
-            if(Posicion.EsVertical)
-                coordenadas[indice] = (Posicion.EjeX, Posicion.EjeY + indice);
-            else
-                coordenadas[indice] = (Posicion.EjeX + indice, Posicion.EjeY);        
-        }
+            coordenadas[indice] = Posicion.EsVertical
+                ? (Posicion.EjeX, Posicion.EjeY + indice)
+                : (Posicion.EjeX + indice, Posicion.EjeY);
+        
         return coordenadas;
     }
 }

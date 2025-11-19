@@ -7,10 +7,9 @@ public class Jugador
     private readonly int _cantidadMaximaDeBarcos = 7;
     private const char CasillaPorDefecto = '\0';
     private const char CasillaVacia = ' ';
-    private int cantidadDisparosAcerdos = 0;
-    private int cantidaDisparosFallidos = 0;
-    bool tieneBarcosDerribados = false;
-    private int cantidadDisparosTotales => cantidadDisparosAcerdos + cantidaDisparosFallidos;
+    private int _cantidadDisparosAcerdos = 0;
+    private int _cantidaDisparosFallidos = 0;
+    private int CantidadDisparosTotales => _cantidadDisparosAcerdos + _cantidaDisparosFallidos;
     
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
@@ -26,7 +25,9 @@ public class Jugador
         { TipoBarco.Destroyer, 0 },
         { TipoBarco.Gunship, 0 }
     };
-    
+
+    private char MarcaBarcoDerribado ='x';
+
 
     public Jugador(string apodo)
     {
@@ -38,13 +39,13 @@ public class Jugador
 
 
 
-    public void AgregarBarco(Barco barco, Posicion posicion)
+    public void AgregarBarco(Barco barco)
     {
-        ValidarBordesDelTablero(posicion);
-        ValidarSobreposicionDeBarcos(posicion);
+        ValidarBordesDelTablero(barco.Posicion);
+        ValidarSobreposicionDeBarcos(barco.Posicion);
         ValidarCantidadDeBarcosAsignadosPorTipo(barco);
         
-        AsignarBarco(barco, posicion);
+        AsignarBarco(barco);
     }
 
     public void ValidarQueExistanSieteBarcosAsignadosPorTablero()
@@ -78,14 +79,14 @@ public class Jugador
                 barco.CantidadBarcos, barco.Tipo));
     }
 
-    private void AsignarBarco(Barco barco, Posicion posicion)
+    private void AsignarBarco(Barco barco)
     {
         for (int indice = 0; indice < barco.Tamanio; indice++)
         {
-            if (posicion.EsVertical)
-                Tablero[posicion.EjeX, posicion.EjeY + indice] = barco.Letra;
+            if (barco.Posicion.EsVertical)
+                Tablero[barco.Posicion.EjeX, barco.Posicion.EjeY + indice] = barco.Inicial;
             else
-                Tablero[posicion.EjeX + indice, posicion.EjeY] = barco.Letra;
+                Tablero[barco.Posicion.EjeX + indice, barco.Posicion.EjeY] = barco.Inicial;
         }
 
         _barcosAsignados[barco.Tipo]++;
@@ -96,8 +97,9 @@ public class Jugador
     {
         if(ExisteBarcoEn(x, y))
         {
-            cantidadDisparosAcerdos++;
-            Tablero[x, y] = 'x';
+            _cantidadDisparosAcerdos++;
+           
+            Tablero[x, y] = MarcaBarcoDerribado;
             var barco = ObtenerBarco(x, y);
             if(barco != null)
                 barco.Golpear();
@@ -105,7 +107,7 @@ public class Jugador
         else
         {
             Tablero[x, y] = 'o';
-            cantidaDisparosFallidos++;
+            _cantidaDisparosFallidos++;
         }
 
         return Tablero[x, y];
@@ -154,14 +156,16 @@ public class Jugador
 
     public string ObtenerInforme()
     {
-        var resultado = string.Format("Total disparos: {0}.\n" + "Perdidos: {1}.\n" + "Acertados: {2}.\n",
-            cantidadDisparosTotales,
-            cantidaDisparosFallidos,
-            cantidadDisparosAcerdos);
+        var resultado = string.Format(
+            "Total disparos: {0}.\n" + "Perdidos: {1}.\n" + "Acertados: {2}.\n",
+            CantidadDisparosTotales,
+            _cantidaDisparosFallidos,
+            _cantidadDisparosAcerdos);
 
         var barcos = Barcos
             .Where(barco => barco.EsDerribado())
-            .Select(barco => string.Format("{0}: ({1},{2}).\n", barco.Tipo, barco.Posicion.EjeX, barco.Posicion.EjeY))
+            .Select(barco => string.Format("{0}: ({1},{2}).\n",
+                barco.Tipo, barco.Posicion.EjeX, barco.Posicion.EjeY))
             .ToArray();
 
         var barcosDerribados = barcos.Any();

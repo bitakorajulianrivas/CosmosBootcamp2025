@@ -4,11 +4,6 @@ public class BatallaNavalBuilder
 {
     private readonly BatallaNaval _batallaNaval = new();
 
-    public BatallaNavalBuilder()
-    {
-        _batallaNaval = new BatallaNaval();
-    }
-
     public BatallaNavalBuilder AgregarJugador(string apodo)
     {
         var jugador1 = new Jugador(apodo);
@@ -16,18 +11,18 @@ public class BatallaNavalBuilder
         return this;
     }
 
-    public BatallaNavalBuilder AgregarBarcosJugador1((Barco barco, Posicion posicion)[] barcoPosiciones)
+    public BatallaNavalBuilder AgregarBarcosJugador1(Barco[] barcos)
     {
-        foreach (var barcoPosicion in barcoPosiciones)
-            _batallaNaval.Jugador1.AgregarBarco(barcoPosicion.barco, barcoPosicion.posicion);
+        foreach (var barco in barcos)
+            _batallaNaval.Jugador1.AgregarBarco(barco);
 
         return this;
     }
 
-    public BatallaNavalBuilder AgregarBarcosJugador2((Barco barco, Posicion posicion)[] barcoPosiciones)
+    public BatallaNavalBuilder AgregarBarcosJugador2(Barco[] barcos)
     {
-        foreach (var barcoPosicion in barcoPosiciones)
-            _batallaNaval.Jugador2.AgregarBarco(barcoPosicion.barco, barcoPosicion.posicion);
+        foreach (var barco in barcos)
+            _batallaNaval.Jugador2.AgregarBarco(barco);
 
         return this;
     }
