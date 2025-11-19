@@ -40,5 +40,9 @@ public class BatallaNaval
         Jugador2.ValidarBarcos();
     }
 
-   
+
+    public string Imprimir(string pollo)
+    {
+        throw new NotImplementedException();
+    }
 }

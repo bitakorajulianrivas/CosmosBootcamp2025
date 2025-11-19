@@ -159,7 +159,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(),Posicion.Vertical(1, 1));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), Posicion.Vertical(1, 1));
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('C');
         batallaNaval.Jugador1.Tablero[1, 2].Should().Be('C');
@@ -301,7 +301,7 @@ public class BatallaNavalTest
             .Construir();
 
         Action action = () => batallaNaval.Iniciar();
-        
+
         action.Should().Throw<ArgumentException>()
             .WithMessage("Falta barcos por asignar.");
     }
@@ -331,10 +331,58 @@ public class BatallaNavalTest
                 (Barco.Gunship(), Posicion.Horizontal(6, 6))
             ])
             .Construir();
-        
+
         Action action = () => batallaNaval.Iniciar();
-        
+
         action.Should().Throw<ArgumentException>()
             .WithMessage("Falta barcos por asignar.");
+    }
+
+    [Fact]
+    public void Si_Imprime_DebeMostrarElTableroDelJugador1()
+    {
+        var batallaNaval = new BatallaNavalBuilder()
+            .AgregarJugador("Pollo")
+            .AgregarJugador("Gato")
+            .ValidarJugadores()
+            .AgregarBarcosJugador1([
+                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
+                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
+                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
+                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 6)),
+                (Barco.Gunship(), Posicion.Horizontal(7, 7))
+            ])
+            .AgregarBarcosJugador2([
+                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
+                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
+                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
+                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 6)),
+                (Barco.Gunship(), Posicion.Horizontal(7, 7))
+            ])
+            .Construir();
+
+        string tableroEsperado = "\n" +
+             "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+             "-------------------------------------------| \n" +
+             " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 1 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 2 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 3 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 4 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 5 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 6 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 7 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
+             "-------------------------------------------| \n" +
+             "\n";
+
+        string tablero = batallaNaval.Imprimir("Pollo");
+
+        tablero.Should().Be(tableroEsperado);
     }
 }
