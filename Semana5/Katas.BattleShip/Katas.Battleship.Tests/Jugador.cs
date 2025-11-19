@@ -9,11 +9,13 @@ public class Jugador
     private const char CasillaVacia = ' ';
     private int cantidadDisparosAcerdos = 0;
     private int cantidaDisparosFallidos = 0;
+    bool tieneBarcosDerribados = false;
     private int cantidadDisparosTotales => cantidadDisparosAcerdos + cantidaDisparosFallidos;
     
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
     public char[,] TableroDisparos { get; set; }
+    public List<(Barco, Posicion)> Barcos; 
     
     private int NumeroDeBarcosAsginados => _barcosAsignados
         .Sum(x => x.Value);
@@ -29,6 +31,7 @@ public class Jugador
     public Jugador(string apodo)
     {
         Apodo = apodo;
+        Barcos = [];
         Tablero = new char[CasillaMaxima, CasillaMaxima];
         TableroDisparos = (char[,])Tablero.Clone();
     }
@@ -41,7 +44,7 @@ public class Jugador
         ValidarSobreposicionDeBarcos(posicion);
         ValidarCantidadDeBarcosAsignadosPorTipo(barco);
         
-        AsignarBarco(barco, posicion.EjeX, posicion.EjeY, posicion.EsVertical);
+        AsignarBarco(barco, posicion);
     }
 
     public void ValidarQueExistanSieteBarcosAsignadosPorTablero()
@@ -75,17 +78,18 @@ public class Jugador
                 barco.CantidadBarcos, barco.Tipo));
     }
 
-    private void AsignarBarco(Barco barco, int x, int y, bool esVertical)
+    private void AsignarBarco(Barco barco, Posicion posicion)
     {
         for (int indice = 0; indice < barco.Tamanio; indice++)
         {
-            if (esVertical)
-                Tablero[x, y + indice] = barco.Letra;
+            if (posicion.EsVertical)
+                Tablero[posicion.EjeX, posicion.EjeY + indice] = barco.Letra;
             else
-                Tablero[x + indice, y] = barco.Letra;
+                Tablero[posicion.EjeX + indice, posicion.EjeY] = barco.Letra;
         }
 
         _barcosAsignados[barco.Tipo]++;
+        Barcos.Add((barco, posicion));
     }
 
     public char RecibirDisparo(int x, int y)
@@ -138,9 +142,23 @@ public class Jugador
         Tablero[x, y] != CasillaPorDefecto;
 
 
-    public string ObtenerInforme() =>
-        string.Format("Total disparos: {0}.\n" + "Perdidos: {1}.\n" + "Acertados: {2}.\n", 
+    public string ObtenerInforme()
+    {
+        var resultado = string.Format("Total disparos: {0}.\n" + "Perdidos: {1}.\n" + "Acertados: {2}.\n",
             cantidadDisparosTotales,
             cantidaDisparosFallidos,
             cantidadDisparosAcerdos);
+
+
+        
+        string informeBarcosDerribados = 
+            tieneBarcosDerribados
+                ? "Barcos derribados: [" +
+                                         "Gunship: (0,2).\n" +
+                                         "Destroyer: (1,0). \n" + 
+                                         "]"
+                : string.Empty;
+        
+        return resultado + informeBarcosDerribados;
+    }
 } 

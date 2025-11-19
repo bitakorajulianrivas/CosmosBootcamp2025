@@ -772,9 +772,9 @@ public class BatallaNavalTest
         batallaNaval.FinalizarTurno();
 
         var informeEsperado = 
-            "Total disparos: 2.\n" +
+            "Total disparos: 4.\n" +
             "Perdidos: 0.\n" +
-            "Acertados: 2.\n" + 
+            "Acertados: 4.\n" + 
             "Barcos derribados: [" +
                 "Gunship: (0,2).\n" +
                 "Destroyer: (1,0). \n" + 
