@@ -4,8 +4,7 @@ public class BatallaNaval
 {
     private const string NoEstanLosJugadoresConfigurados = "No Estan los Jugadores Configurados.";
     private const string SoloSePermitenJugadores = "Solo se permiten 2 jugadores.";
-    private const string? FaltaBarcosPorAsignar = "Falta barcos por asignar.";
-    private const int CantidadMaximaBarcosPorJugador = 7;
+   
     public Jugador Jugador1 { get; private set; }
     public Jugador Jugador2 { get; private set; }
 
@@ -37,7 +36,9 @@ public class BatallaNaval
 
     public void Iniciar()
     {
-        if (Jugador1.NumeroDeBarcosAsginados < CantidadMaximaBarcosPorJugador  || Jugador2.NumeroDeBarcosAsginados< CantidadMaximaBarcosPorJugador) 
-            throw new ArgumentException(FaltaBarcosPorAsignar);
+        Jugador1.ValidarBarcos();
+        Jugador2.ValidarBarcos();
     }
+
+   
 }

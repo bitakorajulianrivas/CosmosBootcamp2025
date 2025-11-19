@@ -79,7 +79,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 2, y: 2);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), Posicion.Horizontal(2, 2));
 
         batallaNaval.Jugador1.Tablero[2, 2].Should().Be('G');
     }
@@ -93,9 +93,9 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 2, y: 2);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), Posicion.Horizontal(2, 2));
 
-        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 2, y: 2);
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), Posicion.Horizontal(2, 2));
 
         action.Should().Throw<ArgumentException>()
             .WithMessage("Ya existe barco en la posición enviada.");
@@ -110,7 +110,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 1, y: 1);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), Posicion.Horizontal(1, 1));
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('D');
         batallaNaval.Jugador1.Tablero[2, 1].Should().Be('D');
@@ -126,7 +126,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 1, y: 1, esVertical: true);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), Posicion.Vertical(1, 1));
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('D');
         batallaNaval.Jugador1.Tablero[1, 2].Should().Be('D');
@@ -142,7 +142,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), Posicion.Horizontal(1, 1));
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('C');
         batallaNaval.Jugador1.Tablero[2, 1].Should().Be('C');
@@ -159,7 +159,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1, esVertical: true);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(),Posicion.Vertical(1, 1));
 
         batallaNaval.Jugador1.Tablero[1, 1].Should().Be('C');
         batallaNaval.Jugador1.Tablero[1, 2].Should().Be('C');
@@ -176,9 +176,9 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), Posicion.Horizontal(1, 1));
 
-        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 5, y: 5);
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), Posicion.Horizontal(5, 5));
         action.Should().Throw<ArgumentException>()
             .WithMessage("Solo se puede asignar 1 barcos de tipo Carrier.");
     }
@@ -192,11 +192,11 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1);
-        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 2, y: 2);
-        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 3, y: 3);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), Posicion.Horizontal(1, 1));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), Posicion.Horizontal(2, 2));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), Posicion.Horizontal(3, 3));
 
-        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 4, y: 4);
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), Posicion.Horizontal(4, 4));
 
         action.Should().Throw<ArgumentException>().WithMessage("Solo se puede asignar 2 barcos de tipo Destroyer.");
     }
@@ -210,12 +210,12 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 1, y: 1);
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 2, y: 2);
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 3, y: 3);
-        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 4, y: 4);
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), Posicion.Horizontal(1, 1));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), Posicion.Horizontal(2, 2));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), Posicion.Horizontal(3, 3));
+        batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), Posicion.Horizontal(4, 4));
 
-        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 5, y: 5);
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), Posicion.Horizontal(5, 5));
 
         action.Should().Throw<ArgumentException>().WithMessage("Solo se puede asignar 4 barcos de tipo Gunship.");
     }
@@ -235,7 +235,7 @@ public class BatallaNavalTest
             .ValidarJugadores()
             .Construir();
 
-        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x, y);
+        Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), Posicion.Horizontal(x, y));
 
         action.Should().Throw<ArgumentException>()
             .WithMessage("El barco se encuentra fuera del tablero.");
@@ -270,8 +270,8 @@ public class BatallaNavalTest
 
         batallaNaval.Iniciar();
 
-        batallaNaval.Jugador1.NumeroDeBarcosAsginados.Should().Be(7);
-        batallaNaval.Jugador2.NumeroDeBarcosAsginados.Should().Be(7);
+        batallaNaval.Jugador1.TieneTodosLosBarcosAsginados().Should().BeTrue();
+        batallaNaval.Jugador2.TieneTodosLosBarcosAsginados().Should().BeTrue();
     }
 
     [Fact]
@@ -337,64 +337,4 @@ public class BatallaNavalTest
         action.Should().Throw<ArgumentException>()
             .WithMessage("Falta barcos por asignar.");
     }
-}
-
-public class BatallaNavalBuilder
-{
-    private readonly BatallaNaval _batallaNaval = new();
-
-    public BatallaNavalBuilder()
-    {
-        _batallaNaval = new BatallaNaval();
-    }
-
-    public static BatallaNavalBuilder Crear() => new BatallaNavalBuilder();
-
-    public BatallaNavalBuilder AgregarJugador(string apodo)
-    {
-        var jugador1 = new Jugador(apodo);
-        _batallaNaval.AgregarJugador(jugador1);
-        return this;
-    }
-
-    public BatallaNavalBuilder AgregarBarcosJugador1((Barco barco, Posicion posicion)[] barcoPosiciones)
-    {
-        foreach (var barcoPosicion in barcoPosiciones)
-            _batallaNaval.Jugador1.AgregarBarco(barcoPosicion.barco, barcoPosicion.posicion);
-
-        return this;
-    }
-
-    public BatallaNavalBuilder AgregarBarcosJugador2((Barco barco, Posicion posicion)[] barcoPosiciones)
-    {
-        foreach (var barcoPosicion in barcoPosiciones)
-            _batallaNaval.Jugador2.AgregarBarco(barcoPosicion.barco, barcoPosicion.posicion);
-
-        return this;
-    }
-
-    public BatallaNavalBuilder ValidarJugadores()
-    {
-        _batallaNaval.ValidarExistenJugadores();
-        return this;
-    }
-
-    public BatallaNaval Construir() => _batallaNaval;
-}
-
-public record Posicion
-{
-    public static Posicion Horizontal(int ejeX, int ejeY) => new Posicion(ejeX, ejeY, false);
-    public static Posicion Vertical(int ejeX, int ejeY) => new Posicion(ejeX, ejeY, true);
-
-    private Posicion(int EjeX, int EjeY, bool EsVertical)
-    {
-        this.EjeX = EjeX;
-        this.EjeY = EjeY;
-        this.EsVertical = EsVertical;
-    }
-
-    public int EjeX { get; }
-    public int EjeY { get; }
-    public bool EsVertical { get; }
 }
