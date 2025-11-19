@@ -123,4 +123,8 @@ public class Jugador
         Tablero[x, y] != CasillaPorDefecto;
 
 
+    public string ObtenerInforme()
+    {
+        throw new NotImplementedException();
+    }
 } 
