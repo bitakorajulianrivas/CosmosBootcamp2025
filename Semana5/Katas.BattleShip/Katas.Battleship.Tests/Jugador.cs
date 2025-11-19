@@ -73,10 +73,8 @@ public class Jugador
         for (int columna = 0; columna < 10; columna++)
         {
             tablero += $" {columna} |";
-            for (int fila = 0; fila <  10; fila++)
-            {
+            for (int fila = 0; fila <  10; fila++) 
                 tablero += $" {ObtenerCasilla(fila, columna) } |";
-            }
 
             tablero += " \n";
         }
@@ -87,10 +85,6 @@ public class Jugador
         return tablero;
     }
 
-    private char ObtenerCasilla(int fila, int columna)
-    {
-        if (Tablero[fila, columna] == '\0')
-            return ' ';
-        return Tablero[fila,columna];
-    }
+    private char ObtenerCasilla(int fila, int columna) => 
+        Tablero[fila, columna] == '\0' ? ' ' : Tablero[fila,columna];
 }
