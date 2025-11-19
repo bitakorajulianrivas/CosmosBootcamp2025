@@ -2,7 +2,8 @@
 
 public class BatallaNaval
 {
-    private bool esTurnoPrincipal = true;
+    private bool _esTurnoPrincipal = true;
+    private bool _juegoIniciado = false;
     private const string NoEstanLosJugadoresConfigurados = "No Estan los Jugadores Configurados.";
     private const string SoloSePermitenJugadores = "Solo se permiten 2 jugadores.";
    
@@ -39,7 +40,8 @@ public class BatallaNaval
     {
         Jugador1.ValidarQueExistanSieteBarcosAsignadosPorTablero();
         Jugador2.ValidarQueExistanSieteBarcosAsignadosPorTablero();
-        esTurnoPrincipal = true;
+        _juegoIniciado = true;
+        _esTurnoPrincipal = true;
     }
 
 
@@ -60,13 +62,16 @@ public class BatallaNaval
 
     public void Disparar(int x, int y)
     {
+        if (_juegoIniciado == false)
+            throw new ArgumentException("No puede disparar sin iniciar el juego.");
+        
         char disparo = Jugador2.RecibirDisparo(x, y);
         Jugador1.RegistrarDisparo(x, y, disparo);
     }
 
-    public void FinalizarTurno() => esTurnoPrincipal = !esTurnoPrincipal;
+    public void FinalizarTurno() => _esTurnoPrincipal = !_esTurnoPrincipal;
 
-    public Jugador ObtenerJugadorActual() => esTurnoPrincipal ? Jugador1: Jugador2;
+    public Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? Jugador1: Jugador2;
 
-    public Jugador ObtenerJugadorOponente() => esTurnoPrincipal ? Jugador2: Jugador1;
+    public Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? Jugador2: Jugador1;
 }

@@ -505,6 +505,8 @@ public class BatallaNavalTest
                 (Barco.Gunship(), Posicion.Horizontal(6, 7))
             ])
             .Construir();
+        
+        batallaNaval.Iniciar();
         batallaNaval.Disparar( 0, 0 );
 
         batallaNaval.Jugador2.Tablero[0, 0].Should().Be('o');
@@ -538,6 +540,8 @@ public class BatallaNavalTest
                 (Barco.Gunship(), Posicion.Horizontal(6, 7))
             ])
             .Construir();
+
+        batallaNaval.Iniciar();
         batallaNaval.Disparar( 1, 4 );
 
         batallaNaval.Jugador2.Tablero[1, 4].Should().Be('x');
@@ -570,6 +574,8 @@ public class BatallaNavalTest
                 (Barco.Gunship(), Posicion.Horizontal(6, 7))
             ])
             .Construir();
+
+        batallaNaval.Iniciar();
         batallaNaval.Disparar( 1, 4 );
         batallaNaval.FinalizarTurno();
 
@@ -603,6 +609,8 @@ public class BatallaNavalTest
                 (Barco.Gunship(), Posicion.Horizontal(6, 7))
             ])
             .Construir();
+        
+        batallaNaval.Iniciar();
         batallaNaval.Disparar( 1, 4 );
         batallaNaval.FinalizarTurno();
         batallaNaval.Disparar( 1, 1 );
