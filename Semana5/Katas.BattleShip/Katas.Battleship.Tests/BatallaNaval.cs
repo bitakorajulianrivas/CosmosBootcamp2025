@@ -69,11 +69,11 @@ public class BatallaNaval
 
     public Jugador ObtenerJugadorActual()
     {
-        
+        return Jugador2;
     }
 
     public Jugador ObtenerJugadorOponente()
     {
-        
+        return Jugador1;
     }
 }
