@@ -175,7 +175,7 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .Construir();
-        
+
         batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1);
 
         Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 5, y: 5);
@@ -191,7 +191,7 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .Construir();
-        
+
         batallaNaval.Jugador1.AgregarBarco(Barco.Carrier(), x: 1, y: 1);
         batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 2, y: 2);
         batallaNaval.Jugador1.AgregarBarco(Barco.Destroyer(), x: 3, y: 3);
@@ -209,7 +209,7 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .Construir();
-        
+
         batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 1, y: 1);
         batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 2, y: 2);
         batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x: 3, y: 3);
@@ -234,7 +234,7 @@ public class BatallaNavalTest
             .AgregarJugador("Gato")
             .ValidarJugadores()
             .Construir();
-        
+
         Action action = () => batallaNaval.Jugador1.AgregarBarco(Barco.Gunship(), x, y);
 
         action.Should().Throw<ArgumentException>()
@@ -257,7 +257,7 @@ public class BatallaNavalTest
                 (Barco.Gunship(), Posicion.Horizontal(6, 6)),
                 (Barco.Gunship(), Posicion.Horizontal(7, 7))
             ])
-            .AgregarBarcoJugador2([
+            .AgregarBarcosJugador2([
                 (Barco.Carrier(), Posicion.Horizontal(1, 1)),
                 (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
                 (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
@@ -275,8 +275,8 @@ public class BatallaNavalTest
     }
 
     [Fact]
-    public void Si_InicioJuegoYNoTengoLos7BarcosAsignadoPorJugador_Debe_LanzarExcepcion()
-    { 
+    public void Si_InicioJuegoYNoTengoLos7BarcosAsignadoPorJugador1_Debe_LanzarExcepcion()
+    {
         var batallaNaval = new BatallaNavalBuilder()
             .AgregarJugador("Pollo")
             .AgregarJugador("Gato")
@@ -289,8 +289,7 @@ public class BatallaNavalTest
                 (Barco.Gunship(), Posicion.Horizontal(5, 5)),
                 (Barco.Gunship(), Posicion.Horizontal(6, 6))
             ])
-               
-            .AgregarBarcoJugador2([
+            .AgregarBarcosJugador2([
                 (Barco.Carrier(), Posicion.Horizontal(1, 1)),
                 (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
                 (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
@@ -301,7 +300,40 @@ public class BatallaNavalTest
             ])
             .Construir();
 
-        Action action =()=>batallaNaval.Iniciar();
+        Action action = () => batallaNaval.Iniciar();
+        
+        action.Should().Throw<ArgumentException>()
+            .WithMessage("Falta barcos por asignar.");
+    }
+
+    [Fact]
+    public void Si_InicioJuegoYNoTengoLos7BarcosAsignadoPorJugador2_Debe_LanzarExcepcion()
+    {
+        var batallaNaval = new BatallaNavalBuilder()
+            .AgregarJugador("Pollo")
+            .AgregarJugador("Gato")
+            .ValidarJugadores()
+            .AgregarBarcosJugador1([
+                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
+                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
+                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
+                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 6)),
+                (Barco.Gunship(), Posicion.Horizontal(7, 7))
+            ])
+            .AgregarBarcosJugador2([
+                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
+                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
+                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
+                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 6))
+            ])
+            .Construir();
+        
+        Action action = () => batallaNaval.Iniciar();
+        
         action.Should().Throw<ArgumentException>()
             .WithMessage("Falta barcos por asignar.");
     }
@@ -333,7 +365,7 @@ public class BatallaNavalBuilder
         return this;
     }
 
-    public BatallaNavalBuilder AgregarBarcoJugador2((Barco barco, Posicion posicion)[] barcoPosiciones)
+    public BatallaNavalBuilder AgregarBarcosJugador2((Barco barco, Posicion posicion)[] barcoPosiciones)
     {
         foreach (var barcoPosicion in barcoPosiciones)
             _batallaNaval.Jugador2.AgregarBarco(barcoPosicion.barco, barcoPosicion.posicion);
