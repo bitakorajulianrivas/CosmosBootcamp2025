@@ -61,4 +61,19 @@ public class BatallaNaval
         char disparo = Jugador2.RecibirDisparo(x, y);
         Jugador1.RegistrarDisparo(x, y, disparo);
     }
+
+    public void FinalizarTurno()
+    {
+        
+    }
+
+    public Jugador ObtenerJugadorActual()
+    {
+        
+    }
+
+    public Jugador ObtenerJugadorOponente()
+    {
+        
+    }
 }
