@@ -339,30 +339,12 @@ public class BatallaNavalTest
     }
 
     [Fact]
-    public void Si_Imprime_DebeMostrarElTableroDelJugador1()
+    public void Si_ImprimeSinBarcos_DebeMostrarElTableroDelJugador1Vacio()
     {
         var batallaNaval = new BatallaNavalBuilder()
             .AgregarJugador("Pollo")
             .AgregarJugador("Gato")
             .ValidarJugadores()
-            .AgregarBarcosJugador1([
-                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(), Posicion.Horizontal(7, 7))
-            ])
-            .AgregarBarcosJugador2([
-                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
-                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
-                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
-                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
-                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
-                (Barco.Gunship(), Posicion.Horizontal(6, 6)),
-                (Barco.Gunship(), Posicion.Horizontal(7, 7))
-            ])
             .Construir();
 
         string tableroEsperado = "\n" +
@@ -385,4 +367,6 @@ public class BatallaNavalTest
 
         tablero.Should().Be(tableroEsperado);
     }
+    
+    
 }

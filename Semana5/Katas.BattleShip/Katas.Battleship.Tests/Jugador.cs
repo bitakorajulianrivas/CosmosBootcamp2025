@@ -13,6 +13,8 @@ public class Jugador
         { TipoBarco.Gunship, 0 }
     };
 
+    private int filaç;
+
     public Jugador(string apodo)
     {
         Apodo = apodo;
@@ -64,20 +66,24 @@ public class Jugador
 
     public string ImprimirTablero()
     {
-        return "\n" +
-             "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
-             "-------------------------------------------| \n" +
-             " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
-             " 1 |   |   |   |   |   |   |   |   |   |   | \n" +
-             " 2 |   |   |   |   |   |   |   |   |   |   | \n" +
-             " 3 |   |   |   |   |   |   |   |   |   |   | \n" +
-             " 4 |   |   |   |   |   |   |   |   |   |   | \n" +
-             " 5 |   |   |   |   |   |   |   |   |   |   | \n" +
-             " 6 |   |   |   |   |   |   |   |   |   |   | \n" +
-             " 7 |   |   |   |   |   |   |   |   |   |   | \n" +
-             " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
-             " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
-             "-------------------------------------------| \n" +
-             "\n";
+        string tablero = "\n" +
+           "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+           "-------------------------------------------| \n";
+        
+        for (int fila = 0; fila < 10; fila++)
+        {
+            tablero += $" {fila} |";
+            for (int columna = 0; columna <  10; columna++)
+            {
+                tablero += $" {' '} |";
+            }
+
+            tablero += " \n";
+        }
+
+        tablero += 
+            "-------------------------------------------| \n\n";
+
+        return tablero;
     }
 }
