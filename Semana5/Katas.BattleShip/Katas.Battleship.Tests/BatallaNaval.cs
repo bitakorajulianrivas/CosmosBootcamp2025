@@ -37,7 +37,7 @@ public class BatallaNaval
 
     public void Iniciar()
     {
-        if (Jugador1.NumeroDeBarcosAsginados < CantidadMaximaBarcosPorJugador) 
+        if (Jugador1.NumeroDeBarcosAsginados < CantidadMaximaBarcosPorJugador  || Jugador2.NumeroDeBarcosAsginados< CantidadMaximaBarcosPorJugador) 
             throw new ArgumentException(FaltaBarcosPorAsignar);
     }
 }
