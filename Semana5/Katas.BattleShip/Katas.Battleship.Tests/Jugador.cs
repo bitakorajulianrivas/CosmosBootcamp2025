@@ -4,8 +4,9 @@ public class Jugador
 {
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
-    private int NumeroDeBarcosAsginados => _barcosAsignados.Sum(x => x.Value); 
-    
+    private int NumeroDeBarcosAsginados => _barcosAsignados.Sum(x => x.Value);
+    public char[,] TableroDisparos { get; set; }
+
     private readonly Dictionary<TipoBarco, int> _barcosAsignados = new()
     {
         { TipoBarco.Carrier, 0 },
@@ -36,14 +37,14 @@ public class Jugador
         if (Tablero[posicion.EjeX, posicion.EjeY] != '\0')
             throw new ArgumentException(JugadorMensajes.YaExisteBarcoEnLaPosiciónEnviada);
         
-        ValidarBarcosAsignados(barco);
+        ValidarBarcosAsignadosPorTipo(barco);
         AsignarBarco(barco, posicion.EjeX, posicion.EjeY, posicion.EsVertical);
     }
 
 
     public bool TieneTodosLosBarcosAsginados() => NumeroDeBarcosAsginados == 7;
     
-    private void ValidarBarcosAsignados(Barco barco)
+    private void ValidarBarcosAsignadosPorTipo(Barco barco)
     {
         if (_barcosAsignados[barco.Tipo] >= barco.CantidadBarcos)
             throw new ArgumentException(string.Format(JugadorMensajes.SoloSePuedeAsignarBarcosDeTipo, barco.CantidadBarcos, barco.Tipo));
@@ -86,4 +87,9 @@ public class Jugador
 
     private char ObtenerCasilla(int fila, int columna) => 
         Tablero[fila, columna] == '\0' ? ' ' : Tablero[fila,columna];
+
+    public void Disparar(int x, int y)
+    {
+        throw new NotImplementedException();
+    }
 }

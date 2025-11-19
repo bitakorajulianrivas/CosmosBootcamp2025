@@ -445,5 +445,37 @@ public class BatallaNavalTest
         
         tablero.Should().Be(tableroEsperado);
     }
-    
+
+    [Fact]
+    public void Si_ElJugador1Dispara_Debe_MarcarlaCasillaApuntadaEnTableroDelJugador2YtenerUnTableroAuxiliarConLosDisparosRealizados()
+    {
+        var batallaNaval = new BatallaNavalBuilder()
+            .AgregarJugador("Pollo")
+            .AgregarJugador("Gato")
+            .ValidarJugadores()
+            .AgregarBarcosJugador1([
+                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
+                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
+                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
+                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 6)),
+                (Barco.Gunship(), Posicion.Horizontal(7, 7))
+            ])
+            .AgregarBarcosJugador2([
+                (Barco.Carrier(), Posicion.Vertical(1, 4)),
+                (Barco.Destroyer(), Posicion.Horizontal(1, 0)),
+                (Barco.Destroyer(), Posicion.Vertical(8, 1)),
+                (Barco.Gunship(), Posicion.Horizontal(0, 2)),
+                (Barco.Gunship(), Posicion.Horizontal(0, 9)),
+                (Barco.Gunship(), Posicion.Horizontal(3, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 7))
+            ])
+            .Construir();
+        batallaNaval.Jugador1.Disparar( 0, 0 );
+
+        batallaNaval.Jugador2.Tablero[0, 0].Should().Be('O');
+        batallaNaval.Jugador1.TableroDisparos[0, 0].Should().Be('O');
+
+    }
 }
