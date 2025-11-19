@@ -23,7 +23,7 @@ public class Jugador
 
     public void AgregarBarco(Barco barco, int x, int y, bool esVertical = false)
     {
-        if (x >= 10 || y >= 10)
+        if (x >= 10 || y >= 10  || x<0 || y<0 )
             throw new ArgumentException("El barco se encuentra fuera del tablero.");
         if (Tablero[x, y] != '\0')
             throw new ArgumentException(YaExisteBarcoEnLaPosiciónEnviada);
