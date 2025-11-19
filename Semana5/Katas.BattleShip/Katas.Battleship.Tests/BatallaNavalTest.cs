@@ -478,4 +478,37 @@ public class BatallaNavalTest
         batallaNaval.Jugador1.TableroDisparos[0, 0].Should().Be('o');
 
     }
+    
+    [Fact]
+    public void Si_ElJugador1DisparayAtina_Debe_MarcarlaCasillaConXDelJugador2YTableroDisparoX()
+    {
+        var batallaNaval = new BatallaNavalBuilder()
+            .AgregarJugador("Pollo")
+            .AgregarJugador("Gato")
+            .ValidarJugadores()
+            .AgregarBarcosJugador1([
+                (Barco.Carrier(), Posicion.Horizontal(1, 1)),
+                (Barco.Destroyer(), Posicion.Horizontal(2, 2)),
+                (Barco.Destroyer(), Posicion.Horizontal(3, 3)),
+                (Barco.Gunship(), Posicion.Horizontal(4, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(5, 5)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 6)),
+                (Barco.Gunship(), Posicion.Horizontal(7, 7))
+            ])
+            .AgregarBarcosJugador2([
+                (Barco.Carrier(), Posicion.Vertical(1, 4)),
+                (Barco.Destroyer(), Posicion.Horizontal(1, 0)),
+                (Barco.Destroyer(), Posicion.Vertical(8, 1)),
+                (Barco.Gunship(), Posicion.Horizontal(0, 2)),
+                (Barco.Gunship(), Posicion.Horizontal(0, 9)),
+                (Barco.Gunship(), Posicion.Horizontal(3, 4)),
+                (Barco.Gunship(), Posicion.Horizontal(6, 7))
+            ])
+            .Construir();
+        batallaNaval.Disparar( 1, 1 );
+
+        batallaNaval.Jugador2.Tablero[1, 1].Should().Be('x');
+        batallaNaval.Jugador1.TableroDisparos[1, 1].Should().Be('x');
+
+    }
 }
