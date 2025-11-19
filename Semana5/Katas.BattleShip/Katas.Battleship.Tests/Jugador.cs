@@ -7,7 +7,7 @@ public class Jugador
     private const string ElBarcoSeEncuentraFueraDelTablero = "El barco se encuentra fuera del tablero.";
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
-    public int NumeroDeBarcosAsginados { get; set; }
+    public int NumeroDeBarcosAsginados => _barcosAsignados.Sum(x => x.Value);
 
     private Dictionary<TipoBarco, int> _barcosAsignados = new()
     {

@@ -35,6 +35,5 @@ public class BatallaNaval
 
     public void Iniciar()
     {
-        throw new NotImplementedException();
     }
 }
