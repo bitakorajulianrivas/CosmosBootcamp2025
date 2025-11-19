@@ -58,7 +58,17 @@ public class BatallaNaval
 
     public void Disparar(int x, int y)
     {
-        Jugador2.Tablero[x, y] = 'o';
-        Jugador1.TableroDisparos[x, y] = 'o';
+        if(Jugador2.Tablero[x, y] != '\0')
+        {
+            Jugador2.Tablero[x, y] = 'x';
+            Jugador1.TableroDisparos[x, y] = 'x';
+        }
+        else
+        {
+            Jugador2.Tablero[x, y] = 'o';
+            Jugador1.TableroDisparos[x, y] = 'o';
+        }
+
+         
     }
 }

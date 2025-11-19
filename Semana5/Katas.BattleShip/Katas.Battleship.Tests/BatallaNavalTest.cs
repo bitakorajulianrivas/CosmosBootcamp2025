@@ -505,10 +505,10 @@ public class BatallaNavalTest
                 (Barco.Gunship(), Posicion.Horizontal(6, 7))
             ])
             .Construir();
-        batallaNaval.Disparar( 1, 1 );
+        batallaNaval.Disparar( 1, 4 );
 
-        batallaNaval.Jugador2.Tablero[1, 1].Should().Be('x');
-        batallaNaval.Jugador1.TableroDisparos[1, 1].Should().Be('x');
+        batallaNaval.Jugador2.Tablero[1, 4].Should().Be('x');
+        batallaNaval.Jugador1.TableroDisparos[1, 4].Should().Be('x');
 
     }
 }
