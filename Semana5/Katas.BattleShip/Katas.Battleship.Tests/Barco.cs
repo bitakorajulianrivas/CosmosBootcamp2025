@@ -9,12 +9,11 @@ public class Barco
     public Posicion Posicion { get; }
 
 
-    public static Barco Gunship(Posicion posicion) => new (TipoBarco.Gunship, 1, 'G', 4, posicion);
-    public static Barco Destroyer(Posicion posicion) => new (TipoBarco.Destroyer, 3, 'D', 2, posicion);
-    public static Barco Carrier(Posicion posicion) => new (TipoBarco.Carrier, 4, 'C', 1, posicion);
-    
-   
-    
+    public static Barco Gunship(Posicion posicion) => new(TipoBarco.Gunship, 1, 'G', 4, posicion);
+    public static Barco Destroyer(Posicion posicion) => new(TipoBarco.Destroyer, 3, 'D', 2, posicion);
+    public static Barco Carrier(Posicion posicion) => new(TipoBarco.Carrier, 4, 'C', 1, posicion);
+
+
     private Barco(TipoBarco tipo, int tamanio, char letra, int cantidadBarcos, Posicion posicion)
     {
         Tipo = tipo;
@@ -27,6 +26,11 @@ public class Barco
 
     public (int x, int y)[] ObtenerCoordenadas()
     {
-        return [(1, 1), (2, 1), (3, 1), (4, 1)];
+        (int x, int y)[] coordenadas = new (int x, int y)[Tamanio];
+
+        for (int indice = 0; indice < Tamanio; indice++) 
+            coordenadas[indice] = (Posicion.EjeX + indice, Posicion.EjeY);
+
+        return coordenadas;
     }
 }
