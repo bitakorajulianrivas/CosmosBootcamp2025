@@ -13,8 +13,6 @@ public class Jugador
         { TipoBarco.Gunship, 0 }
     };
 
-    private int filaç;
-
     public Jugador(string apodo)
     {
         Apodo = apodo;
@@ -80,7 +78,8 @@ public class Jugador
         }
 
         tablero += 
-            "-------------------------------------------| \n\n";
+            "-------------------------------------------| \n" +
+            "\n";
 
         return tablero;
     }
