@@ -73,7 +73,7 @@ public class BatallaNaval
         EstadoDisparo estadoDisparo = ObtenerJugadorOponente().ObtenerEstadoDisparo();
 
         return estadoDisparo == EstadoDisparo.DisparoAcertado
-            ? "Disparo acertado en la posicion (1, 4)"
+            ? $"Disparo acertado en la posicion ({x}, {y})"
             : string.Format(MensajeDisparoFallido, x, y);
 
     }
