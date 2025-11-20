@@ -42,4 +42,9 @@ public class Barco
         
         return coordenadas;
     }
+
+    public override string ToString()
+    {
+        return Tipo + $": ({Posicion.EjeX},{Posicion.EjeY}).";
+    }
 }

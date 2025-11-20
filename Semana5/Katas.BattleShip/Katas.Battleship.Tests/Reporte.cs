@@ -1,67 +1,63 @@
 ﻿namespace Katas.Battleship.Tests;
 
-public class Reporte
+public class Reporte(char[,] tablero, int disparosAcertados, int disparosFallidos, List<Barco> barcosDerribados)
 {
-    private readonly char[,] _tablero;
-    private readonly int _disparosAcertados;
-    private readonly int _disparosFallidos;
-    private readonly List<Barco> _barcosDerribados;
+    private const char SaltoDeLinea = '\n';
+    private const string Separador = "-------------------------------------------|";
+    
+    private readonly string _tablaEncabezado = 
+        SaltoDeLinea + 
+        "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | " + SaltoDeLinea +
+        Separador + " " + 
+        SaltoDeLinea;
+    
+    private readonly string _tablaPieDePagina = 
+        Separador + " \n" + SaltoDeLinea;
 
-    public Reporte(char[,] tablero, int disparosAcertados, int disparosFallidos, List<Barco> barcosDerribados)
-    {
-        _tablero = tablero;
-        _disparosAcertados = disparosAcertados;
-        _disparosFallidos = disparosFallidos;
-        _barcosDerribados = barcosDerribados;
-    }
 
     public string ImprimirTablero()
     {
         int columnas = 10;
         int filas = 10;
+
         
-        string respuestaTablero = "\n" +
-                                  "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
-                                  "-------------------------------------------| \n";
+        string respuesta = _tablaEncabezado;
 
         for (int columna = 0; columna < columnas; columna++)
         {
-            respuestaTablero += $" {columna} |";
+            respuesta += $" {columna} |";
             
             for (int fila = 0; fila < filas; fila++)
             {
-                var casilla = _tablero[fila, columna] == '\0' 
-                    ? ' ' : _tablero[fila, columna];
+                var casilla = tablero[fila, columna] == '\0' 
+                    ? ' ' : tablero[fila, columna];
                 
-                respuestaTablero += $" {casilla} |";
+                respuesta += $" {casilla} |";
             }
 
-            respuestaTablero += " \n";
+            respuesta += " " + SaltoDeLinea;
         }
+        
+        respuesta += _tablaPieDePagina;
 
-        respuestaTablero +=
-            "-------------------------------------------| \n" +
-            "\n";
-
-        return respuestaTablero;
+        return respuesta;
     }
 
     public string ImprimirReporte()
     {
-        int disparosTotales = _disparosAcertados + _disparosFallidos;
+        int disparosTotales = disparosAcertados + disparosFallidos;
         
         var resultado = string.Format(
             "Total disparos: {0}.\n" + "Perdidos: {1}.\n" + "Acertados: {2}.\n",
-            disparosTotales, _disparosFallidos, _disparosAcertados);
+            disparosTotales, disparosFallidos, disparosAcertados);
 
-        var barcos = _barcosDerribados
-            .Select(barco => string.Format("{0}: ({1},{2}).\n",
-                barco.Tipo, barco.Posicion.EjeX, barco.Posicion.EjeY))
+        var barcos = barcosDerribados
+            .Select(barco => barco.ToString())
             .ToArray();
         
         string informeBarcosDerribados =
-            _barcosDerribados.Any()
-                ? "Barcos derribados: [" + string.Join("", barcos) + "]"
+            barcosDerribados.Any()
+                ? "Barcos derribados: [" + string.Join("\n", barcos) + "]"
                 : string.Empty;
 
         return resultado + informeBarcosDerribados;

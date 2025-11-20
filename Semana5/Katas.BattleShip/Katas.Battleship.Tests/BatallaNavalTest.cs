@@ -915,8 +915,7 @@ public class BatallaNavalTest
             "Acertados: 4.\n" +
             "Barcos derribados: [" +
             "Destroyer: (1,0).\n" +
-            "Gunship: (0,2).\n" +
-            "]";
+            "Gunship: (0,2).]";
 
         batallaNaval.Imprimir(esReporte: true).Should().Be(informeEsperado);
     }
@@ -1194,8 +1193,7 @@ public class BatallaNavalTest
             "Gunship: (0,2).\n" +
             "Gunship: (0,9).\n" +
             "Gunship: (3,4).\n" +
-            "Gunship: (6,7).\n" +
-            "]";
+            "Gunship: (6,7).]";
 
         string tableroEsperadoJugador1 = "\n" +
                                          "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +

@@ -41,9 +41,7 @@ public class Jugador
         if (_barcosAsignados.Count < CantidadMaximaDeBarcos)
             throw new ArgumentException(JugadorMensajes.FaltaBarcosPorAsignar);
     }
-
-
-
+    
     private static void ValidarBordesDelTablero(Posicion posicion)
     {
         if (posicion.EjeX >= CasillaMaxima ||
