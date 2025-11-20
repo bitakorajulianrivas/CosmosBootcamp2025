@@ -7,6 +7,7 @@ public class BatallaNaval
     private const string NoEstanLosJugadoresConfigurados = "No Estan los Jugadores Configurados.";
     private const string SoloSePermitenJugadores = "Solo se permiten 2 jugadores.";
     private const string NoPuedeDispararSinIniciarElJuego = "No puede disparar sin iniciar el juego.";
+    private const string MensajeDisparoFallido = "Disparo fallido en la posicion ({0}, {1})";
 
     public Jugador Jugador1 { get; private set; }
     public Jugador Jugador2 { get; private set; }
@@ -69,7 +70,7 @@ public class BatallaNaval
         char disparo = ObtenerJugadorOponente().RecibirDisparo(x, y);
         ObtenerJugadorActual().RegistrarDisparo(x, y, disparo);
         
-        return $"Disparo fallido en la posicion ({x}, {y})";
+        return string.Format(MensajeDisparoFallido, x, y);
     }
 
     public void FinalizarTurno() => _esTurnoPrincipal = !_esTurnoPrincipal;
