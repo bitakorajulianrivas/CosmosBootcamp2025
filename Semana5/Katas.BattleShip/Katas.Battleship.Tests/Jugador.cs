@@ -14,7 +14,7 @@ public class Jugador
     
     private EstadoDisparo _disparo;
     public string Apodo { get; private set; } 
-    public char[,] Tablero { get; set; }
+    private char[,] Tablero { get; set; }
     private char[,] TableroDisparos { get; set; }
     
     private int _cantidadDisparosAcerdos;

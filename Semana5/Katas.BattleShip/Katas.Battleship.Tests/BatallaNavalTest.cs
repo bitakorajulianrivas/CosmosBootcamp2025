@@ -94,7 +94,26 @@ public class BatallaNavalTest
             .AgregarBarcosJugador1([Barco.Gunship(Posicion.Horizontal(2, 2))])
             .Construir();
 
-        batallaNaval.ObtenerJugadorActual().Tablero[2, 2].Should().Be('G');
+        string tableroEsperado = "\n" +
+             "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+             "-------------------------------------------| \n" +
+             " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 1 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 2 |   |   | G |   |   |   |   |   |   |   | \n" +
+             " 3 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 4 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 5 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 6 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 7 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
+             "-------------------------------------------| \n" +
+             "\n";
+
+        var tableroJugador1 = batallaNaval.Imprimir("Pollo");
+        
+        tableroJugador1.Should().Be(tableroEsperado);
+        
     }
 
     [Fact]
@@ -124,9 +143,25 @@ public class BatallaNavalTest
 
         batallaNaval.ObtenerJugadorActual().AgregarBarco(Barco.Destroyer(Posicion.Horizontal(1, 1)));
 
-        batallaNaval.ObtenerJugadorActual().Tablero[1, 1].Should().Be('D');
-        batallaNaval.ObtenerJugadorActual().Tablero[2, 1].Should().Be('D');
-        batallaNaval.ObtenerJugadorActual().Tablero[3, 1].Should().Be('D');
+        string tableroEsperado = "\n" +
+                                 "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+                                 "-------------------------------------------| \n" +
+                                 " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 1 |   | D | D | D |   |   |   |   |   |   | \n" +
+                                 " 2 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 3 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 4 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 5 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 6 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 7 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 "-------------------------------------------| \n" +
+                                 "\n";
+
+        var tableroJugador1 = batallaNaval.Imprimir("Pollo");
+        
+        tableroJugador1.Should().Be(tableroEsperado);
     }
 
     [Fact]
@@ -139,9 +174,25 @@ public class BatallaNavalTest
 
         batallaNaval.ObtenerJugadorActual().AgregarBarco(Barco.Destroyer(Posicion.Vertical(1, 1)));
 
-        batallaNaval.ObtenerJugadorActual().Tablero[1, 1].Should().Be('D');
-        batallaNaval.ObtenerJugadorActual().Tablero[1, 2].Should().Be('D');
-        batallaNaval.ObtenerJugadorActual().Tablero[1, 3].Should().Be('D');
+        string tableroEsperado = "\n" +
+                                 "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+                                 "-------------------------------------------| \n" +
+                                 " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 1 |   | D |   |   |   |   |   |   |   |   | \n" +
+                                 " 2 |   | D |   |   |   |   |   |   |   |   | \n" +
+                                 " 3 |   | D |   |   |   |   |   |   |   |   | \n" +
+                                 " 4 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 5 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 6 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 7 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 "-------------------------------------------| \n" +
+                                 "\n";
+
+        var tableroJugador1 = batallaNaval.Imprimir("Pollo");
+        
+        tableroJugador1.Should().Be(tableroEsperado);
     }
 
     [Fact]
@@ -153,11 +204,26 @@ public class BatallaNavalTest
             .Construir();
 
         batallaNaval.ObtenerJugadorActual().AgregarBarco(Barco.Carrier(Posicion.Horizontal(1, 1)));
+        
+        string tableroEsperado = "\n" +
+                                 "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+                                 "-------------------------------------------| \n" +
+                                 " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 1 |   | C | C | C | C |   |   |   |   |   | \n" +
+                                 " 2 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 3 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 4 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 5 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 6 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 7 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 "-------------------------------------------| \n" +
+                                 "\n";
 
-        batallaNaval.ObtenerJugadorActual().Tablero[1, 1].Should().Be('C');
-        batallaNaval.ObtenerJugadorActual().Tablero[2, 1].Should().Be('C');
-        batallaNaval.ObtenerJugadorActual().Tablero[3, 1].Should().Be('C');
-        batallaNaval.ObtenerJugadorActual().Tablero[4, 1].Should().Be('C');
+        var tableroJugador1 = batallaNaval.Imprimir("Pollo");
+        
+        tableroJugador1.Should().Be(tableroEsperado);
     }
 
     [Fact]
@@ -169,11 +235,26 @@ public class BatallaNavalTest
             .Construir();
 
         batallaNaval.ObtenerJugadorActual().AgregarBarco(Barco.Carrier(Posicion.Vertical(1, 1)));
+        
+        string tableroEsperado = "\n" +
+                                 "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+                                 "-------------------------------------------| \n" +
+                                 " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 1 |   | C |   |   |   |   |   |   |   |   | \n" +
+                                 " 2 |   | C |   |   |   |   |   |   |   |   | \n" +
+                                 " 3 |   | C |   |   |   |   |   |   |   |   | \n" +
+                                 " 4 |   | C |   |   |   |   |   |   |   |   | \n" +
+                                 " 5 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 6 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 7 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 "-------------------------------------------| \n" +
+                                 "\n";
 
-        batallaNaval.ObtenerJugadorActual().Tablero[1, 1].Should().Be('C');
-        batallaNaval.ObtenerJugadorActual().Tablero[1, 2].Should().Be('C');
-        batallaNaval.ObtenerJugadorActual().Tablero[1, 3].Should().Be('C');
-        batallaNaval.ObtenerJugadorActual().Tablero[1, 4].Should().Be('C');
+        var tableroJugador1 = batallaNaval.Imprimir("Pollo");
+        
+        tableroJugador1.Should().Be(tableroEsperado);
     }
 
     [Fact]
@@ -506,9 +587,6 @@ public class BatallaNavalTest
 
         batallaNaval.Iniciar();
         batallaNaval.Disparar(0, 0);
-
-        batallaNaval.ObtenerJugadorOponente().Tablero[0, 0].Should().Be('o');
-        
         
         string tableroEsperado = "\n" +
                                  "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
@@ -602,10 +680,7 @@ public class BatallaNavalTest
 
         batallaNaval.Iniciar();
         batallaNaval.Disparar(1, 4);
-
-        batallaNaval.ObtenerJugadorOponente().Tablero[1, 4].Should().Be('x');
-    
-         
+        
         string tableroEsperado = "\n" +
                                  "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
                                  "-------------------------------------------| \n" +
@@ -626,8 +701,6 @@ public class BatallaNavalTest
         string tablero = batallaNaval.Imprimir("Gato");
 
         tablero.Should().Be(tableroEsperado);
-
-        
     }
 
     [Fact]
