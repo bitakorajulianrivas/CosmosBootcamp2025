@@ -68,6 +68,9 @@ public class BatallaNaval
         if (!_juegoIniciado)
             throw new ArgumentException(NoPuedeDispararSinIniciarElJuego);
 
+        if (ObtenerJugadorActual().TieneDisparo(x, y))
+            throw new ArgumentException("No puede disparar en una misma posición.");
+
         char disparo = ObtenerJugadorOponente().RecibirDisparo(x, y);
         ObtenerJugadorActual().RegistrarDisparo(x, y, disparo);
 

@@ -196,4 +196,9 @@ public class Jugador
         
         return resultado + informeBarcosDerribados;
     }
+
+    public bool TieneDisparo(int x, int y)
+    {
+        return TableroDisparos[x, y] != CasillaPorDefecto;
+    }
 } 

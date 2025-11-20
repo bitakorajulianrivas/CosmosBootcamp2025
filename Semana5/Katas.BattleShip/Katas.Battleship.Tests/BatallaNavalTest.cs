@@ -803,13 +803,13 @@ public class BatallaNavalTest
         batallaNaval.Disparar(2, 0);
         batallaNaval.FinalizarTurno();
         //Jugador 2
-        batallaNaval.Disparar( 2, 2 );
+        batallaNaval.Disparar( 2, 3 );
         batallaNaval.FinalizarTurno();
         //Jugador 1
         batallaNaval.Disparar(3, 0);
         batallaNaval.FinalizarTurno();
         //Jugador 2
-        batallaNaval.Disparar( 2, 2 );
+        batallaNaval.Disparar( 2, 4);
         batallaNaval.FinalizarTurno();
 
         var informeEsperado = 
