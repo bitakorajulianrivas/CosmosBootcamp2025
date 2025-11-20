@@ -10,12 +10,17 @@ public class Jugador
     private int _cantidadDisparosAcerdos = 0;
     private int _cantidaDisparosFallidos = 0;
     private int CantidadDisparosTotales => _cantidadDisparosAcerdos + _cantidaDisparosFallidos;
-    
+    private EstadoDisparo _disparo;
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
     public char[,] TableroDisparos { get; set; }
-    public List<Barco> Barcos; 
-    
+    public List<Barco> Barcos;
+
+    public EstadoDisparo ObtenerEstadoDisparo()
+    {
+        return _disparo;
+    }
+
     private int NumeroDeBarcosAsginados => _barcosAsignados
         .Sum(x => x.Value);
     
@@ -103,11 +108,13 @@ public class Jugador
             var barco = ObtenerBarco(x, y);
             if(barco != null)
                 barco.Golpear();
+            _disparo = EstadoDisparo.DisparoAcertado;
         }
         else
         {
             Tablero[x, y] = 'o';
             _cantidaDisparosFallidos++;
+            _disparo = EstadoDisparo.DisparoFallido;
         }
 
         return Tablero[x, y];

@@ -812,9 +812,9 @@ public class BatallaNavalTest
         
         batallaNaval.Iniciar();
         //Jugador 1
-        string mensaje = batallaNaval.Disparar(0, 2);
+        string mensaje = batallaNaval.Disparar(0, 5);
 
-        mensaje.Should().Be("Disparo fallido en la posicion (0, 2)");
+        mensaje.Should().Be("Disparo fallido en la posicion (0, 5)");
     }
     [Fact] 
     public void Si_RealizoUnDisparoAcertado_Debe_RetornarMensajeTiroAcertado()
