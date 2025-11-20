@@ -112,7 +112,9 @@ public class Jugador
             if (barco.EsDerribado())
             {
                 _disparo = EstadoDisparo.BarcoHundido;
-                
+
+                foreach (var coordenada in barco.Coordenadas) 
+                    Tablero[coordenada.x, coordenada.y] = 'X';
             }
         }
         else
