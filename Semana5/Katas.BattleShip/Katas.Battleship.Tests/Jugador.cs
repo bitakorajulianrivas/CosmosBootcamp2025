@@ -6,9 +6,13 @@ public class Jugador
     private const int CasillaMinima = 0;
     private readonly int _cantidadMaximaDeBarcos = 7;
     private const char CasillaPorDefecto = '\0';
-    private const char CasillaVacia = ' ';
-    private int _cantidadDisparosAcerdos = 0;
-    private int _cantidaDisparosFallidos = 0;
+    private const char MarcaCasillaVacia = ' ';
+    private const char MarcaBarcoHundido = 'X';
+    private const char MarcaTiroAcertado ='x';
+    private const char MarcaTiroFallido = 'o';
+
+    private int _cantidadDisparosAcerdos;
+    private int _cantidaDisparosFallidos;
     private int CantidadDisparosTotales => _cantidadDisparosAcerdos + _cantidaDisparosFallidos;
     private EstadoDisparo _disparo;
     public string Apodo { get; private set; }
@@ -31,7 +35,7 @@ public class Jugador
         { TipoBarco.Gunship, 0 }
     };
 
-    private char MarcaBarcoDerribado ='x';
+   
 
 
     public Jugador(string apodo)
@@ -104,22 +108,23 @@ public class Jugador
         {
             _cantidadDisparosAcerdos++;
            
-            Tablero[x, y] = MarcaBarcoDerribado;
-            var barco = ObtenerBarco(x, y);
+            Tablero[x, y] = MarcaTiroAcertado;
+            Barco? barco = ObtenerBarco(x, y);
             if(barco != null)
                 barco.Golpear();
             _disparo = EstadoDisparo.DisparoAcertado;
+            
             if (barco.EsDerribado())
             {
                 _disparo = EstadoDisparo.BarcoHundido;
 
                 foreach (var coordenada in barco.Coordenadas) 
-                    Tablero[coordenada.x, coordenada.y] = 'X';
+                    Tablero[coordenada.x, coordenada.y] = MarcaBarcoHundido;
             }
         }
         else
         {
-            Tablero[x, y] = 'o';
+            Tablero[x, y] = MarcaTiroFallido;
             _cantidaDisparosFallidos++;
             _disparo = EstadoDisparo.DisparoFallido;
         }
@@ -161,7 +166,7 @@ public class Jugador
 
     private char ObtenerCasilla(int fila, int columna)
     {
-        return Tablero[fila, columna] == CasillaPorDefecto ? CasillaVacia : Tablero[fila, columna];
+        return Tablero[fila, columna] == CasillaPorDefecto ? MarcaCasillaVacia : Tablero[fila, columna];
     }
 
     private bool ExisteBarcoEn(int x, int y) => 
