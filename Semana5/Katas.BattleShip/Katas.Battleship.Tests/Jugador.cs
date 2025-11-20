@@ -4,9 +4,7 @@ public class Jugador
 {
     private const int CasillaMaxima = 10;
     private const int CantidadMaximaDeBarcos = 7;
-    
-    private const char CasillaPorDefecto = '\0';
-    private const char MarcaCasillaVacia = ' ';
+
     private const char MarcaBarcoHundido = 'X';
     private const char MarcaTiroAcertado = 'x';
     private const char MarcaTiroFallido = 'o';
@@ -15,10 +13,11 @@ public class Jugador
     private readonly char[,] _tablero;
     private readonly char[,] _tableroDisparos;
     
-    private int _cantidadDisparosAcerdos;
+    private int _cantidadDisparosAcertados;
     private int _cantidaDisparosFallidos;
     private readonly List<Barco> _barcosAsignados;
-    
+    private readonly Reporte _reporte;
+
     public string Apodo { get; private set; }
     
     public Jugador(string apodo)
@@ -61,7 +60,7 @@ public class Jugador
 
     private void ValidarSobreposicionDeBarcos(Posicion posicion)
     {
-        if (_tablero[posicion.EjeX, posicion.EjeY] != CasillaPorDefecto)
+        if (_tablero[posicion.EjeX, posicion.EjeY] != '\0')
             throw new ArgumentException(JugadorMensajes.YaExisteBarcoEnLaPosiciónEnviada);
     }
     
@@ -95,7 +94,7 @@ public class Jugador
     {
         if (ExisteBarcoEn(x, y))
         {
-            _cantidadDisparosAcerdos++;
+            _cantidadDisparosAcertados++;
 
             _tablero[x, y] = MarcaTiroAcertado;
             Barco? barco = ObtenerBarco(x, y);
@@ -130,79 +129,41 @@ public class Jugador
     public char RegistrarDisparo(int x, int y, char disparo) =>
         _tableroDisparos[x, y] = disparo;
     
+    public bool TieneTodosLosBarcosDerribados()
+    {
+        int barcosDerribados = _barcosAsignados
+            .Count(barco => barco.EsDerribado());
+        
+        return barcosDerribados == CantidadMaximaDeBarcos;
+    }
+    
     private bool ExisteBarcoEn(int x, int y) =>
-        _tablero[x, y] != CasillaPorDefecto;
+        _tablero[x, y] != '\0';
     
     public bool TieneDisparo(int x, int y)
     {
-        return _tableroDisparos[x, y] != CasillaPorDefecto;
+        return _tableroDisparos[x, y] != '\0';
     }
     
     public string Imprimir(bool esReporte = false)
     {
-        if (esReporte)
-            return ImprimirReporte();
-        return ImprimirTablero();
-    }
-
-    private string ImprimirTablero()
-    {
-        int columnas = CasillaMaxima;
-        int filas = CasillaMaxima;
+        List<Barco> barcosDerribados = ObtenerBarcosDerribados();
         
-        string tablero = "\n" +
-                         "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
-                         "-------------------------------------------| \n";
-
-        for (int columna = 0; columna < columnas; columna++)
-        {
-            
-            tablero += $" {columna} |";
-            
-            for (int fila = 0; fila < filas; fila++)
-            {
-                var casilla = _tablero[fila, columna] == CasillaPorDefecto 
-                    ? MarcaCasillaVacia 
-                    : _tablero[fila, columna];
-                
-                tablero += $" {casilla} |";
-            }
-
-            tablero += " \n";
-        }
-
-        tablero +=
-            "-------------------------------------------| \n" +
-            "\n";
-
-        return tablero;
-    }
-    
-    private string ImprimirReporte()
-    {
-        int disparosTotales = _cantidadDisparosAcerdos + _cantidaDisparosFallidos;
-        
-        var resultado = string.Format(
-            "Total disparos: {0}.\n" + "Perdidos: {1}.\n" + "Acertados: {2}.\n",
-            disparosTotales,
+        var reporte = new Reporte(_tablero, 
+            _cantidadDisparosAcertados, 
             _cantidaDisparosFallidos,
-            _cantidadDisparosAcerdos);
+            barcosDerribados);
 
-        var barcos = _barcosAsignados
-            .Where(barco => barco.EsDerribado())
-            .Select(barco => string.Format("{0}: ({1},{2}).\n",
-                barco.Tipo, barco.Posicion.EjeX, barco.Posicion.EjeY))
-            .ToArray();
+        if (esReporte) 
+            return reporte.ImprimirReporte();
 
-        var barcosDerribados = barcos.Any();
-
-        string informeBarcosDerribados =
-            barcosDerribados
-                ? "Barcos derribados: [" + string.Join("", barcos) + "]"
-                : string.Empty;
-
-        return resultado + informeBarcosDerribados;
+        return reporte.ImprimirTablero();
     }
 
-
+    private List<Barco> ObtenerBarcosDerribados()
+    {
+        List<Barco> barcosDerribados = _barcosAsignados
+            .Where(barco => barco.EsDerribado()).ToList();
+        return barcosDerribados;
+    }
 }

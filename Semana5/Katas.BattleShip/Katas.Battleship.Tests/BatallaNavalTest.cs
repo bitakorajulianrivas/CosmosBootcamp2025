@@ -227,9 +227,10 @@ public class BatallaNavalTest
     {
         Action action = () => new BatallaNavalBuilder()
             .AgregarJugador("Pollo", [
-                Barco.Carrier(Posicion.Horizontal(1, 1)), 
-                Barco.Carrier(Posicion.Horizontal(5, 5))]);
-        
+                Barco.Carrier(Posicion.Horizontal(1, 1)),
+                Barco.Carrier(Posicion.Horizontal(5, 5))
+            ]);
+
         action.Should().Throw<ArgumentException>()
             .WithMessage("Solo se puede asignar 1 barcos de tipo Carrier.");
     }
@@ -244,7 +245,7 @@ public class BatallaNavalTest
                 Barco.Destroyer(Posicion.Horizontal(3, 3)),
                 Barco.Destroyer(Posicion.Horizontal(4, 4))
             ]);
-        
+
         action.Should().Throw<ArgumentException>()
             .WithMessage("Solo se puede asignar 2 barcos de tipo Destroyer.");
     }
@@ -260,7 +261,7 @@ public class BatallaNavalTest
                 Barco.Gunship(Posicion.Horizontal(4, 4)),
                 Barco.Gunship(Posicion.Horizontal(5, 5))
             ]);
-        
+
         action.Should().Throw<ArgumentException>()
             .WithMessage("Solo se puede asignar 4 barcos de tipo Gunship.");
     }
@@ -310,7 +311,7 @@ public class BatallaNavalTest
         var tableroJugador1Esperado = batallaNaval.Imprimir();
         batallaNaval.FinalizarTurno();
         var tableroJugador2Esperado = batallaNaval.Imprimir();
-        
+
         string tableroEsperado = "\n" +
                                  "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
                                  "-------------------------------------------| \n" +
@@ -472,7 +473,7 @@ public class BatallaNavalTest
             .Construir();
 
         batallaNaval.FinalizarTurno();
-        
+
         string tableroEsperado = "\n" +
                                  "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
                                  "-------------------------------------------| \n" +
@@ -488,7 +489,7 @@ public class BatallaNavalTest
                                  " 9 | G |   |   |   |   |   |   |   |   |   | \n" +
                                  "-------------------------------------------| \n" +
                                  "\n";
-        
+
         string tablero = batallaNaval.Imprimir();
 
         tablero.Should().Be(tableroEsperado);
@@ -554,20 +555,20 @@ public class BatallaNavalTest
         batallaNaval.FinalizarTurno();
 
         string tableroEsperado = "\n" +
-             "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
-             "-------------------------------------------| \n" +
-             " 0 | o | D | D | D |   |   |   |   |   |   | \n" +
-             " 1 |   |   |   |   |   |   |   |   | D |   | \n" +
-             " 2 | G |   |   |   |   |   |   |   | D |   | \n" +
-             " 3 |   |   |   |   |   |   |   |   | D |   | \n" +
-             " 4 |   | C |   | G |   |   |   |   |   |   | \n" +
-             " 5 |   | C |   |   |   |   |   |   |   |   | \n" +
-             " 6 |   | C |   |   |   |   |   |   |   |   | \n" +
-             " 7 |   | C |   |   |   |   | G |   |   |   | \n" +
-             " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
-             " 9 | G |   |   |   |   |   |   |   |   |   | \n" +
-             "-------------------------------------------| \n" +
-             "\n";
+                                 "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+                                 "-------------------------------------------| \n" +
+                                 " 0 | o | D | D | D |   |   |   |   |   |   | \n" +
+                                 " 1 |   |   |   |   |   |   |   |   | D |   | \n" +
+                                 " 2 | G |   |   |   |   |   |   |   | D |   | \n" +
+                                 " 3 |   |   |   |   |   |   |   |   | D |   | \n" +
+                                 " 4 |   | C |   | G |   |   |   |   |   |   | \n" +
+                                 " 5 |   | C |   |   |   |   |   |   |   |   | \n" +
+                                 " 6 |   | C |   |   |   |   |   |   |   |   | \n" +
+                                 " 7 |   | C |   |   |   |   | G |   |   |   | \n" +
+                                 " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 9 | G |   |   |   |   |   |   |   |   |   | \n" +
+                                 "-------------------------------------------| \n" +
+                                 "\n";
 
 
         string tablero = batallaNaval.Imprimir();
@@ -634,7 +635,7 @@ public class BatallaNavalTest
                 Barco.Gunship(Posicion.Horizontal(0, 9)),
                 Barco.Gunship(Posicion.Horizontal(3, 4)),
                 Barco.Gunship(Posicion.Horizontal(6, 7)),
-                ])
+            ])
             .Construir();
 
         batallaNaval.Iniciar();
@@ -825,7 +826,7 @@ public class BatallaNavalTest
                 Barco.Gunship(Posicion.Horizontal(6, 6)),
                 Barco.Gunship(Posicion.Horizontal(7, 7)),
             ])
-            .AgregarJugador("Gato", 
+            .AgregarJugador("Gato",
             [
                 Barco.Carrier(Posicion.Vertical(1, 4)),
                 Barco.Destroyer(Posicion.Horizontal(1, 0)),
@@ -1073,5 +1074,131 @@ public class BatallaNavalTest
         string tablero = batallaNaval.Imprimir();
 
         tablero.Should().Be(tableroEsperado);
+    }
+
+    [Fact]
+    public void Si_ElJuegoFinaliza_Debe_NombrarElGanadoryMostrarInformeDeEstadistica()
+    {
+        var batallaNaval = new BatallaNavalBuilder()
+            .AgregarJugador("Pollo", [
+                Barco.Carrier(Posicion.Horizontal(1, 1)),
+                Barco.Destroyer(Posicion.Horizontal(2, 2)),
+                Barco.Destroyer(Posicion.Horizontal(3, 3)),
+                Barco.Gunship(Posicion.Horizontal(4, 4)),
+                Barco.Gunship(Posicion.Horizontal(5, 5)),
+                Barco.Gunship(Posicion.Horizontal(6, 6)),
+                Barco.Gunship(Posicion.Horizontal(7, 7)),
+            ])
+            .AgregarJugador("Gato", [
+                Barco.Carrier(Posicion.Vertical(1, 4)),
+                Barco.Destroyer(Posicion.Horizontal(1, 0)),
+                Barco.Destroyer(Posicion.Vertical(8, 1)),
+                Barco.Gunship(Posicion.Horizontal(0, 2)),
+                Barco.Gunship(Posicion.Horizontal(0, 9)),
+                Barco.Gunship(Posicion.Horizontal(3, 4)),
+                Barco.Gunship(Posicion.Horizontal(6, 7)),
+            ])
+            .Construir();
+
+        batallaNaval.Iniciar();
+        //Jugador 1
+        batallaNaval.Disparar(1, 4);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2
+        batallaNaval.Disparar(1, 1);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1
+        batallaNaval.Disparar(1, 5);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2
+        batallaNaval.Disparar(1, 2);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1
+        batallaNaval.Disparar(1, 6);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2
+        batallaNaval.Disparar(1, 3);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1  Hundió Carrier
+        batallaNaval.Disparar(1, 7);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2
+        batallaNaval.Disparar(1, 4);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1  
+        batallaNaval.Disparar(1, 0);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2
+        batallaNaval.Disparar(1, 5);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1
+        batallaNaval.Disparar(2, 0);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2
+        batallaNaval.Disparar(1, 6);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1 hundió Destroyer
+        batallaNaval.Disparar(3, 0);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2
+        batallaNaval.Disparar(1, 7);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1  
+        batallaNaval.Disparar(8, 1);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2
+        batallaNaval.Disparar(1, 8);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1
+        batallaNaval.Disparar(8, 2);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2
+        batallaNaval.Disparar(1, 9);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1  Hundió Destroyer
+        batallaNaval.Disparar(8, 3);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2  
+        batallaNaval.Disparar(2, 0);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1 Hundió Gunship
+        batallaNaval.Disparar(0, 2);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2 
+        batallaNaval.Disparar(2, 1);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1 Hundió Gunship
+        batallaNaval.Disparar(0, 9);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2    
+        batallaNaval.Disparar(2, 2);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1 Hundió Gunship
+        batallaNaval.Disparar(3, 4);
+        batallaNaval.FinalizarTurno();
+        //Jugador 2    
+        batallaNaval.Disparar(2, 3);
+        batallaNaval.FinalizarTurno();
+        //Jugador 1 Hundió Gunship
+        batallaNaval.Disparar(6, 7);
+        batallaNaval.FinalizarTurno();
+        
+        string informeEsperado = "\n" +
+                     "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+                     "-------------------------------------------| \n" +
+                     " 0 |   | X | X | X |   |   |   |   |   |   | \n" +
+                     " 1 |   |   |   |   |   |   |   |   | X |   | \n" +
+                     " 2 | X |   |   |   |   |   |   |   | X |   | \n" +
+                     " 3 |   |   |   |   |   |   |   |   | X |   | \n" +
+                     " 4 |   | X |   | X |   |   |   |   |   |   | \n" +
+                     " 5 |   | X |   |   |   |   |   |   |   |   | \n" +
+                     " 6 |   | X |   |   |   |   |   |   |   |   | \n" +
+                     " 7 |   | X |   |   |   |   | X |   |   |   | \n" +
+                     " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+                     " 9 | X |   |   |   |   |   |   |   |   |   | \n" +
+                     "-------------------------------------------| \n" +
+                     "\n";
+
+        batallaNaval.Imprimir(esReporte: true).Should().Be(informeEsperado);
     }
 }

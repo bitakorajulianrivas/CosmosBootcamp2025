@@ -46,12 +46,17 @@ public class BatallaNaval
     }
     public void FinalizarTurno()
     {
+        if (ObtenerJugadorActual().TieneTodosLosBarcosDerribados())
+            _juegoIniciado = false;
+        
         _esTurnoPrincipal = !_esTurnoPrincipal;
     }
     public string Imprimir(bool esReporte = false)
     {
         Jugador jugador = ObtenerJugadorActual();
         
+        bool juegoFinalizado = !_juegoIniciado;
+
         return jugador.Imprimir(esReporte);
     }
     
