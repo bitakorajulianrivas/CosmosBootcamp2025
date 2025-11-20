@@ -10,60 +10,30 @@ public class BatallaNaval
     private const string MensajeDisparoFallido = "Disparo fallido en la posicion ({0}, {1})";
     private const string MensajeDisparoAcertado = "Disparo acertado en la posicion ({0}, {1})";
     private const string NoPuedeDispararEnUnaMismaPosición = "No puede disparar en una misma posición.";
-    public Jugador Jugador1 { get; private set; }
-    public Jugador Jugador2 { get; private set; }
 
-
+    private readonly List<Jugador> _jugadores = [];
+    
+   
     public void AgregarJugador(Jugador jugador)
     {
-        ValidarQueExistanSoloDosJugadores();
+        ValidarQueNoPuedaAgregarMasDeDosJugadores();
 
-        if (Jugador1 == null)
-            Jugador1 = jugador;
-        else
-            Jugador2 = jugador;
+        _jugadores.Add(jugador);
     }
-
-    private void ValidarQueExistanSoloDosJugadores()
-    {
-        if (ExisteJugador1() && ExisteJugador2())
-            throw new ArgumentException(SoloSePermitenJugadores);
-    }
-
-    private bool ExisteJugador2() => Jugador2 != null;
-
-    private bool ExisteJugador1() => Jugador1 != null;
-
-    public void ValidarQueExistanDosJugadores()
-    {
-        if (!ExisteJugador1() || !ExisteJugador2())
-            throw new ArgumentException(NoEstanLosJugadoresConfigurados);
-    }
-
     public void Iniciar()
     {
-        Jugador1.ValidarQueExistanSieteBarcosAsignadosPorTablero();
-        Jugador2.ValidarQueExistanSieteBarcosAsignadosPorTablero();
+        ValidarQueExistanDosJugadores();
+        _jugadores[0].ValidarQueExistanSieteBarcosAsignadosPorTablero();
+        _jugadores[1].ValidarQueExistanSieteBarcosAsignadosPorTablero();
         _juegoIniciado = true;
         _esTurnoPrincipal = true;
     }
-
-
     public string Imprimir(string apodo)
     {
         Jugador jugador = ObtenerJugador(apodo);
 
         return jugador.ImprimirTablero();
     }
-
-    private Jugador ObtenerJugador(string apodo)
-    {
-        if (Jugador1.Apodo == apodo)
-            return Jugador1;
-
-        return Jugador2;
-    }
-
     public string Disparar(int x, int y)
     {
         if (!_juegoIniciado)
@@ -85,7 +55,23 @@ public class BatallaNaval
             _ => throw new NotImplementedException()
         };
     }
-
+    
+    private void ValidarQueExistanDosJugadores()
+    {
+        if (_jugadores.Count < 2)
+            throw new ArgumentException(NoEstanLosJugadoresConfigurados);
+    }
+    
+    private void ValidarQueNoPuedaAgregarMasDeDosJugadores()
+    {
+        if (_jugadores.Count == 2)
+            throw new ArgumentException(SoloSePermitenJugadores);
+    }
+    private Jugador ObtenerJugador(string apodo)
+    {
+        return _jugadores.First(jugador => jugador.Apodo == apodo);
+    }
+    
     private string MostrarMensajeBarcoDerribado(int x, int y, EstadoDisparo estadoDisparo)
     {
         if (estadoDisparo == EstadoDisparo.BarcoHundido)
@@ -102,7 +88,12 @@ public class BatallaNaval
 
     public void FinalizarTurno() => _esTurnoPrincipal = !_esTurnoPrincipal;
 
-    public Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? Jugador1 : Jugador2;
+    public Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? _jugadores[0] : _jugadores[1];
 
-    public Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? Jugador2 : Jugador1;
+    public Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? _jugadores[1] : _jugadores[0];
+
+    public string ObtenerInformePorJugador(string apodo)
+    {
+        return ObtenerJugador(apodo).ObtenerInforme();
+    }
 }

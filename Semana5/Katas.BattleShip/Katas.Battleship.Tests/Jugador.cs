@@ -3,43 +3,41 @@
 public class Jugador
 {
     private const int CasillaMaxima = 10;
-    private const int CasillaMinima = 0;
-    private readonly int _cantidadMaximaDeBarcos = 7;
+
+    private const int CantidadMaximaDeBarcos = 7;
+    
     private const char CasillaPorDefecto = '\0';
     private const char MarcaCasillaVacia = ' ';
     private const char MarcaBarcoHundido = 'X';
     private const char MarcaTiroAcertado = 'x';
     private const char MarcaTiroFallido = 'o';
 
-    private int _cantidadDisparosAcerdos;
-    private int _cantidaDisparosFallidos;
-    private int CantidadDisparosTotales => _cantidadDisparosAcerdos + _cantidaDisparosFallidos;
+
+    
     private EstadoDisparo _disparo;
     public string Apodo { get; private set; }
     public char[,] Tablero { get; set; }
     public char[,] TableroDisparos { get; set; }
-    public List<Barco> Barcos;
+    
+    private readonly List<Barco> _barcosAsignados;
+    private int _cantidadDisparosAcerdos;
+    private int _cantidaDisparosFallidos;
+    private int CantidadDisparosTotales => 
+        _cantidadDisparosAcerdos + _cantidaDisparosFallidos;
 
     public EstadoDisparo ObtenerEstadoDisparo()
     {
         return _disparo;
     }
 
-    private int NumeroDeBarcosAsginados => _barcosAsignados
-        .Sum(x => x.Value);
+    private int NumeroDeBarcosAsignados => _barcosAsignados.Count;
 
-    private readonly Dictionary<TipoBarco, int> _barcosAsignados = new()
-    {
-        { TipoBarco.Carrier, 0 },
-        { TipoBarco.Destroyer, 0 },
-        { TipoBarco.Gunship, 0 }
-    };
 
 
     public Jugador(string apodo)
     {
         Apodo = apodo;
-        Barcos = [];
+        _barcosAsignados = [];
         Tablero = new char[CasillaMaxima, CasillaMaxima];
         TableroDisparos = (char[,])Tablero.Clone();
     }
@@ -56,7 +54,7 @@ public class Jugador
 
     public void ValidarQueExistanSieteBarcosAsignadosPorTablero()
     {
-        if (NumeroDeBarcosAsginados < _cantidadMaximaDeBarcos)
+        if (NumeroDeBarcosAsignados < CantidadMaximaDeBarcos)
             throw new ArgumentException(JugadorMensajes.FaltaBarcosPorAsignar);
     }
 
@@ -70,19 +68,25 @@ public class Jugador
     {
         if (posicion.EjeX >= CasillaMaxima ||
             posicion.EjeY >= CasillaMaxima ||
-            posicion.EjeX < CasillaMinima ||
-            posicion.EjeY < CasillaMinima)
+            posicion.EjeX < 0 ||
+            posicion.EjeY < 0)
             throw new ArgumentException(JugadorMensajes.ElBarcoSeEncuentraFueraDelTablero);
     }
 
 
-    public bool TieneTodosLosBarcosAsginados() => NumeroDeBarcosAsginados == _cantidadMaximaDeBarcos;
+    public bool TieneTodosLosBarcosAsginados() => NumeroDeBarcosAsignados == CantidadMaximaDeBarcos;
 
     private void ValidarCantidadDeBarcosAsignadosPorTipo(Barco barco)
     {
-        if (_barcosAsignados[barco.Tipo] >= barco.CantidadBarcos)
+        if (ObtenerCantidadBarcosPorTipo(barco.Tipo) >= barco.CantidadBarcos)
             throw new ArgumentException(string.Format(JugadorMensajes.SoloSePuedeAsignarBarcosDeTipo,
                 barco.CantidadBarcos, barco.Tipo));
+    }
+
+    private int ObtenerCantidadBarcosPorTipo(TipoBarco tipo)
+    {
+        return _barcosAsignados
+            .Count(barco => barco.Tipo == tipo);
     }
 
     private void AsignarBarco(Barco barco)
@@ -94,9 +98,8 @@ public class Jugador
             else
                 Tablero[barco.Posicion.EjeX + indice, barco.Posicion.EjeY] = barco.Inicial;
         }
-
-        _barcosAsignados[barco.Tipo]++;
-        Barcos.Add(barco);
+        
+        _barcosAsignados.Add(barco);
     }
 
     public char RecibirDisparo(int x, int y)
@@ -131,7 +134,7 @@ public class Jugador
 
     public Barco? ObtenerBarco(int x, int y)
     {
-        return Barcos.FirstOrDefault(barco =>
+        return _barcosAsignados.FirstOrDefault(barco =>
             barco.ObtenerCoordenadas().Contains((x, y)));
     }
 
@@ -145,10 +148,10 @@ public class Jugador
                          "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
                          "-------------------------------------------| \n";
 
-        for (int columna = 0; columna < 10; columna++)
+        for (int columna = 0; columna < CasillaMaxima; columna++)
         {
             tablero += $" {columna} |";
-            for (int fila = 0; fila < 10; fila++)
+            for (int fila = 0; fila < CasillaMaxima; fila++)
                 tablero += $" {ObtenerCasilla(fila, columna)} |";
 
             tablero += " \n";
@@ -178,7 +181,7 @@ public class Jugador
             _cantidaDisparosFallidos,
             _cantidadDisparosAcerdos);
 
-        var barcos = Barcos
+        var barcos = _barcosAsignados
             .Where(barco => barco.EsDerribado())
             .Select(barco => string.Format("{0}: ({1},{2}).\n",
                 barco.Tipo, barco.Posicion.EjeX, barco.Posicion.EjeY))

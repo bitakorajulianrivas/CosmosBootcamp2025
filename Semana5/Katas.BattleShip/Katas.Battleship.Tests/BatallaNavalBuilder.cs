@@ -6,15 +6,15 @@ public class BatallaNavalBuilder
 
     public BatallaNavalBuilder AgregarJugador(string apodo)
     {
-        var jugador1 = new Jugador(apodo);
-        _batallaNaval.AgregarJugador(jugador1);
+        var jugador = new Jugador(apodo);
+        _batallaNaval.AgregarJugador(jugador);
         return this;
     }
 
     public BatallaNavalBuilder AgregarBarcosJugador1(Barco[] barcos)
     {
         foreach (var barco in barcos)
-            _batallaNaval.Jugador1.AgregarBarco(barco);
+            _batallaNaval.ObtenerJugadorActual().AgregarBarco(barco);
 
         return this;
     }
@@ -22,14 +22,8 @@ public class BatallaNavalBuilder
     public BatallaNavalBuilder AgregarBarcosJugador2(Barco[] barcos)
     {
         foreach (var barco in barcos)
-            _batallaNaval.Jugador2.AgregarBarco(barco);
+            _batallaNaval.ObtenerJugadorOponente().AgregarBarco(barco);
 
-        return this;
-    }
-
-    public BatallaNavalBuilder ValidarJugadores()
-    {
-        _batallaNaval.ValidarQueExistanDosJugadores();
         return this;
     }
 
