@@ -43,18 +43,34 @@ public class BatallaNavalTest
     }
 
     [Fact]
-    public void Si_inicioUnJuego_Debe_ExistirUnTableroParaCadaJugadorY2Jugadores()
+    public void Si_AgregoJugadores_Debe_ExistirUnTableroVacioParaCadaJugador()
     {
         var batallaNaval = new BatallaNavalBuilder()
             .AgregarJugador("Pollo")
             .AgregarJugador("Gato")
             .Construir();
 
-        batallaNaval.ObtenerJugadorActual().Tablero.Should().NotBeNull();
-        batallaNaval.ObtenerJugadorOponente().Tablero.Should().NotBeNull();
+        string tableroEsperado = "\n" +
+             "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+             "-------------------------------------------| \n" +
+             " 0 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 1 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 2 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 3 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 4 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 5 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 6 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 7 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+             " 9 |   |   |   |   |   |   |   |   |   |   | \n" +
+             "-------------------------------------------| \n" +
+             "\n";
 
-        batallaNaval.ObtenerJugadorActual().Should().NotBeNull();
-        batallaNaval.ObtenerJugadorOponente().Should().NotBeNull();
+        var tableroJugador1 = batallaNaval.Imprimir("Pollo");
+        var tableroJugador2 = batallaNaval.Imprimir("Gato");
+        
+        tableroJugador1.Should().Be(tableroEsperado);
+        tableroJugador2.Should().Be(tableroEsperado);
     }
 
     [Fact]
