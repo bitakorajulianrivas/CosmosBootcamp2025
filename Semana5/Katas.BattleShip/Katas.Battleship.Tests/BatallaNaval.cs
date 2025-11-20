@@ -11,7 +11,7 @@ public class BatallaNaval
     public Jugador Jugador1 { get; private set; }
     public Jugador Jugador2 { get; private set; }
 
-   
+
     public void AgregarJugador(Jugador jugador)
     {
         ValidarQueExistanSoloDosJugadores();
@@ -58,7 +58,7 @@ public class BatallaNaval
     {
         if (Jugador1.Apodo == apodo)
             return Jugador1;
-        
+
         return Jugador2;
     }
 
@@ -66,21 +66,24 @@ public class BatallaNaval
     {
         if (!_juegoIniciado)
             throw new ArgumentException(NoPuedeDispararSinIniciarElJuego);
-        
+
         char disparo = ObtenerJugadorOponente().RecibirDisparo(x, y);
         ObtenerJugadorActual().RegistrarDisparo(x, y, disparo);
 
         EstadoDisparo estadoDisparo = ObtenerJugadorOponente().ObtenerEstadoDisparo();
 
-        return estadoDisparo == EstadoDisparo.DisparoAcertado
-            ? $"Disparo acertado en la posicion ({x}, {y})"
-            : string.Format(MensajeDisparoFallido, x, y);
-
+        return estadoDisparo switch
+        {
+            EstadoDisparo.DisparoAcertado => $"Disparo acertado en la posicion ({x}, {y})",
+            EstadoDisparo.DisparoFallido => string.Format(MensajeDisparoFallido, x, y),
+            EstadoDisparo.BarcoHundido => "Se ha hundido el barco Guhship (0, 2)",
+            _ => throw new NotImplementedException()
+        };
     }
 
     public void FinalizarTurno() => _esTurnoPrincipal = !_esTurnoPrincipal;
 
-    public Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? Jugador1: Jugador2;
+    public Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? Jugador1 : Jugador2;
 
-    public Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? Jugador2: Jugador1;
+    public Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? Jugador2 : Jugador1;
 }

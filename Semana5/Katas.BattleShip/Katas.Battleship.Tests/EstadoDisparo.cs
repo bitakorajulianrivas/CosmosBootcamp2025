@@ -3,5 +3,6 @@
 public enum EstadoDisparo
 {
     DisparoFallido,
-    DisparoAcertado
+    DisparoAcertado,
+    BarcoHundido
 }

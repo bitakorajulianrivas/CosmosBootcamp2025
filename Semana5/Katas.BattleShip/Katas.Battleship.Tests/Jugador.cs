@@ -109,6 +109,10 @@ public class Jugador
             if(barco != null)
                 barco.Golpear();
             _disparo = EstadoDisparo.DisparoAcertado;
+            if (barco.EsDerribado())
+            {
+                _disparo = EstadoDisparo.BarcoHundido;
+            }
         }
         else
         {
