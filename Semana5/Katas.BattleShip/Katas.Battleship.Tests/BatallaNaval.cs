@@ -47,11 +47,12 @@ public class BatallaNaval
     {
         _esTurnoPrincipal = !_esTurnoPrincipal;
     }
-    public string Imprimir(string apodo, bool esReporte = false) => 
-        ObtenerJugador(apodo).Imprimir(esReporte);
-    
-    public Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? _jugadores[0] : _jugadores[1];
-    public Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? _jugadores[1] : _jugadores[0];
+    public string Imprimir(bool esReporte = false)
+    {
+        Jugador jugador = ObtenerJugadorActual();
+        
+        return jugador.Imprimir(esReporte);
+    }
     
     private void ValidarQueExistanDosJugadores()
     {
@@ -63,10 +64,8 @@ public class BatallaNaval
         if (_jugadores.Count == 2)
             throw new ArgumentException(BatallaNavalMensajes.SoloSePermitenJugadores);
     }
-    private Jugador ObtenerJugador(string apodo)
-    {
-        return _jugadores.First(jugador => jugador.Apodo == apodo);
-    }
+    private Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? _jugadores[0] : _jugadores[1];
+    private Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? _jugadores[1] : _jugadores[0];
     private string MostrarMensajeBarcoDerribado(int x, int y, EstadoDisparo estadoDisparo)
     {
         if (estadoDisparo == EstadoDisparo.BarcoHundido)
