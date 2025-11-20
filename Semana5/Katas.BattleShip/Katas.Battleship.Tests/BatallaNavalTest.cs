@@ -849,4 +849,38 @@ public class BatallaNavalTest
 
         mensaje.Should().Be("Disparo acertado en la posicion (1, 4)");
     }
+    
+    [Fact] 
+    public void Si_RealizoUnDisparoAcertadoHundiendoElBarco_Debe_RetornarMensajeBarcoHundido()
+    {
+        var batallaNaval = new BatallaNavalBuilder()
+            .AgregarJugador("Pollo")
+            .AgregarJugador("Gato")
+            .ValidarJugadores()
+            .AgregarBarcosJugador1([
+                Barco.Carrier(Posicion.Horizontal(1,1)),   
+                Barco.Destroyer(Posicion.Horizontal(2,2)), 
+                Barco.Destroyer(Posicion.Horizontal(3,3)), 
+                Barco.Gunship(Posicion.Horizontal(4,4)),   
+                Barco.Gunship(Posicion.Horizontal(5, 5)),  
+                Barco.Gunship(Posicion.Horizontal(6,6)),   
+                Barco.Gunship(Posicion.Horizontal(7,7)),   
+            ])
+            .AgregarBarcosJugador2([
+                Barco.Carrier(Posicion.Vertical(1,4)),   
+                Barco.Destroyer(Posicion.Horizontal(1,0)), 
+                Barco.Destroyer(Posicion.Vertical(8,1)), 
+                Barco.Gunship(Posicion.Horizontal(0,2)),   
+                Barco.Gunship(Posicion.Horizontal(0,9)),   
+                Barco.Gunship(Posicion.Horizontal(3,4)),   
+                Barco.Gunship(Posicion.Horizontal(6,7)),   
+            ])
+            .Construir();
+        
+        batallaNaval.Iniciar();
+        //Jugador 1
+        string mensaje = batallaNaval.Disparar(0, 2);
+
+        mensaje.Should().Be("Se ha hundido el barco Guhship (0, 2)");
+    }
 }
