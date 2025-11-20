@@ -6,6 +6,7 @@ public class BatallaNaval
     private bool _esTurnoPrincipal = true;
     private bool _juegoIniciado;
     
+    
     public void AgregarJugador(Jugador jugador)
     {
         ValidarQueNoPuedaAgregarMasDeDosJugadores();
@@ -53,6 +54,7 @@ public class BatallaNaval
         
         return jugador.Imprimir(esReporte);
     }
+    
     
     private void ValidarQueExistanDosJugadores()
     {

@@ -3,7 +3,6 @@
 public class Jugador
 {
     private const int CasillaMaxima = 10;
-
     private const int CantidadMaximaDeBarcos = 7;
     
     private const char CasillaPorDefecto = '\0';
@@ -13,20 +12,21 @@ public class Jugador
     private const char MarcaTiroFallido = 'o';
     
     private EstadoDisparo _disparo;
-    public string Apodo { get; private set; } 
-    private char[,] Tablero { get; set; }
-    private char[,] TableroDisparos { get; set; }
+    private readonly char[,] _tablero;
+    private readonly char[,] _tableroDisparos;
     
     private int _cantidadDisparosAcerdos;
     private int _cantidaDisparosFallidos;
     private readonly List<Barco> _barcosAsignados;
     
+    public string Apodo { get; private set; }
+    
     public Jugador(string apodo)
     {
         Apodo = apodo;
         _barcosAsignados = [];
-        Tablero = new char[CasillaMaxima, CasillaMaxima];
-        TableroDisparos = (char[,])Tablero.Clone();
+        _tablero = new char[CasillaMaxima, CasillaMaxima];
+        _tableroDisparos = (char[,])_tablero.Clone();
     }
     
     public void AgregarBarco(Barco barco)
@@ -61,7 +61,7 @@ public class Jugador
 
     private void ValidarSobreposicionDeBarcos(Posicion posicion)
     {
-        if (Tablero[posicion.EjeX, posicion.EjeY] != CasillaPorDefecto)
+        if (_tablero[posicion.EjeX, posicion.EjeY] != CasillaPorDefecto)
             throw new ArgumentException(JugadorMensajes.YaExisteBarcoEnLaPosiciónEnviada);
     }
     
@@ -83,9 +83,9 @@ public class Jugador
         for (int indice = 0; indice < barco.Tamanio; indice++)
         {
             if (barco.Posicion.EsVertical)
-                Tablero[barco.Posicion.EjeX, barco.Posicion.EjeY + indice] = barco.Inicial;
+                _tablero[barco.Posicion.EjeX, barco.Posicion.EjeY + indice] = barco.Inicial;
             else
-                Tablero[barco.Posicion.EjeX + indice, barco.Posicion.EjeY] = barco.Inicial;
+                _tablero[barco.Posicion.EjeX + indice, barco.Posicion.EjeY] = barco.Inicial;
         }
         
         _barcosAsignados.Add(barco);
@@ -97,7 +97,7 @@ public class Jugador
         {
             _cantidadDisparosAcerdos++;
 
-            Tablero[x, y] = MarcaTiroAcertado;
+            _tablero[x, y] = MarcaTiroAcertado;
             Barco? barco = ObtenerBarco(x, y);
             barco?.Golpear();
             _disparo = EstadoDisparo.DisparoAcertado;
@@ -107,17 +107,17 @@ public class Jugador
                 _disparo = EstadoDisparo.BarcoHundido;
 
                 foreach (var coordenada in barco.Coordenadas)
-                    Tablero[coordenada.x, coordenada.y] = MarcaBarcoHundido;
+                    _tablero[coordenada.x, coordenada.y] = MarcaBarcoHundido;
             }
         }
         else
         {
-            Tablero[x, y] = MarcaTiroFallido;
+            _tablero[x, y] = MarcaTiroFallido;
             _cantidaDisparosFallidos++;
             _disparo = EstadoDisparo.DisparoFallido;
         }
 
-        return Tablero[x, y];
+        return _tablero[x, y];
     }
 
     public Barco? ObtenerBarco(int x, int y)
@@ -128,17 +128,16 @@ public class Jugador
 
 
     public char RegistrarDisparo(int x, int y, char disparo) =>
-        TableroDisparos[x, y] = disparo;
+        _tableroDisparos[x, y] = disparo;
     
     private bool ExisteBarcoEn(int x, int y) =>
-        Tablero[x, y] != CasillaPorDefecto;
+        _tablero[x, y] != CasillaPorDefecto;
     
     public bool TieneDisparo(int x, int y)
     {
-        return TableroDisparos[x, y] != CasillaPorDefecto;
+        return _tableroDisparos[x, y] != CasillaPorDefecto;
     }
     
-
     public string Imprimir(bool esReporte = false)
     {
         if (esReporte)
@@ -162,9 +161,9 @@ public class Jugador
             
             for (int fila = 0; fila < filas; fila++)
             {
-                var casilla = Tablero[fila, columna] == CasillaPorDefecto 
+                var casilla = _tablero[fila, columna] == CasillaPorDefecto 
                     ? MarcaCasillaVacia 
-                    : Tablero[fila, columna];
+                    : _tablero[fila, columna];
                 
                 tablero += $" {casilla} |";
             }
