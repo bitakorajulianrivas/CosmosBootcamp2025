@@ -11,29 +11,16 @@ public class Jugador
     private const char MarcaBarcoHundido = 'X';
     private const char MarcaTiroAcertado = 'x';
     private const char MarcaTiroFallido = 'o';
-
-
     
     private EstadoDisparo _disparo;
-    public string Apodo { get; private set; }
+    public string Apodo { get; private set; } 
     public char[,] Tablero { get; set; }
     public char[,] TableroDisparos { get; set; }
     
-    private readonly List<Barco> _barcosAsignados;
     private int _cantidadDisparosAcerdos;
     private int _cantidaDisparosFallidos;
-    private int CantidadDisparosTotales => 
-        _cantidadDisparosAcerdos + _cantidaDisparosFallidos;
-
-    public EstadoDisparo ObtenerEstadoDisparo()
-    {
-        return _disparo;
-    }
-
-    private int NumeroDeBarcosAsignados => _barcosAsignados.Count;
-
-
-
+    private readonly List<Barco> _barcosAsignados;
+    
     public Jugador(string apodo)
     {
         Apodo = apodo;
@@ -41,8 +28,7 @@ public class Jugador
         Tablero = new char[CasillaMaxima, CasillaMaxima];
         TableroDisparos = (char[,])Tablero.Clone();
     }
-
-
+    
     public void AgregarBarco(Barco barco)
     {
         ValidarBordesDelTablero(barco.Posicion);
@@ -54,15 +40,11 @@ public class Jugador
 
     public void ValidarQueExistanSieteBarcosAsignadosPorTablero()
     {
-        if (NumeroDeBarcosAsignados < CantidadMaximaDeBarcos)
+        if (_barcosAsignados.Count < CantidadMaximaDeBarcos)
             throw new ArgumentException(JugadorMensajes.FaltaBarcosPorAsignar);
     }
 
-    private void ValidarSobreposicionDeBarcos(Posicion posicion)
-    {
-        if (Tablero[posicion.EjeX, posicion.EjeY] != CasillaPorDefecto)
-            throw new ArgumentException(JugadorMensajes.YaExisteBarcoEnLaPosiciónEnviada);
-    }
+
 
     private static void ValidarBordesDelTablero(Posicion posicion)
     {
@@ -73,9 +55,16 @@ public class Jugador
             throw new ArgumentException(JugadorMensajes.ElBarcoSeEncuentraFueraDelTablero);
     }
 
+    public EstadoDisparo ObtenerEstadoDisparo() => _disparo;
+    
+    public bool TieneTodosLosBarcosAsginados() => _barcosAsignados.Count == CantidadMaximaDeBarcos;
 
-    public bool TieneTodosLosBarcosAsginados() => NumeroDeBarcosAsignados == CantidadMaximaDeBarcos;
-
+    private void ValidarSobreposicionDeBarcos(Posicion posicion)
+    {
+        if (Tablero[posicion.EjeX, posicion.EjeY] != CasillaPorDefecto)
+            throw new ArgumentException(JugadorMensajes.YaExisteBarcoEnLaPosiciónEnviada);
+    }
+    
     private void ValidarCantidadDeBarcosAsignadosPorTipo(Barco barco)
     {
         if (ObtenerCantidadBarcosPorTipo(barco.Tipo) >= barco.CantidadBarcos)
@@ -110,11 +99,10 @@ public class Jugador
 
             Tablero[x, y] = MarcaTiroAcertado;
             Barco? barco = ObtenerBarco(x, y);
-            if (barco != null)
-                barco.Golpear();
+            barco?.Golpear();
             _disparo = EstadoDisparo.DisparoAcertado;
 
-            if (barco.EsDerribado())
+            if (barco!.EsDerribado())
             {
                 _disparo = EstadoDisparo.BarcoHundido;
 
@@ -141,18 +129,45 @@ public class Jugador
 
     public char RegistrarDisparo(int x, int y, char disparo) =>
         TableroDisparos[x, y] = disparo;
-
-    public string ImprimirTablero()
+    
+    private bool ExisteBarcoEn(int x, int y) =>
+        Tablero[x, y] != CasillaPorDefecto;
+    
+    public bool TieneDisparo(int x, int y)
     {
+        return TableroDisparos[x, y] != CasillaPorDefecto;
+    }
+    
+
+    public string Imprimir(bool esReporte = false)
+    {
+        if (esReporte)
+            return ImprimirReporte();
+        return ImprimirTablero();
+    }
+
+    private string ImprimirTablero()
+    {
+        int columnas = CasillaMaxima;
+        int filas = CasillaMaxima;
+        
         string tablero = "\n" +
                          "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
                          "-------------------------------------------| \n";
 
-        for (int columna = 0; columna < CasillaMaxima; columna++)
+        for (int columna = 0; columna < columnas; columna++)
         {
+            
             tablero += $" {columna} |";
-            for (int fila = 0; fila < CasillaMaxima; fila++)
-                tablero += $" {ObtenerCasilla(fila, columna)} |";
+            
+            for (int fila = 0; fila < filas; fila++)
+            {
+                var casilla = Tablero[fila, columna] == CasillaPorDefecto 
+                    ? MarcaCasillaVacia 
+                    : Tablero[fila, columna];
+                
+                tablero += $" {casilla} |";
+            }
 
             tablero += " \n";
         }
@@ -163,21 +178,14 @@ public class Jugador
 
         return tablero;
     }
-
-    private char ObtenerCasilla(int fila, int columna)
+    
+    private string ImprimirReporte()
     {
-        return Tablero[fila, columna] == CasillaPorDefecto ? MarcaCasillaVacia : Tablero[fila, columna];
-    }
-
-    private bool ExisteBarcoEn(int x, int y) =>
-        Tablero[x, y] != CasillaPorDefecto;
-
-
-    public string ObtenerInforme()
-    {
+        int disparosTotales = _cantidadDisparosAcerdos + _cantidaDisparosFallidos;
+        
         var resultado = string.Format(
             "Total disparos: {0}.\n" + "Perdidos: {1}.\n" + "Acertados: {2}.\n",
-            CantidadDisparosTotales,
+            disparosTotales,
             _cantidaDisparosFallidos,
             _cantidadDisparosAcerdos);
 
@@ -197,8 +205,5 @@ public class Jugador
         return resultado + informeBarcosDerribados;
     }
 
-    public bool TieneDisparo(int x, int y)
-    {
-        return TableroDisparos[x, y] != CasillaPorDefecto;
-    }
+
 }

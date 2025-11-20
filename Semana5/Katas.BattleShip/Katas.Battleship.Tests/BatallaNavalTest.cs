@@ -683,7 +683,7 @@ public class BatallaNavalTest
             "Perdidos: 0.\n" +
             "Acertados: 2.\n";
 
-        batallaNaval.ObtenerInformePorJugador("Pollo").Should().Be(informeEsperado);
+        batallaNaval.Imprimir("Pollo", esReporte: true).Should().Be(informeEsperado);
     }
 
     [Fact]
@@ -731,7 +731,7 @@ public class BatallaNavalTest
             "Perdidos: 2.\n" +
             "Acertados: 0.\n";
 
-        batallaNaval.ObtenerInformePorJugador("Pollo").Should().Be(informeEsperado);
+        batallaNaval.Imprimir("Pollo", esReporte: true).Should().Be(informeEsperado);
     }
 
     [Fact]
@@ -795,7 +795,7 @@ public class BatallaNavalTest
             "Gunship: (0,2).\n" +
             "]";
 
-        batallaNaval.ObtenerInformePorJugador("Gato").Should().Be(informeEsperado);
+        batallaNaval.Imprimir("Gato", esReporte:true).Should().Be(informeEsperado);
     }
 
     [Fact]

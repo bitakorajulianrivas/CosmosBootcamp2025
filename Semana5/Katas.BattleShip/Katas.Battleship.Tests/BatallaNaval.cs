@@ -2,18 +2,10 @@
 
 public class BatallaNaval
 {
+    private readonly List<Jugador> _jugadores = [];
     private bool _esTurnoPrincipal = true;
     private bool _juegoIniciado;
-    private const string NoEstanLosJugadoresConfigurados = "No Estan los Jugadores Configurados.";
-    private const string SoloSePermitenJugadores = "Solo se permiten 2 jugadores.";
-    private const string NoPuedeDispararSinIniciarElJuego = "No puede disparar sin iniciar el juego.";
-    private const string MensajeDisparoFallido = "Disparo fallido en la posicion ({0}, {1})";
-    private const string MensajeDisparoAcertado = "Disparo acertado en la posicion ({0}, {1})";
-    private const string NoPuedeDispararEnUnaMismaPosición = "No puede disparar en una misma posición.";
-
-    private readonly List<Jugador> _jugadores = [];
     
-   
     public void AgregarJugador(Jugador jugador)
     {
         ValidarQueNoPuedaAgregarMasDeDosJugadores();
@@ -23,18 +15,20 @@ public class BatallaNaval
     public void Iniciar()
     {
         ValidarQueExistanDosJugadores();
-        _jugadores[0].ValidarQueExistanSieteBarcosAsignadosPorTablero();
-        _jugadores[1].ValidarQueExistanSieteBarcosAsignadosPorTablero();
+        ObtenerJugadorActual()
+            .ValidarQueExistanSieteBarcosAsignadosPorTablero();
+        ObtenerJugadorOponente()
+            .ValidarQueExistanSieteBarcosAsignadosPorTablero();
+        
         _juegoIniciado = true;
-        _esTurnoPrincipal = true;
     }
     public string Disparar(int x, int y)
     {
         if (!_juegoIniciado)
-            throw new ArgumentException(NoPuedeDispararSinIniciarElJuego);
+            throw new ArgumentException(BatallaNavalMensajes.NoPuedeDispararSinIniciarElJuego);
 
         if (ObtenerJugadorActual().TieneDisparo(x, y))
-            throw new ArgumentException(NoPuedeDispararEnUnaMismaPosición);
+            throw new ArgumentException(BatallaNavalMensajes.NoPuedeDispararEnUnaMismaPosición);
 
         char disparo = ObtenerJugadorOponente().RecibirDisparo(x, y);
         ObtenerJugadorActual().RegistrarDisparo(x, y, disparo);
@@ -43,8 +37,8 @@ public class BatallaNaval
 
         return estadoDisparo switch
         {
-            EstadoDisparo.DisparoAcertado => string.Format(MensajeDisparoAcertado, x, y),
-            EstadoDisparo.DisparoFallido => string.Format(MensajeDisparoFallido, x, y),
+            EstadoDisparo.DisparoAcertado => string.Format(BatallaNavalMensajes.MensajeDisparoAcertado, x, y),
+            EstadoDisparo.DisparoFallido => string.Format(BatallaNavalMensajes.MensajeDisparoFallido, x, y),
             EstadoDisparo.BarcoHundido => MostrarMensajeBarcoDerribado(x, y, estadoDisparo),
             _ => throw new NotImplementedException()
         };
@@ -53,28 +47,21 @@ public class BatallaNaval
     {
         _esTurnoPrincipal = !_esTurnoPrincipal;
     }
-    public string Imprimir(string apodo)
-    {
-        Jugador jugador = ObtenerJugador(apodo);
-
-        return jugador.ImprimirTablero();
-    }
-    public string ObtenerInformePorJugador(string apodo)
-    {
-        return ObtenerJugador(apodo).ObtenerInforme();
-    }
+    public string Imprimir(string apodo, bool esReporte = false) => 
+        ObtenerJugador(apodo).Imprimir(esReporte);
+    
     public Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? _jugadores[0] : _jugadores[1];
     public Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? _jugadores[1] : _jugadores[0];
     
     private void ValidarQueExistanDosJugadores()
     {
         if (_jugadores.Count < 2)
-            throw new ArgumentException(NoEstanLosJugadoresConfigurados);
+            throw new ArgumentException(BatallaNavalMensajes.NoEstanLosJugadoresConfigurados);
     }
     private void ValidarQueNoPuedaAgregarMasDeDosJugadores()
     {
         if (_jugadores.Count == 2)
-            throw new ArgumentException(SoloSePermitenJugadores);
+            throw new ArgumentException(BatallaNavalMensajes.SoloSePermitenJugadores);
     }
     private Jugador ObtenerJugador(string apodo)
     {
