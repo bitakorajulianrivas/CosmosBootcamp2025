@@ -4,7 +4,8 @@ public class Reporte(char[,] tablero, int disparosAcertados, int disparosFallido
 {
     private const char SaltoDeLinea = '\n';
     private const string Separador = "-------------------------------------------|";
-    
+    private const string MensajeTotalDisparos = "Total disparos: {0}.\n" + "Perdidos: {1}.\n" + "Acertados: {2}.\n";
+
     private readonly string _tablaEncabezado = 
         SaltoDeLinea + 
         "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | " + SaltoDeLinea +
@@ -47,9 +48,7 @@ public class Reporte(char[,] tablero, int disparosAcertados, int disparosFallido
     {
         int disparosTotales = disparosAcertados + disparosFallidos;
         
-        var resultado = string.Format(
-            "Total disparos: {0}.\n" + "Perdidos: {1}.\n" + "Acertados: {2}.\n",
-            disparosTotales, disparosFallidos, disparosAcertados);
+        var resultado = string.Format(MensajeTotalDisparos, disparosTotales, disparosFallidos, disparosAcertados);
 
         var barcos = barcosDerribados
             .Select(barco => barco.ToString())
