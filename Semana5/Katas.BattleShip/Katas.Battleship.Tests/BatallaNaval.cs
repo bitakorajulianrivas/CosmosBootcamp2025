@@ -9,6 +9,7 @@ public class BatallaNaval
     private const string NoPuedeDispararSinIniciarElJuego = "No puede disparar sin iniciar el juego.";
     private const string MensajeDisparoFallido = "Disparo fallido en la posicion ({0}, {1})";
     private const string MensajeDisparoAcertado = "Disparo acertado en la posicion ({0}, {1})";
+    private const string NoPuedeDispararEnUnaMismaPosición = "No puede disparar en una misma posición.";
     public Jugador Jugador1 { get; private set; }
     public Jugador Jugador2 { get; private set; }
 
@@ -69,7 +70,7 @@ public class BatallaNaval
             throw new ArgumentException(NoPuedeDispararSinIniciarElJuego);
 
         if (ObtenerJugadorActual().TieneDisparo(x, y))
-            throw new ArgumentException("No puede disparar en una misma posición.");
+            throw new ArgumentException(NoPuedeDispararEnUnaMismaPosición);
 
         char disparo = ObtenerJugadorOponente().RecibirDisparo(x, y);
         ObtenerJugadorActual().RegistrarDisparo(x, y, disparo);
