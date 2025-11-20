@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Katas.Battleship.Tests", "K
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Katas.Battleship.Core", "Katas.Battleship.Core\Katas.Battleship.Core.csproj", "{858E64F9-18E0-48F0-B785-1C05E891BB42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Katas.Battleship.Console", "Katas.Battleship.Console\Katas.Battleship.Console.csproj", "{0878202D-D84F-403B-9283-EE5E919DA766}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{858E64F9-18E0-48F0-B785-1C05E891BB42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{858E64F9-18E0-48F0-B785-1C05E891BB42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{858E64F9-18E0-48F0-B785-1C05E891BB42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0878202D-D84F-403B-9283-EE5E919DA766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0878202D-D84F-403B-9283-EE5E919DA766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0878202D-D84F-403B-9283-EE5E919DA766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0878202D-D84F-403B-9283-EE5E919DA766}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

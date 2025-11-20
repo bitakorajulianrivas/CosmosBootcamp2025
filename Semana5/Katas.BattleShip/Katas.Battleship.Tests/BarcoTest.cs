@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Katas.Battleship.Core;
 
 namespace Katas.Battleship.Tests;
 

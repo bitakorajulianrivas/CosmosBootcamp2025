@@ -1,4 +1,4 @@
-﻿namespace Katas.Battleship.Tests;
+﻿namespace Katas.Battleship.Core;
 
 public class BatallaNaval
 {
