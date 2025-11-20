@@ -61,13 +61,15 @@ public class BatallaNaval
         return Jugador2;
     }
 
-    public void Disparar(int x, int y)
+    public string Disparar(int x, int y)
     {
         if (!_juegoIniciado)
             throw new ArgumentException(NoPuedeDispararSinIniciarElJuego);
         
         char disparo = ObtenerJugadorOponente().RecibirDisparo(x, y);
         ObtenerJugadorActual().RegistrarDisparo(x, y, disparo);
+        
+        return string.Empty;
     }
 
     public void FinalizarTurno() => _esTurnoPrincipal = !_esTurnoPrincipal;
