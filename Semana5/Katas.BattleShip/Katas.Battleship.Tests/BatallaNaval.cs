@@ -5,7 +5,7 @@ public class BatallaNaval
     private readonly List<Jugador> _jugadores = [];
     private bool _esTurnoPrincipal = true;
     private bool _juegoIniciado;
-    
+    private bool _juegoFinalizado;
     
     public void AgregarJugador(Jugador jugador)
     {
@@ -46,18 +46,20 @@ public class BatallaNaval
     }
     public void FinalizarTurno()
     {
-        if (ObtenerJugadorActual().TieneTodosLosBarcosDerribados())
-            _juegoIniciado = false;
+        if (ObtenerJugadorOponente().TieneTodosLosBarcosDerribados())
+            _juegoFinalizado = true;
         
         _esTurnoPrincipal = !_esTurnoPrincipal;
     }
     public string Imprimir(bool esReporte = false)
     {
-        Jugador jugador = ObtenerJugadorActual();
+        if (_juegoFinalizado)
+            return ObtenerJugadorActual().Imprimir(esReporte: true) +
+                   ObtenerJugadorActual().Imprimir(esReporte: false) +
+                   ObtenerJugadorOponente().Imprimir(esReporte: true) +
+                   ObtenerJugadorOponente().Imprimir(esReporte: false);
         
-        bool juegoFinalizado = !_juegoIniciado;
-
-        return jugador.Imprimir(esReporte);
+        return ObtenerJugadorActual().Imprimir(esReporte);
     }
     
     

@@ -16,7 +16,6 @@ public class Jugador
     private int _cantidadDisparosAcertados;
     private int _cantidaDisparosFallidos;
     private readonly List<Barco> _barcosAsignados;
-    private readonly Reporte _reporte;
 
     public string Apodo { get; private set; }
     

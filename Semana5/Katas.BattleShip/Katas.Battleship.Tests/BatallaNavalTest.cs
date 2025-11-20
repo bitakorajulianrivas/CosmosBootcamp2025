@@ -1182,23 +1182,63 @@ public class BatallaNavalTest
         //Jugador 1 Hundió Gunship
         batallaNaval.Disparar(6, 7);
         batallaNaval.FinalizarTurno();
-        
-        string informeEsperado = "\n" +
-                     "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
-                     "-------------------------------------------| \n" +
-                     " 0 |   | X | X | X |   |   |   |   |   |   | \n" +
-                     " 1 |   |   |   |   |   |   |   |   | X |   | \n" +
-                     " 2 | X |   |   |   |   |   |   |   | X |   | \n" +
-                     " 3 |   |   |   |   |   |   |   |   | X |   | \n" +
-                     " 4 |   | X |   | X |   |   |   |   |   |   | \n" +
-                     " 5 |   | X |   |   |   |   |   |   |   |   | \n" +
-                     " 6 |   | X |   |   |   |   |   |   |   |   | \n" +
-                     " 7 |   | X |   |   |   |   | X |   |   |   | \n" +
-                     " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
-                     " 9 | X |   |   |   |   |   |   |   |   |   | \n" +
-                     "-------------------------------------------| \n" +
-                     "\n";
 
-        batallaNaval.Imprimir(esReporte: true).Should().Be(informeEsperado);
+        string reporteEsperadoJugador1 =
+            "Total disparos: 14.\n" +
+            "Perdidos: 0.\n" +
+            "Acertados: 14.\n" +
+            "Barcos derribados: [" +
+            "Carrier: (1,4).\n" +
+            "Destroyer: (1,0).\n" +
+            "Destroyer: (8,1).\n" +
+            "Gunship: (0,2).\n" +
+            "Gunship: (0,9).\n" +
+            "Gunship: (3,4).\n" +
+            "Gunship: (6,7).\n" +
+            "]";
+
+        string tableroEsperadoJugador1 = "\n" +
+                                         "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+                                         "-------------------------------------------| \n" +
+                                         " 0 |   | X | X | X |   |   |   |   |   |   | \n" +
+                                         " 1 |   |   |   |   |   |   |   |   | X |   | \n" +
+                                         " 2 | X |   |   |   |   |   |   |   | X |   | \n" +
+                                         " 3 |   |   |   |   |   |   |   |   | X |   | \n" +
+                                         " 4 |   | X |   | X |   |   |   |   |   |   | \n" +
+                                         " 5 |   | X |   |   |   |   |   |   |   |   | \n" +
+                                         " 6 |   | X |   |   |   |   |   |   |   |   | \n" +
+                                         " 7 |   | X |   |   |   |   | X |   |   |   | \n" +
+                                         " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                         " 9 | X |   |   |   |   |   |   |   |   |   | \n" +
+                                         "-------------------------------------------| \n" +
+                                         "\n";
+
+        string reporteEsperadoJugador2 =
+            "Total disparos: 13.\n" +
+            "Perdidos: 10.\n" +
+            "Acertados: 3.\n";
+
+        string tableroEsperadoJugador2 = "\n" +
+                                         "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+                                         "-------------------------------------------| \n" +
+                                         " 0 |   |   | o |   |   |   |   |   |   |   | \n" +
+                                         " 1 |   | x | x | C | C |   |   |   |   |   | \n" +
+                                         " 2 |   | o | x | D | D |   |   |   |   |   | \n" +
+                                         " 3 |   | o | o | D | D | D |   |   |   |   | \n" +
+                                         " 4 |   | o |   |   | G |   |   |   |   |   | \n" +
+                                         " 5 |   | o |   |   |   | G |   |   |   |   | \n" +
+                                         " 6 |   | o |   |   |   |   | G |   |   |   | \n" +
+                                         " 7 |   | o |   |   |   |   |   | G |   |   | \n" +
+                                         " 8 |   | o |   |   |   |   |   |   |   |   | \n" +
+                                         " 9 |   | o |   |   |   |   |   |   |   |   | \n" +
+                                         "-------------------------------------------| \n" +
+                                         "\n";
+
+        string informeEsperado = reporteEsperadoJugador1 +
+                                 tableroEsperadoJugador1 +
+                                 reporteEsperadoJugador2 +
+                                 tableroEsperadoJugador2;
+
+        batallaNaval.Imprimir().Should().Be(informeEsperado);
     }
 }
