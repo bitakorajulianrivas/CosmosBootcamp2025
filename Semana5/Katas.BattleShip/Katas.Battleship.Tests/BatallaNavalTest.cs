@@ -508,7 +508,30 @@ public class BatallaNavalTest
         batallaNaval.Disparar(0, 0);
 
         batallaNaval.ObtenerJugadorOponente().Tablero[0, 0].Should().Be('o');
-        batallaNaval.ObtenerJugadorActual().TableroDisparos[0, 0].Should().Be('o');
+        
+        
+        string tableroEsperado = "\n" +
+                                 "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+                                 "-------------------------------------------| \n" +
+                                 " 0 | o | D | D | D |   |   |   |   |   |   | \n" +
+                                 " 1 |   |   |   |   |   |   |   |   | D |   | \n" +
+                                 " 2 | G |   |   |   |   |   |   |   | D |   | \n" +
+                                 " 3 |   |   |   |   |   |   |   |   | D |   | \n" +
+                                 " 4 |   | C |   | G |   |   |   |   |   |   | \n" +
+                                 " 5 |   | C |   |   |   |   |   |   |   |   | \n" +
+                                 " 6 |   | C |   |   |   |   |   |   |   |   | \n" +
+                                 " 7 |   | C |   |   |   |   | G |   |   |   | \n" +
+                                 " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 9 | G |   |   |   |   |   |   |   |   |   | \n" +
+                                 "-------------------------------------------| \n" +
+                                 "\n";
+
+
+        string tablero = batallaNaval.Imprimir("Gato");
+
+        tablero.Should().Be(tableroEsperado);
+        
+      
     }
 
     [Fact]
@@ -581,7 +604,30 @@ public class BatallaNavalTest
         batallaNaval.Disparar(1, 4);
 
         batallaNaval.ObtenerJugadorOponente().Tablero[1, 4].Should().Be('x');
-        batallaNaval.ObtenerJugadorActual().TableroDisparos[1, 4].Should().Be('x');
+    
+         
+        string tableroEsperado = "\n" +
+                                 "   | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | \n" +
+                                 "-------------------------------------------| \n" +
+                                 " 0 |   | D | D | D |   |   |   |   |   |   | \n" +
+                                 " 1 |   |   |   |   |   |   |   |   | D |   | \n" +
+                                 " 2 | G |   |   |   |   |   |   |   | D |   | \n" +
+                                 " 3 |   |   |   |   |   |   |   |   | D |   | \n" +
+                                 " 4 |   | x |   | G |   |   |   |   |   |   | \n" +
+                                 " 5 |   | C |   |   |   |   |   |   |   |   | \n" +
+                                 " 6 |   | C |   |   |   |   |   |   |   |   | \n" +
+                                 " 7 |   | C |   |   |   |   | G |   |   |   | \n" +
+                                 " 8 |   |   |   |   |   |   |   |   |   |   | \n" +
+                                 " 9 | G |   |   |   |   |   |   |   |   |   | \n" +
+                                 "-------------------------------------------| \n" +
+                                 "\n";
+
+
+        string tablero = batallaNaval.Imprimir("Gato");
+
+        tablero.Should().Be(tableroEsperado);
+
+        
     }
 
     [Fact]
