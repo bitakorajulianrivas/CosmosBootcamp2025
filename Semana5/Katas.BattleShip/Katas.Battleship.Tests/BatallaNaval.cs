@@ -69,7 +69,7 @@ public class BatallaNaval
         char disparo = ObtenerJugadorOponente().RecibirDisparo(x, y);
         ObtenerJugadorActual().RegistrarDisparo(x, y, disparo);
         
-        return string.Empty;
+        return $"Disparo fallido en la posicion ({x}, {y})";
     }
 
     public void FinalizarTurno() => _esTurnoPrincipal = !_esTurnoPrincipal;
