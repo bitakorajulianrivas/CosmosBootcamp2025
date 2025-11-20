@@ -28,12 +28,6 @@ public class BatallaNaval
         _juegoIniciado = true;
         _esTurnoPrincipal = true;
     }
-    public string Imprimir(string apodo)
-    {
-        Jugador jugador = ObtenerJugador(apodo);
-
-        return jugador.ImprimirTablero();
-    }
     public string Disparar(int x, int y)
     {
         if (!_juegoIniciado)
@@ -55,13 +49,28 @@ public class BatallaNaval
             _ => throw new NotImplementedException()
         };
     }
+    public void FinalizarTurno()
+    {
+        _esTurnoPrincipal = !_esTurnoPrincipal;
+    }
+    public string Imprimir(string apodo)
+    {
+        Jugador jugador = ObtenerJugador(apodo);
+
+        return jugador.ImprimirTablero();
+    }
+    public string ObtenerInformePorJugador(string apodo)
+    {
+        return ObtenerJugador(apodo).ObtenerInforme();
+    }
+    public Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? _jugadores[0] : _jugadores[1];
+    public Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? _jugadores[1] : _jugadores[0];
     
     private void ValidarQueExistanDosJugadores()
     {
         if (_jugadores.Count < 2)
             throw new ArgumentException(NoEstanLosJugadoresConfigurados);
     }
-    
     private void ValidarQueNoPuedaAgregarMasDeDosJugadores()
     {
         if (_jugadores.Count == 2)
@@ -71,7 +80,6 @@ public class BatallaNaval
     {
         return _jugadores.First(jugador => jugador.Apodo == apodo);
     }
-    
     private string MostrarMensajeBarcoDerribado(int x, int y, EstadoDisparo estadoDisparo)
     {
         if (estadoDisparo == EstadoDisparo.BarcoHundido)
@@ -84,16 +92,5 @@ public class BatallaNaval
         }
 
         return string.Empty;
-    }
-
-    public void FinalizarTurno() => _esTurnoPrincipal = !_esTurnoPrincipal;
-
-    public Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? _jugadores[0] : _jugadores[1];
-
-    public Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? _jugadores[1] : _jugadores[0];
-
-    public string ObtenerInformePorJugador(string apodo)
-    {
-        return ObtenerJugador(apodo).ObtenerInforme();
     }
 }
