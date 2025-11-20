@@ -88,15 +88,15 @@ public class BatallaNaval
 
     private string MostrarMensajeBarcoDerribado(int x, int y, EstadoDisparo estadoDisparo)
     {
-        if(estadoDisparo == EstadoDisparo.BarcoHundido)
+        if (estadoDisparo == EstadoDisparo.BarcoHundido)
         {
-            Barco? barcoDerribado = ObtenerJugadorOponente().ObtenerBarco(x,y);
-            
+            Barco? barcoDerribado = ObtenerJugadorOponente().ObtenerBarco(x, y);
+
             return $"Se ha hundido el barco {barcoDerribado?.Tipo} " +
-                                           $"({barcoDerribado?.Posicion.EjeX}, " +
-                                           $"{barcoDerribado?.Posicion.EjeY})";
+                   $"({barcoDerribado?.Posicion.EjeX}, " +
+                   $"{barcoDerribado?.Posicion.EjeY})";
         }
-        
+
         return string.Empty;
     }
 
