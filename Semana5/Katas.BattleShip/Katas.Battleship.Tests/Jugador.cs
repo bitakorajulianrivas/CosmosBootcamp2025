@@ -112,6 +112,7 @@ public class Jugador
             if (barco.EsDerribado())
             {
                 _disparo = EstadoDisparo.BarcoHundido;
+                
             }
         }
         else
@@ -124,7 +125,7 @@ public class Jugador
         return Tablero[x, y];
     }
 
-    private Barco? ObtenerBarco(int x, int y)
+    public Barco? ObtenerBarco(int x, int y)
     {
         return Barcos.FirstOrDefault(barco =>
             barco.ObtenerCoordenadas().Contains((x, y)));

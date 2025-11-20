@@ -8,6 +8,7 @@ public class BatallaNaval
     private const string SoloSePermitenJugadores = "Solo se permiten 2 jugadores.";
     private const string NoPuedeDispararSinIniciarElJuego = "No puede disparar sin iniciar el juego.";
     private const string MensajeDisparoFallido = "Disparo fallido en la posicion ({0}, {1})";
+    private const string MensajeDisparoAcertado = "Disparo acertado en la posicion ({0}, {1})";
     public Jugador Jugador1 { get; private set; }
     public Jugador Jugador2 { get; private set; }
 
@@ -74,11 +75,25 @@ public class BatallaNaval
 
         return estadoDisparo switch
         {
-            EstadoDisparo.DisparoAcertado => $"Disparo acertado en la posicion ({x}, {y})",
+            EstadoDisparo.DisparoAcertado => string.Format(MensajeDisparoAcertado, x, y),
             EstadoDisparo.DisparoFallido => string.Format(MensajeDisparoFallido, x, y),
-            EstadoDisparo.BarcoHundido => "Se ha hundido el barco Guhship (0, 2)",
+            EstadoDisparo.BarcoHundido => MostrarMensajeBarcoDerribado(x, y, estadoDisparo),
             _ => throw new NotImplementedException()
         };
+    }
+
+    private string MostrarMensajeBarcoDerribado(int x, int y, EstadoDisparo estadoDisparo)
+    {
+        if(estadoDisparo == EstadoDisparo.BarcoHundido)
+        {
+            Barco? barcoDerribado = ObtenerJugadorOponente().ObtenerBarco(x,y);
+            
+            return $"Se ha hundido el barco {barcoDerribado?.Tipo} " +
+                                           $"({barcoDerribado?.Posicion.EjeX}, " +
+                                           $"{barcoDerribado?.Posicion.EjeY})";
+        }
+        
+        return string.Empty;
     }
 
     public void FinalizarTurno() => _esTurnoPrincipal = !_esTurnoPrincipal;
