@@ -22,7 +22,7 @@ public class Jugador
     
     public Jugador(string apodo)
     {
-        if (apodo == null)
+        if (apodo == null || apodo == "")
             throw new ArgumentException(ElNicknameEsRequerido);
         Apodo = apodo;
         _barcosAsignados = [];
