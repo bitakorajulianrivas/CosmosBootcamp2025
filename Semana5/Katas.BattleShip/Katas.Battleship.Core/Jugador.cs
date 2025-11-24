@@ -8,7 +8,7 @@ public class Jugador
     private const char MarcaBarcoHundido = 'X';
     private const char MarcaTiroAcertado = 'x';
     private const char MarcaTiroFallido = 'o';
-    private const string? ElNicknameEsRequerido = "El nickname es requerido.";
+    private const string? ElApodoEsRequerido = "El apodo es requerido.";
 
     private EstadoDisparo _disparo;
     private readonly char[,] _tablero;
@@ -22,14 +22,20 @@ public class Jugador
     
     public Jugador(string apodo)
     {
-        if (apodo == null || apodo == "")
-            throw new ArgumentException(ElNicknameEsRequerido);
+        ValidarQueElApodoSeaRequerido(apodo);
+        
         Apodo = apodo;
         _barcosAsignados = [];
         _tablero = new char[CasillaMaxima, CasillaMaxima];
         _tableroDisparos = (char[,])_tablero.Clone();
     }
-    
+
+    private static void ValidarQueElApodoSeaRequerido(string apodo)
+    {
+        if (string.IsNullOrEmpty(apodo))
+            throw new ArgumentException(ElApodoEsRequerido);
+    }
+
     public void AgregarBarco(Barco barco)
     {
         ValidarBordesDelTablero(barco);
