@@ -1,144 +1,207 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System.Reflection;
+﻿using System.Reflection;
 using Katas.Battleship.Core;
 
-string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "Title.txt");
+MostrarIntro();
+var batalla = PrepararPartida();
+IniciarPartida(batalla);
+return;
 
-Console.Clear();
-Console.WriteLine(File.ReadAllText(path));
-Console.ReadKey();
-Console.Clear();
-// BatallaNavalBuilder builder = new BatallaNavalBuilder();
-// Jugador jugador1 = CrearJugador(esPrimero: true);
-// Console.WriteLine("---------------------------------------------------------------------------");
-// CrearJugadorConBarcos(jugador1);
-// Console.WriteLine("---------------------------------------------------------------------------");
-// Jugador jugador2 = CrearJugador(esPrimero: false);
-// Console.WriteLine("---------------------------------------------------------------------------");
-// CrearJugadorConBarcos(jugador2);
-//
-// var batalla = builder
-//     .AgregarJugador(jugador1)
-//     .AgregarJugador(jugador2)
-//     .Construir();
-
-var batalla = new BatallaNavalBuilder()
-    .AgregarJugador("Pollo", [
-        Barco.Carrier(Posicion.Horizontal(1, 1)),
-        Barco.Destroyer(Posicion.Horizontal(2, 2)),
-        Barco.Destroyer(Posicion.Horizontal(3, 3)),
-        Barco.Gunship(Posicion.Horizontal(4, 4)),
-        Barco.Gunship(Posicion.Horizontal(5, 5)),
-        Barco.Gunship(Posicion.Horizontal(6, 6)),
-        Barco.Gunship(Posicion.Horizontal(7, 7)),
-    ])
-    .AgregarJugador("Gato", [
-        Barco.Carrier(Posicion.Vertical(1, 4)),
-        Barco.Destroyer(Posicion.Horizontal(1, 0)),
-        Barco.Destroyer(Posicion.Vertical(8, 1)),
-        Barco.Gunship(Posicion.Horizontal(0, 2)),
-        Barco.Gunship(Posicion.Horizontal(0, 9)),
-        Barco.Gunship(Posicion.Horizontal(3, 4)),
-        Barco.Gunship(Posicion.Horizontal(6, 7)),
-    ])
-    .Construir();
-
-batalla.Iniciar();
-
-while (!batalla.JuegoFinalizado)
+void MostrarMensajeIniciandoPartida()
 {
     Console.Clear();
-    Console.WriteLine($"Turno {(batalla.EsTurnoPrincipal ? 1 : 2)} - Jugador {batalla.ApodoJugadorActual}:");
-    Console.WriteLine(batalla.ImprimirTableroDeDisparos());
-    string mensaje = Disparar(batalla);
-    Console.Clear();
-    Console.WriteLine(batalla.ImprimirTableroDeDisparos());
-    Console.WriteLine(mensaje);
+    Console.WriteLine(ObtenerTextoDesdeArchivo("Starting"));
+    Console.WriteLine("Presione enter para continuar.");
     Console.ReadKey();
-    batalla.FinalizarTurno();
 }
 
-Console.Clear();
-Console.WriteLine(batalla.Imprimir());
-Console.Read();
-
-void CrearJugadorConBarcos(Jugador jugador)
+void MostrarIntro()
 {
     Console.Clear();
-    CrearBarco(jugador, TipoBarco.Carrier, 1);
+    Console.WriteLine(ObtenerTextoDesdeArchivo("Title"));
+    Console.Write("\t Presione enter para continuar.");
+    Console.ReadKey();
     Console.Clear();
-    CrearBarco(jugador, TipoBarco.Destroyer, 2);
-    Console.Clear();
-    CrearBarco(jugador, TipoBarco.Destroyer, 3);
-    Console.Clear();
-    CrearBarco(jugador, TipoBarco.Gunship, 4);
-    Console.Clear();
-    CrearBarco(jugador, TipoBarco.Gunship, 5);
-    Console.Clear();
-    CrearBarco(jugador, TipoBarco.Gunship, 6);
-    Console.Clear();
-    CrearBarco(jugador, TipoBarco.Gunship, 7);
-    Console.WriteLine();
-    Console.WriteLine(jugador.Imprimir());
-    Console.Read();
 }
+BatallaNaval PrepararPartida()
+{
+    BatallaNavalBuilder builder = new BatallaNavalBuilder();
     
-Jugador CrearJugador(bool esPrimero)
-{
-    while (true)
-    {
-        int numeroJugador = esPrimero ? 1 : 2;
-        Console.Clear();
-        Console.WriteLine($"Jugador {numeroJugador}");  
-        Console.Write("Apodo: ");
-        string? apodo = Console.ReadLine();
+    Jugador jugador1 = CrearJugador(esPrimero: true);
+    AsignarBarcos(jugador1);
+    builder.AgregarJugador(jugador1);
 
-        try
+    Jugador jugador2 = CrearJugador(esPrimero: false);
+    AsignarBarcos(jugador2);
+    builder.AgregarJugador(jugador2);
+
+    return builder.Construir();
+
+    Jugador CrearJugador(bool esPrimero)
+    {
+        while (true)
         {
-            return new Jugador(apodo);
+            int numeroJugador = esPrimero ? 1 : 2;
+            Console.Clear();
+            Console.WriteLine($"Jugador {numeroJugador}");  
+            Console.Write("Apodo: ");
+            string? apodo = Console.ReadLine();
+
+            try
+            {
+                return new Jugador(apodo);
+            }
+            catch (ArgumentException exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
         }
-        catch (ArgumentException exception)
+    }
+
+    char ObtenerOrientacion()
+    {
+        while (true)
         {
-            Console.WriteLine(exception.Message);
+            try
+            {
+                Console.Write("Orientacion horizontal (H), vertical (V): ");
+                ConsoleKeyInfo teclaOrientacion = Console.ReadKey();
+                if(teclaOrientacion.Key != ConsoleKey.H && teclaOrientacion.Key != ConsoleKey.V)
+                {
+                    throw new ArgumentException("La orientación debe ser horizontal (H) o vertical (V)");
+                }
+                return (char) teclaOrientacion.Key;
+            }
+            catch (ArgumentException exception)
+            {
+                Console.WriteLine();
+                Console.WriteLine(exception.Message);
+            }
         }
+    }
+
+    Posicion CrearPosicionBarco(TipoBarco tipo, int numeroBarco)
+    {
+        Console.WriteLine($"Barco {numeroBarco} - {tipo}");
+        char orientacion = ObtenerOrientacion();
+        var x = ObtenerPosicion(esEjeX: true);
+        var y = ObtenerPosicion(esEjeX: false);
+    
+        return orientacion == 'H' 
+            ? Posicion.Horizontal(x, y) 
+            : Posicion.Vertical(x, y);
+    }
+
+    void CrearBarco(Jugador jugador, TipoBarco tipoBarco, int numeroBarco)
+    {
+        while (true)
+        {
+            try
+            {
+                Console.WriteLine(jugador.Imprimir());
+
+                var posicion = CrearPosicionBarco(tipoBarco, numeroBarco);
+
+                Barco barco = tipoBarco switch
+                {
+                    TipoBarco.Carrier => Barco.Carrier(posicion),
+                    TipoBarco.Destroyer => Barco.Destroyer(posicion),
+                    TipoBarco.Gunship => Barco.Gunship(posicion),
+                    _ => throw new NotImplementedException()
+                };
+
+                jugador.AgregarBarco(barco);
+                break;
+            }
+            catch (ArgumentException excepcion)
+            {
+                Console.WriteLine();
+                Console.WriteLine(excepcion.Message);
+            }
+        }
+    }
+
+    void AsignarBarcos(Jugador jugador)
+    {
+        Console.Clear();
+        CrearBarco(jugador, TipoBarco.Carrier, 1);
+        Console.Clear();
+        CrearBarco(jugador, TipoBarco.Destroyer, 2);
+        Console.Clear();
+        CrearBarco(jugador, TipoBarco.Destroyer, 3);
+        Console.Clear();
+        CrearBarco(jugador, TipoBarco.Gunship, 4);
+        Console.Clear();
+        CrearBarco(jugador, TipoBarco.Gunship, 5);
+        Console.Clear();
+        CrearBarco(jugador, TipoBarco.Gunship, 6);
+        Console.Clear();
+        CrearBarco(jugador, TipoBarco.Gunship, 7);
+        Console.WriteLine();
+        Console.Clear();
+        Console.WriteLine(jugador.Imprimir());
+        Console.WriteLine("Se han posicionado todos los barcos.");
+        Console.WriteLine("\tPresione enter para continuar.");
+        Console.Read();
     }
 }
 
-Posicion CrearPosicionBarco(TipoBarco tipo, int numeroBarco)
+void IniciarPartida(BatallaNaval batallaNaval1)
 {
-    Console.WriteLine();
-    Console.WriteLine("---------------------------------------------------------------------------");
-    Console.WriteLine($"Barco {numeroBarco} - {tipo}");
-    char orientacion = ObtenerOrientacion();
-    var x = ObtenerPosicion(esEjeX: true);
-    var y = ObtenerPosicion(esEjeX: false);
-    Console.WriteLine("---------------------------------------------------------------------------");
-    
-    return orientacion == 'H' 
-        ? Posicion.Horizontal(x, y) 
-        : Posicion.Vertical(x, y);
-}
-
-char ObtenerOrientacion()
-{
-    while (true)
+    MostrarMensajeIniciandoPartida();
+    batallaNaval1.Iniciar();
+    while (!batallaNaval1.HaFinalizado)
     {
-        try
+        Console.Clear();
+        Console.WriteLine($"Turno {(batallaNaval1.EsTurnoPrincipal ? 1 : 2)} - Jugador {batallaNaval1.ApodoJugadorActual}:");
+        Console.Write(batallaNaval1.ImprimirTableroDeDisparos());
+        string mensaje = Disparar();
+        Console.Clear();
+        Console.WriteLine($"Turno {(batallaNaval1.EsTurnoPrincipal ? 1 : 2)} - Jugador {batallaNaval1.ApodoJugadorActual}:");
+        Console.Write(batallaNaval1.ImprimirTableroDeDisparos());
+        Console.WriteLine(mensaje);
+        Console.ReadKey();
+        batallaNaval1.FinalizarTurno();
+    }
+    
+    MostrarGanador(batallaNaval1);
+    MostrarEstadisticas(batallaNaval1);
+    return;
+    
+    string Disparar()
+    {
+        while (true)
         {
-            Console.WriteLine("Orientacion (H), (V): ");
-            ConsoleKeyInfo teclaOrientacion = Console.ReadKey();
-            if(teclaOrientacion.Key != ConsoleKey.H && teclaOrientacion.Key != ConsoleKey.V)
+            try
             {
-                throw new ArgumentException("La orientación debe ser horizontal (H) o vertical (V)");
+            
+                var x = ObtenerPosicion(esEjeX: true);
+                var y = ObtenerPosicion(esEjeX: false);
+                return batallaNaval1.Disparar(x, y);
             }
-            return (char) teclaOrientacion.Key;
+            catch (ArgumentException excepcion)
+            {
+                Console.WriteLine();
+                Console.WriteLine(excepcion.Message);
+            }
         }
-        catch (ArgumentException exception)
-        {
-            Console.WriteLine();
-            Console.WriteLine(exception.Message);
-        }
+    }
+
+    void MostrarGanador(BatallaNaval batallaNaval)
+    {
+        Console.Clear();
+        Console.WriteLine(ObtenerTextoDesdeArchivo("Winner"));
+        Console.WriteLine(batallaNaval.MostrarJugadorGanador());
+        Console.WriteLine("+============================================+");
+        Console.Write("\tPresione enter para ver las estadísticas.");
+        Console.ReadKey();
+    }
+
+    void MostrarEstadisticas(BatallaNaval batalla1)
+    {
+        Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine(batalla1.Imprimir());
+        Console.ReadKey();
     }
 }
 
@@ -157,11 +220,10 @@ int ObtenerPosicion(bool esEjeX)
         }
     }
 }
-
-int ObtenerTeclaPosicion(bool b)
+int ObtenerTeclaPosicion(bool esEjeX)
 {
     Console.WriteLine();
-    Console.Write($"Posición {(b ? "X": "Y")}: ");
+    Console.Write($"Posición {(esEjeX ? "X": "Y")}: ");
     ConsoleKeyInfo keyInfo = Console.ReadKey();
     bool esDigito = Char.IsDigit(keyInfo.KeyChar);
     
@@ -170,54 +232,9 @@ int ObtenerTeclaPosicion(bool b)
     
     return int.Parse(keyInfo.KeyChar.ToString());
 }
-
-void CrearBarco(Jugador jugador, TipoBarco tipoBarco, int numeroBarco)
+string ObtenerTextoDesdeArchivo(string archivo)
 {
-    while (true)
-    {
-        try
-        {
-            Console.WriteLine(jugador.Imprimir());
-
-            var posicion = CrearPosicionBarco(tipoBarco, numeroBarco);
-
-            Barco barco = tipoBarco switch
-            {
-                TipoBarco.Carrier => Barco.Carrier(posicion),
-                TipoBarco.Destroyer => Barco.Destroyer(posicion),
-                TipoBarco.Gunship => Barco.Gunship(posicion),
-                _ => throw new NotImplementedException()
-            };
-
-            jugador.AgregarBarco(barco);
-            break;
-        }
-        catch (ArgumentException excepcion)
-        {
-            Console.WriteLine();
-            Console.WriteLine(excepcion.Message);
-        }
-    }
-}
-
-string Disparar(BatallaNaval batallaNaval)
-{
-    while (true)
-    {
-        try
-        {
-            
-            var x = ObtenerPosicion(esEjeX: true);
-            var y = ObtenerPosicion(esEjeX: false);
-            return batalla.Disparar(x, y);
-        }
-        catch (ArgumentException excepcion)
-        {
-            Console.WriteLine();
-            Console.WriteLine(excepcion.Message);
-        }
-    }
-    int ejeX = 0;
-    int exeY = 0;
-    batallaNaval.Disparar(ejeX, exeY);
+    var ruta = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+    string rutaArchivo = Path.Combine(ruta, "Recursos" , archivo);
+    return File.ReadAllText(rutaArchivo);
 }

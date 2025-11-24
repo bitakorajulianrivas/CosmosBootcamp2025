@@ -1,12 +1,13 @@
 ﻿namespace Katas.Battleship.Core;
 
-public class BatallaNaval : IBatallaNaval
+public class BatallaNaval
 {
     private readonly List<Jugador> _jugadores = [];
-    public bool EsTurnoPrincipal = true;
     private bool _juegoIniciado;
-    public bool JuegoFinalizado;
     private string? _jugadorGanador;
+    
+    public bool HaFinalizado;
+    public bool EsTurnoPrincipal = true;
 
     public void AgregarJugador(Jugador jugador)
     {
@@ -33,8 +34,8 @@ public class BatallaNaval : IBatallaNaval
         if (ObtenerJugadorActual().TieneDisparo(x, y))
             throw new ArgumentException(BatallaNavalMensajes.NoPuedeDispararEnUnaMismaPosición);
 
-        char disparo = ObtenerJugadorOponente().RecibirDisparo(x, y);
-        ObtenerJugadorActual().RegistrarDisparo(x, y, disparo);
+        (char disparo, Barco? barco) disparo = ObtenerJugadorOponente().RecibirDisparo(x, y);
+        ObtenerJugadorActual().RegistrarDisparo(x, y, disparo.disparo, disparo.barco);
 
         EstadoDisparo estadoDisparo = ObtenerJugadorOponente().ObtenerEstadoDisparo();
 
@@ -50,7 +51,7 @@ public class BatallaNaval : IBatallaNaval
     {
         if (ObtenerJugadorOponente().TieneTodosLosBarcosDerribados())
         {
-            JuegoFinalizado = true;
+            HaFinalizado = true;
             _jugadorGanador = ObtenerJugadorActual().Apodo;
         }
 
@@ -59,7 +60,7 @@ public class BatallaNaval : IBatallaNaval
     
     public string Imprimir(bool esReporte = false)
     {
-        if (JuegoFinalizado)
+        if (HaFinalizado)
             return  MostrarJugadorGanador() + 
                     ObtenerJugadorActual().Imprimir(esReporte: true) +
                     ObtenerJugadorActual().Imprimir(esReporte: false) +
@@ -74,7 +75,7 @@ public class BatallaNaval : IBatallaNaval
 
     public string ApodoJugadorActual => ObtenerJugadorActual().Apodo;
     
-    private string MostrarJugadorGanador() => 
+    public string MostrarJugadorGanador() => 
         string.Format(BatallaNavalMensajes.MensajeJugadorGanador, _jugadorGanador);
 
     private void ValidarQueExistanDosJugadores()
@@ -102,13 +103,4 @@ public class BatallaNaval : IBatallaNaval
 
         return string.Empty;
     }
-}
-
-public interface IBatallaNaval
-{
-    void AgregarJugador(Jugador jugador);
-    void Iniciar();
-    string Disparar(int x, int y);
-    void FinalizarTurno();
-    string Imprimir(bool esReporte = false);
 }

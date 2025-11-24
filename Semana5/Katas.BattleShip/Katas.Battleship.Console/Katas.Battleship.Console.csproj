@@ -8,7 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Update="Title.txt">
+      <None Update="Recursos\Winner">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Recursos\Title">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Recursos\Starting">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

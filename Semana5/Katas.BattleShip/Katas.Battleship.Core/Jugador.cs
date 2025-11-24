@@ -107,14 +107,16 @@ public class Jugador
         _barcosAsignados.Add(barco);
     }
 
-    public char RecibirDisparo(int x, int y)
+    public (char, Barco?) RecibirDisparo(int x, int y)
     {
+        Barco? barco = ObtenerBarco(x, y);
+        
         if (ExisteBarcoEn(x, y))
         {
             _cantidadDisparosAcertados++;
 
             _tablero[x, y] = MarcaTiroAcertado;
-            Barco? barco = ObtenerBarco(x, y);
+            
             barco?.Golpear();
             _disparo = EstadoDisparo.DisparoAcertado;
 
@@ -122,11 +124,8 @@ public class Jugador
             {
                 _disparo = EstadoDisparo.BarcoHundido;
 
-                foreach (var coordenada in barco.Coordenadas)
-                {
+                foreach (var coordenada in barco.Coordenadas) 
                     _tablero[coordenada.x, coordenada.y] = MarcaBarcoHundido;
-                    _tableroDisparos[coordenada.x, coordenada.y] = MarcaBarcoHundido;
-                }
             }
         }
         else
@@ -136,7 +135,7 @@ public class Jugador
             _disparo = EstadoDisparo.DisparoFallido;
         }
 
-        return _tablero[x, y];
+        return (_tablero[x, y], barco);
     }
 
     public Barco? ObtenerBarco(int x, int y)
@@ -146,9 +145,14 @@ public class Jugador
     }
 
 
-    public char RegistrarDisparo(int x, int y, char disparo) =>
+    public void RegistrarDisparo(int x, int y, char disparo, Barco? barco)
+    {
         _tableroDisparos[x, y] = disparo;
-    
+        if(barco != null &&  barco.EsDerribado())
+            foreach (var coordenada in barco.Coordenadas) 
+                _tableroDisparos[coordenada.x, coordenada.y] = MarcaBarcoHundido;
+    }
+
     public bool TieneTodosLosBarcosDerribados()
     {
         int barcosDerribados = _barcosAsignados
