@@ -1,18 +1,20 @@
 ﻿namespace Katas.Battleship.Core;
 
-public class BatallaNaval
+public class BatallaNaval : IBatallaNaval
 {
     private readonly List<Jugador> _jugadores = [];
     private bool _esTurnoPrincipal = true;
     private bool _juegoIniciado;
     private bool _juegoFinalizado;
-    
+    private string? _jugadorGanador;
+
     public void AgregarJugador(Jugador jugador)
     {
         ValidarQueNoPuedaAgregarMasDeDosJugadores();
 
         _jugadores.Add(jugador);
     }
+    
     public void Iniciar()
     {
         ValidarQueExistanDosJugadores();
@@ -47,21 +49,33 @@ public class BatallaNaval
     public void FinalizarTurno()
     {
         if (ObtenerJugadorOponente().TieneTodosLosBarcosDerribados())
+        {
             _juegoFinalizado = true;
-        
+            _jugadorGanador = ObtenerJugadorActual().Apodo;
+        }
+
         _esTurnoPrincipal = !_esTurnoPrincipal;
     }
+    
     public string Imprimir(bool esReporte = false)
     {
         if (_juegoFinalizado)
-            return ObtenerJugadorActual().Imprimir(esReporte: true) +
-                   ObtenerJugadorActual().Imprimir(esReporte: false) +
-                   ObtenerJugadorOponente().Imprimir(esReporte: true) +
-                   ObtenerJugadorOponente().Imprimir(esReporte: false);
+            return  MostrarJugadorGanador() + 
+                    ObtenerJugadorActual().Imprimir(esReporte: true) +
+                    ObtenerJugadorActual().Imprimir(esReporte: false) +
+                    ObtenerJugadorOponente().Imprimir(esReporte: true) +
+                    ObtenerJugadorOponente().Imprimir(esReporte: false);
         
         return ObtenerJugadorActual().Imprimir(esReporte);
     }
-    
+
+    private string MostrarJugadorGanador()
+    {
+        // BatallaNavalMensajes.MensajeJugadorGanador
+        string mensajeGanador = "Jugador ganador: " + _jugadorGanador;
+
+        return mensajeGanador + ".\n";
+    }
     
     private void ValidarQueExistanDosJugadores()
     {
@@ -88,4 +102,13 @@ public class BatallaNaval
 
         return string.Empty;
     }
+}
+
+public interface IBatallaNaval
+{
+    void AgregarJugador(Jugador jugador);
+    void Iniciar();
+    string Disparar(int x, int y);
+    void FinalizarTurno();
+    string Imprimir(bool esReporte = false);
 }
