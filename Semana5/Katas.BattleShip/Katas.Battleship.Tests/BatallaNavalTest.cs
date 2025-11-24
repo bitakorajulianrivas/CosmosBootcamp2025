@@ -6,6 +6,15 @@ namespace Katas.Battleship.Tests;
 public class BatallaNavalTest
 {
     [Fact]
+    public void SiAgregoJugadorConApodoNulo_Debe_LanzarExcepcion()
+    {
+        Action action = () => new Jugador(null);
+
+        action.Should().Throw<ArgumentException>()
+            .WithMessage("El nickname es requerido."); 
+    }
+    
+    [Fact]
     public void Si_AgregoJugador3_Debe_LanzarExcepcion()
     {
         var batallaNaval = new BatallaNaval();
