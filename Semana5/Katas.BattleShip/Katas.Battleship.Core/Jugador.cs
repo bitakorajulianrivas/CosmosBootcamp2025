@@ -29,7 +29,7 @@ public class Jugador
     
     public void AgregarBarco(Barco barco)
     {
-        ValidarBordesDelTablero(barco.Posicion);
+        ValidarBordesDelTablero(barco);
         ValidarSobreposicionDeBarcos(barco.Posicion);
         ValidarCantidadDeBarcosAsignadosPorTipo(barco);
 
@@ -42,13 +42,17 @@ public class Jugador
             throw new ArgumentException(JugadorMensajes.FaltaBarcosPorAsignar);
     }
     
-    private static void ValidarBordesDelTablero(Posicion posicion)
+    private static void ValidarBordesDelTablero(Barco barco)
     {
-        if (posicion.EjeX >= CasillaMaxima ||
-            posicion.EjeY >= CasillaMaxima ||
-            posicion.EjeX < 0 ||
-            posicion.EjeY < 0)
+        if (barco.Posicion.EjeX >= CasillaMaxima ||
+            barco.Posicion.EjeY >= CasillaMaxima ||
+            barco.Posicion.EjeX < 0 ||
+            barco.Posicion.EjeY < 0)
             throw new ArgumentException(JugadorMensajes.ElBarcoSeEncuentraFueraDelTablero);
+        
+        if (barco.Posicion.EsVertical == false && barco.Posicion.EjeX + barco.Tamanio > CasillaMaxima)
+            throw new ArgumentException(JugadorMensajes.ElBarcoSeEncuentraFueraDelTablero);
+
     }
 
     public EstadoDisparo ObtenerEstadoDisparo() => _disparo;
