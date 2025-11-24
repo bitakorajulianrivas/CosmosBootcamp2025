@@ -44,15 +44,22 @@ public class Jugador
     
     private static void ValidarBordesDelTablero(Barco barco)
     {
-        if (barco.Posicion.EjeX >= CasillaMaxima ||
-            barco.Posicion.EjeY >= CasillaMaxima ||
-            barco.Posicion.EjeX < 0 ||
+        if (barco.Posicion.EjeX < 0 ||
             barco.Posicion.EjeY < 0)
             throw new ArgumentException(JugadorMensajes.ElBarcoSeEncuentraFueraDelTablero);
         
-        if (barco.Posicion.EsVertical == false && barco.Posicion.EjeX + barco.Tamanio > CasillaMaxima)
-            throw new ArgumentException(JugadorMensajes.ElBarcoSeEncuentraFueraDelTablero);
-
+        if (barco.Posicion.EsVertical)
+        {
+            if (barco.Posicion.EjeX >= CasillaMaxima || 
+                barco.Posicion.EjeY + barco.Tamanio > CasillaMaxima)
+                throw new ArgumentException(JugadorMensajes.ElBarcoSeEncuentraFueraDelTablero);
+        }
+        else
+        {
+            if (barco.Posicion.EjeX + barco.Tamanio > CasillaMaxima || 
+                barco.Posicion.EjeY >= CasillaMaxima)
+                throw new ArgumentException(JugadorMensajes.ElBarcoSeEncuentraFueraDelTablero);
+        }
     }
 
     public EstadoDisparo ObtenerEstadoDisparo() => _disparo;
