@@ -8,7 +8,8 @@ public class Jugador
     private const char MarcaBarcoHundido = 'X';
     private const char MarcaTiroAcertado = 'x';
     private const char MarcaTiroFallido = 'o';
-    
+    private const string? ElNicknameEsRequerido = "El nickname es requerido.";
+
     private EstadoDisparo _disparo;
     private readonly char[,] _tablero;
     private readonly char[,] _tableroDisparos;
@@ -21,6 +22,8 @@ public class Jugador
     
     public Jugador(string apodo)
     {
+        if (apodo == null)
+            throw new ArgumentException(ElNicknameEsRequerido);
         Apodo = apodo;
         _barcosAsignados = [];
         _tablero = new char[CasillaMaxima, CasillaMaxima];
