@@ -69,14 +69,9 @@ public class BatallaNaval : IBatallaNaval
         return ObtenerJugadorActual().Imprimir(esReporte);
     }
 
-    private string MostrarJugadorGanador()
-    {
-        // BatallaNavalMensajes.MensajeJugadorGanador
-        string mensajeGanador = "Jugador ganador: " + _jugadorGanador;
+    private string MostrarJugadorGanador() => 
+        string.Format(BatallaNavalMensajes.MensajeJugadorGanador, _jugadorGanador);
 
-        return mensajeGanador + ".\n";
-    }
-    
     private void ValidarQueExistanDosJugadores()
     {
         if (_jugadores.Count < 2)

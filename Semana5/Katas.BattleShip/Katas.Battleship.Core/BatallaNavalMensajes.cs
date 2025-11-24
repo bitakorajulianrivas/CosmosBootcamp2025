@@ -8,4 +8,5 @@ public static class BatallaNavalMensajes
     public const string MensajeDisparoFallido = "Disparo fallido en la posicion ({0}, {1})";
     public const string MensajeDisparoAcertado = "Disparo acertado en la posicion ({0}, {1})";
     public const string NoPuedeDispararEnUnaMismaPosición = "No puede disparar en una misma posición.";
+    public const string MensajeJugadorGanador = "Jugador ganador: {0}.\n";
 }
