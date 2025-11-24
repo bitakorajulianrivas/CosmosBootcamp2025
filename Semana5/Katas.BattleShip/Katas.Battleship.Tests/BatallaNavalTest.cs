@@ -1204,6 +1204,7 @@ public class BatallaNavalTest
         batallaNaval.FinalizarTurno();
 
         string reporteEsperadoJugador1 =
+            "Jugador ganador: Pollo.\n" +
             "Total disparos: 14.\n" +
             "Perdidos: 0.\n" +
             "Acertados: 14.\n" +
