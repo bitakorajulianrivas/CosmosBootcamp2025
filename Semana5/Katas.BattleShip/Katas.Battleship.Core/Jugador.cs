@@ -20,17 +20,17 @@ public class Jugador
 
     public string Apodo { get; private set; }
     
-    public Jugador(string apodo)
+    public Jugador(string? apodo)
     {
         ValidarQueElApodoSeaRequerido(apodo);
         
-        Apodo = apodo;
+        Apodo = apodo!;
         _barcosAsignados = [];
         _tablero = new char[CasillaMaxima, CasillaMaxima];
         _tableroDisparos = (char[,])_tablero.Clone();
     }
 
-    private static void ValidarQueElApodoSeaRequerido(string apodo)
+    private static void ValidarQueElApodoSeaRequerido(string? apodo)
     {
         if (string.IsNullOrEmpty(apodo))
             throw new ArgumentException(ElApodoEsRequerido);
@@ -123,7 +123,10 @@ public class Jugador
                 _disparo = EstadoDisparo.BarcoHundido;
 
                 foreach (var coordenada in barco.Coordenadas)
+                {
                     _tablero[coordenada.x, coordenada.y] = MarcaBarcoHundido;
+                    _tableroDisparos[coordenada.x, coordenada.y] = MarcaBarcoHundido;
+                }
             }
         }
         else
@@ -166,7 +169,7 @@ public class Jugador
     {
         List<Barco> barcosDerribados = ObtenerBarcosDerribados();
         
-        var reporte = new Reporte(_tablero, 
+        var reporte = new Reporte(
             _cantidadDisparosAcertados, 
             _cantidaDisparosFallidos,
             barcosDerribados);
@@ -174,7 +177,17 @@ public class Jugador
         if (esReporte) 
             return reporte.ImprimirReporte();
 
-        return reporte.ImprimirTablero();
+        return reporte.ImprimirTablero(_tablero);
+    }
+
+    public string ImprimirTableroDeDisparos()
+    {
+        var reporte = new Reporte(
+            _cantidadDisparosAcertados, 
+            _cantidaDisparosFallidos,
+            new List<Barco>());
+        
+        return reporte.ImprimirTablero(_tableroDisparos);
     }
 
     private List<Barco> ObtenerBarcosDerribados()

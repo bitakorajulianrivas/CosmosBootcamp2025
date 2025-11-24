@@ -3,9 +3,9 @@
 public class BatallaNaval : IBatallaNaval
 {
     private readonly List<Jugador> _jugadores = [];
-    private bool _esTurnoPrincipal = true;
+    public bool EsTurnoPrincipal = true;
     private bool _juegoIniciado;
-    private bool _juegoFinalizado;
+    public bool JuegoFinalizado;
     private string? _jugadorGanador;
 
     public void AgregarJugador(Jugador jugador)
@@ -50,16 +50,16 @@ public class BatallaNaval : IBatallaNaval
     {
         if (ObtenerJugadorOponente().TieneTodosLosBarcosDerribados())
         {
-            _juegoFinalizado = true;
+            JuegoFinalizado = true;
             _jugadorGanador = ObtenerJugadorActual().Apodo;
         }
 
-        _esTurnoPrincipal = !_esTurnoPrincipal;
+        EsTurnoPrincipal = !EsTurnoPrincipal;
     }
     
     public string Imprimir(bool esReporte = false)
     {
-        if (_juegoFinalizado)
+        if (JuegoFinalizado)
             return  MostrarJugadorGanador() + 
                     ObtenerJugadorActual().Imprimir(esReporte: true) +
                     ObtenerJugadorActual().Imprimir(esReporte: false) +
@@ -69,6 +69,11 @@ public class BatallaNaval : IBatallaNaval
         return ObtenerJugadorActual().Imprimir(esReporte);
     }
 
+    public string ImprimirTableroDeDisparos() => 
+        ObtenerJugadorActual().ImprimirTableroDeDisparos();
+
+    public string ApodoJugadorActual => ObtenerJugadorActual().Apodo;
+    
     private string MostrarJugadorGanador() => 
         string.Format(BatallaNavalMensajes.MensajeJugadorGanador, _jugadorGanador);
 
@@ -82,8 +87,8 @@ public class BatallaNaval : IBatallaNaval
         if (_jugadores.Count == 2)
             throw new ArgumentException(BatallaNavalMensajes.SoloSePermitenJugadores);
     }
-    private Jugador ObtenerJugadorActual() => _esTurnoPrincipal ? _jugadores[0] : _jugadores[1];
-    private Jugador ObtenerJugadorOponente() => _esTurnoPrincipal ? _jugadores[1] : _jugadores[0];
+    private Jugador ObtenerJugadorActual() => EsTurnoPrincipal ? _jugadores[0] : _jugadores[1];
+    private Jugador ObtenerJugadorOponente() => EsTurnoPrincipal ? _jugadores[1] : _jugadores[0];
     private string MostrarMensajeBarcoDerribado(int x, int y, EstadoDisparo estadoDisparo)
     {
         if (estadoDisparo == EstadoDisparo.BarcoHundido)

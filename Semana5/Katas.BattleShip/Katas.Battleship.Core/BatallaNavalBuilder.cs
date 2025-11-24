@@ -22,6 +22,12 @@ public class BatallaNavalBuilder
         _batallaNaval.AgregarJugador(jugador);
         return this;
     }
+    
+    public BatallaNavalBuilder AgregarJugador(Jugador jugador)
+    {
+        _batallaNaval.AgregarJugador(jugador);
+        return this;
+    }
 
     public BatallaNaval Construir() => _batallaNaval;
 }

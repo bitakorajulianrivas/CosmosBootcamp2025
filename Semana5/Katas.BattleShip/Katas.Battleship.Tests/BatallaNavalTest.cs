@@ -13,7 +13,7 @@ public class BatallaNavalTest
         Action action = () => new Jugador(apodo);
 
         action.Should().Throw<ArgumentException>()
-            .WithMessage("El nickname es requerido."); 
+            .WithMessage("El apodo es requerido."); 
     }
     
     [Fact]

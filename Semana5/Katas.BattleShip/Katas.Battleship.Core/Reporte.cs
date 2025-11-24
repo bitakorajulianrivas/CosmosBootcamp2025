@@ -1,6 +1,6 @@
 ﻿namespace Katas.Battleship.Core;
 
-public class Reporte(char[,] tablero, int disparosAcertados, int disparosFallidos, List<Barco> barcosDerribados)
+public class Reporte(int disparosAcertados, int disparosFallidos, List<Barco> barcosDerribados)
 {
     private const char SaltoDeLinea = '\n';
     private const string Separador = "-------------------------------------------|";
@@ -16,11 +16,10 @@ public class Reporte(char[,] tablero, int disparosAcertados, int disparosFallido
         Separador + " \n" + SaltoDeLinea;
 
 
-    public string ImprimirTablero()
+    public string ImprimirTablero(char [,] tablero)
     {
         int columnas = 10;
         int filas = 10;
-
         
         string respuesta = _tablaEncabezado;
 
