@@ -15,7 +15,7 @@ public class BatallaNavalTest
         batallaNaval.AgregarJugador(jugador2);
         var jugador3 = new Jugador("perro");
 
-        var action = () => batallaNaval.AgregarJugador(jugador3);
+        Action action = () => batallaNaval.AgregarJugador(jugador3);
 
         action.Should().Throw<ArgumentException>()
             .WithMessage("Solo se permiten 2 jugadores.");
@@ -279,6 +279,16 @@ public class BatallaNavalTest
         Action action = () => new BatallaNavalBuilder()
             .AgregarJugador("Pollo", [Barco.Gunship(Posicion.Horizontal(x, y))]);
 
+        action.Should().Throw<ArgumentException>()
+            .WithMessage("El barco se encuentra fuera del tablero.");
+    }
+
+    [Fact]
+    public void Si_AgregoCarrierHorizontalEnPosicion8_0_Debe_LanzarExcepcion()
+    {
+        Action action = () => new BatallaNavalBuilder()
+            .AgregarJugador("Pollo", [Barco.Carrier(Posicion.Horizontal(8, 0))]);
+   
         action.Should().Throw<ArgumentException>()
             .WithMessage("El barco se encuentra fuera del tablero.");
     }
