@@ -292,6 +292,17 @@ public class BatallaNavalTest
         action.Should().Throw<ArgumentException>()
             .WithMessage("El barco se encuentra fuera del tablero.");
     }
+    
+    [Fact]
+    public void Si_AgregoCarrierHorizontalEnPosicion0_8_Debe_LanzarExcepcion()
+    {
+        Action action = () => new BatallaNavalBuilder()
+            .AgregarJugador("Pollo", [Barco.Carrier(Posicion.Vertical(0,8))]);
+   
+        action.Should().Throw<ArgumentException>()
+            .WithMessage("El barco se encuentra fuera del tablero.");
+    }
+    
     [Fact]
     public void Si_InicioJuego_Debe_CadaJugadorDebeTener7BarcosAsignado()
     {
