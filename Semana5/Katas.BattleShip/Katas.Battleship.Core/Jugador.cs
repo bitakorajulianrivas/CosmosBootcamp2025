@@ -99,9 +99,9 @@ public class Jugador
         for (int indice = 0; indice < barco.Tamanio; indice++)
         {
             if (barco.Posicion.EsVertical)
-                _tablero[barco.Posicion.EjeX, barco.Posicion.EjeY + indice] = barco.Inicial;
+                _tablero[barco.Posicion.EjeX, barco.Posicion.EjeY + indice] = barco.Letra;
             else
-                _tablero[barco.Posicion.EjeX + indice, barco.Posicion.EjeY] = barco.Inicial;
+                _tablero[barco.Posicion.EjeX + indice, barco.Posicion.EjeY] = barco.Letra;
         }
         
         _barcosAsignados.Add(barco);
@@ -124,7 +124,7 @@ public class Jugador
             {
                 _disparo = EstadoDisparo.BarcoHundido;
 
-                foreach (var coordenada in barco.Coordenadas) 
+                foreach (var coordenada in barco.PosicionesBarco) 
                     _tablero[coordenada.x, coordenada.y] = MarcaBarcoHundido;
             }
         }
@@ -141,15 +141,16 @@ public class Jugador
     public Barco? ObtenerBarco(int x, int y)
     {
         return _barcosAsignados.FirstOrDefault(barco =>
-            barco.ObtenerCoordenadas().Contains((x, y)));
+            barco.ObtenerPosicionesBarco().Contains((x, y)));
     }
 
 
     public void RegistrarDisparo(int x, int y, char disparo, Barco? barco)
     {
         _tableroDisparos[x, y] = disparo;
+        
         if(barco != null &&  barco.EsDerribado())
-            foreach (var coordenada in barco.Coordenadas) 
+            foreach (var coordenada in barco.PosicionesBarco) 
                 _tableroDisparos[coordenada.x, coordenada.y] = MarcaBarcoHundido;
     }
 
@@ -171,27 +172,20 @@ public class Jugador
     
     public string Imprimir(bool esReporte = false)
     {
-        List<Barco> barcosDerribados = ObtenerBarcosDerribados();
-        
-        var reporte = new Reporte(
-            _cantidadDisparosAcertados, 
-            _cantidaDisparosFallidos,
-            barcosDerribados);
-
         if (esReporte) 
-            return reporte.ImprimirReporte();
+            return new ReporteEstadistico(_cantidadDisparosAcertados, 
+                _cantidaDisparosFallidos,
+                ObtenerBarcosDerribados())
+                .Imprimir();
 
-        return reporte.ImprimirTablero(_tablero);
+        return new ReporteTablero(_tablero)
+            .Imprimir();
     }
 
     public string ImprimirTableroDeDisparos()
     {
-        var reporte = new Reporte(
-            _cantidadDisparosAcertados, 
-            _cantidaDisparosFallidos,
-            new List<Barco>());
-        
-        return reporte.ImprimirTablero(_tableroDisparos);
+        return new ReporteTablero(_tableroDisparos)
+            .Imprimir();
     }
 
     private List<Barco> ObtenerBarcosDerribados()

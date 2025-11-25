@@ -10,7 +10,7 @@ public class BarcoTest
     {
         var barco = Barco.Carrier(Posicion.Horizontal(1, 1));
 
-        barco.ObtenerCoordenadas().Should().BeEquivalentTo([
+        barco.ObtenerPosicionesBarco().Should().BeEquivalentTo([
             (1, 1), (2, 1), (3, 1), (4, 1)
         ]);
     }
@@ -20,7 +20,7 @@ public class BarcoTest
     {
         var barco = Barco.Carrier(Posicion.Vertical(1, 1));
 
-        barco.ObtenerCoordenadas().Should().BeEquivalentTo([
+        barco.ObtenerPosicionesBarco().Should().BeEquivalentTo([
             (1, 1), (1, 2), (1, 3), (1, 4)
         ]);
     }

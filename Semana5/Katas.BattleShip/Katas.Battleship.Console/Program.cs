@@ -22,6 +22,7 @@ void MostrarIntro()
     Console.ReadKey();
     Console.Clear();
 }
+
 BatallaNaval PrepararPartida()
 {
     BatallaNavalBuilder builder = new BatallaNavalBuilder();
@@ -122,20 +123,22 @@ BatallaNaval PrepararPartida()
 
     void AsignarBarcos(Jugador jugador)
     {
-        Console.Clear();
-        CrearBarco(jugador, TipoBarco.Carrier, 1);
-        Console.Clear();
-        CrearBarco(jugador, TipoBarco.Destroyer, 2);
-        Console.Clear();
-        CrearBarco(jugador, TipoBarco.Destroyer, 3);
-        Console.Clear();
-        CrearBarco(jugador, TipoBarco.Gunship, 4);
-        Console.Clear();
-        CrearBarco(jugador, TipoBarco.Gunship, 5);
-        Console.Clear();
-        CrearBarco(jugador, TipoBarco.Gunship, 6);
-        Console.Clear();
-        CrearBarco(jugador, TipoBarco.Gunship, 7);
+        int numeroBarco = 1;
+        List<TipoBarco> tipoBarcos = [TipoBarco.Carrier,
+        TipoBarco.Destroyer, 
+        TipoBarco.Destroyer, 
+        TipoBarco.Gunship,
+        TipoBarco.Gunship,
+        TipoBarco.Gunship, 
+        TipoBarco.Gunship];
+
+        foreach (TipoBarco tipoBarco in tipoBarcos)
+        {   
+            Console.Clear();
+            CrearBarco(jugador, tipoBarco, numeroBarco);
+            numeroBarco++;
+        }
+        
         Console.WriteLine();
         Console.Clear();
         Console.WriteLine(jugador.Imprimir());
@@ -145,26 +148,26 @@ BatallaNaval PrepararPartida()
     }
 }
 
-void IniciarPartida(BatallaNaval batallaNaval1)
+void IniciarPartida(BatallaNaval batallaNaval)
 {
     MostrarMensajeIniciandoPartida();
-    batallaNaval1.Iniciar();
-    while (!batallaNaval1.HaFinalizado)
+    batallaNaval.Iniciar();
+    while (!batallaNaval.HaFinalizado)
     {
         Console.Clear();
-        Console.WriteLine($"Turno {(batallaNaval1.EsTurnoPrincipal ? 1 : 2)} - Jugador {batallaNaval1.ApodoJugadorActual}:");
-        Console.Write(batallaNaval1.ImprimirTableroDeDisparos());
+        Console.WriteLine($"Turno {(batallaNaval.EsTurnoPrincipal ? 1 : 2)} - Jugador {batallaNaval.ApodoJugadorActual}:");
+        Console.Write(batallaNaval.ImprimirTableroDeDisparos());
         string mensaje = Disparar();
         Console.Clear();
-        Console.WriteLine($"Turno {(batallaNaval1.EsTurnoPrincipal ? 1 : 2)} - Jugador {batallaNaval1.ApodoJugadorActual}:");
-        Console.Write(batallaNaval1.ImprimirTableroDeDisparos());
+        Console.WriteLine($"Turno {(batallaNaval.EsTurnoPrincipal ? 1 : 2)} - Jugador {batallaNaval.ApodoJugadorActual}:");
+        Console.Write(batallaNaval.ImprimirTableroDeDisparos());
         Console.WriteLine(mensaje);
         Console.ReadKey();
-        batallaNaval1.FinalizarTurno();
+        batallaNaval.FinalizarTurno();
     }
     
-    MostrarGanador(batallaNaval1);
-    MostrarEstadisticas(batallaNaval1);
+    MostrarGanador(batallaNaval);
+    MostrarEstadisticas(batallaNaval);
     return;
     
     string Disparar()
@@ -176,7 +179,7 @@ void IniciarPartida(BatallaNaval batallaNaval1)
             
                 var x = ObtenerPosicion(esEjeX: true);
                 var y = ObtenerPosicion(esEjeX: false);
-                return batallaNaval1.Disparar(x, y);
+                return batallaNaval.Disparar(x, y);
             }
             catch (ArgumentException excepcion)
             {

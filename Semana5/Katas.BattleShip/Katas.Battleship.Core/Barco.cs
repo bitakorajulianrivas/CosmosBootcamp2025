@@ -5,11 +5,11 @@ public class Barco
     private int _golpes = 0;
     
     public TipoBarco Tipo { get; }
-    public char Inicial { get; }
+    public char Letra { get; }
     public int Tamanio { get; }
     public int CantidadBarcos { get; }
     public Posicion Posicion { get; }
-    public (int x, int y)[] Coordenadas { get; }
+    public (int x, int y)[] PosicionesBarco { get; }
     
 
     public bool EsDerribado() => _golpes == Tamanio;
@@ -23,24 +23,24 @@ public class Barco
     {
         Tipo = tipo;
         Tamanio = tamanio;
-        Inicial =Tipo.ToString()[0];
+        Letra =Tipo.ToString()[0];
         CantidadBarcos = cantidadBarcos;
         Posicion = posicion;
-        Coordenadas = ObtenerCoordenadas();
+        PosicionesBarco = ObtenerPosicionesBarco();
     }
 
     public void Golpear() => _golpes++;
 
-    public (int x, int y)[] ObtenerCoordenadas()
+    public (int x, int y)[] ObtenerPosicionesBarco()
     {
-        (int x, int y)[] coordenadas = new (int x, int y)[Tamanio];
+        (int x, int y)[] posiciones = new (int x, int y)[Tamanio];
 
         for (int indice = 0; indice < Tamanio; indice++)
-            coordenadas[indice] = Posicion.EsVertical
+            posiciones[indice] = Posicion.EsVertical
                 ? (Posicion.EjeX, Posicion.EjeY + indice)
                 : (Posicion.EjeX + indice, Posicion.EjeY);
         
-        return coordenadas;
+        return posiciones;
     }
 
     public override string ToString()
