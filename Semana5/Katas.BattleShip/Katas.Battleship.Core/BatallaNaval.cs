@@ -5,9 +5,9 @@ public class BatallaNaval
     private readonly List<Jugador> _jugadores = [];
     private bool _juegoIniciado;
     private string? _jugadorGanador;
-    
-    public bool HaFinalizado;
-    public bool EsTurnoPrincipal = true;
+
+    public bool HaFinalizado { get; private set; }
+    public bool EsTurnoPrincipal { get; private set; } = true;
 
     public void AgregarJugador(Jugador jugador)
     {
